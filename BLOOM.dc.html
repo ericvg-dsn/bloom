@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap">
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/cooper-hewitt">
+  <style>
+    :root{
+      --bg:#EBE8E1; --surface:rgba(23,21,15,.05); --tile:#EFEDE7;
+      --ink:#17150F; --ink-soft:#8A8475; --ink-soft2:#6E6757;
+      --line:rgba(23,21,15,.12); --line-strong:rgba(23,21,15,.22);
+      --accent:#2E22E0;
+      --accent-pour:#C9D9EA; --accent-pour-strong:#3F5C86;
+      --accent-wait:#EBE1A4; --accent-wait-strong:#897219;
+      --tag-v60:#E9E0A4; --tag-aeropress:#C7D7EA; --tag-frenchpress:#E3C7BB;
+      --on-accent:#17150F;
+      --fill-liquid:#9A6B3F; --fill-liquid-2:rgba(154,107,63,.42);
+      --radius-lg:18px; --radius-md:16px; --radius-sm:12px;
+      --font-display:'Merriweather',Georgia,serif;
+      --font-body:'Cooper Hewitt',system-ui,Segoe UI,sans-serif;
+      --maxw:430px;
+    }
+    html.dark{
+      --bg:#161512; --surface:rgba(237,233,223,.05); --tile:#22201B;
+      --ink:#ECE8DE; --ink-soft:#8E887B; --ink-soft2:#A29C8F;
+      --line:rgba(237,233,223,.12); --line-strong:rgba(237,233,223,.22);
+      --accent:#8580FF;
+      --accent-pour:#2E4860; --accent-pour-strong:#9DBDE0;
+      --accent-wait:#4F451C; --accent-wait-strong:#D8C062;
+      --tag-v60:#49431F; --tag-aeropress:#2C4054; --tag-frenchpress:#49301F;
+      --on-accent:#ECE8DE;
+      --fill-liquid:#B07E4A; --fill-liquid-2:rgba(176,126,74,.4);
+    }
+    html{transition:background-color .25s ease;}
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    body{background:var(--bg);color:var(--ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased;min-height:100vh;}
+    button{font-family:inherit;}
+    p{margin:0;}
+    .num{font-variant-numeric:tabular-nums;}
+    .app{max-width:var(--maxw);margin:0 auto;padding:0 20px 56px;min-height:100vh;}
+    .icon{display:inline-flex;width:15px;height:15px;flex:0 0 auto;color:currentColor;}
+    .icon svg{width:100%;height:100%;}
+
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:24px 2px 18px;}
+    .topbar-id{display:flex;align-items:baseline;gap:9px;}
+    .logo{font-family:var(--font-body);font-weight:900;font-size:22px;letter-spacing:-.02em;cursor:pointer;text-decoration:none;color:inherit;text-transform:uppercase;background:none;border:none;padding:0;}
+    .logo:hover{opacity:.7;}
+    .tagline{font-size:9px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;letter-spacing:.14em;}
+    .topbar-controls{display:flex;align-items:center;gap:8px;}
+    .lang-switch{display:flex;border:1.5px solid var(--line-strong);border-radius:999px;overflow:hidden;}
+    .lang-switch button{padding:5px 10px;font-size:10.5px;font-weight:700;background:none;border:none;color:var(--ink-soft);cursor:pointer;}
+    .lang-switch button.active{background:var(--ink);color:var(--bg);}
+    .theme-toggle{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line-strong);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);flex:0 0 auto;}
+    .theme-toggle:hover{border-color:var(--ink);color:var(--ink);}
+
+    .section{padding:18px 2px;}
+    .section + .section{border-top:1px solid var(--line);}
+    .eyebrow{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-soft);margin:0 0 12px;}
+
+    .tag-pill{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:999px;color:var(--on-accent);}
+    .tag-v60{background:var(--tag-v60);} .tag-aeropress{background:var(--tag-aeropress);} .tag-frenchpress{background:var(--tag-frenchpress);}
+
+    .recipe-select{position:relative;}
+    .recipe-select-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--tile);border:none;border-radius:var(--radius-md);padding:15px 16px;cursor:pointer;text-align:left;color:var(--ink);}
+    .recipe-select-trigger .left{display:flex;align-items:center;gap:9px;min-width:0;}
+    .recipe-select-trigger .rname{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .recipe-select-trigger .chevron{transition:transform .2s ease;flex:0 0 auto;color:var(--ink-soft);}
+    .recipe-select.open .chevron{transform:rotate(180deg);}
+    .recipe-select.locked .recipe-select-trigger{opacity:.5;pointer-events:none;}
+    .recipe-panel{margin-top:8px;border-radius:var(--radius-md);overflow:hidden;background:var(--tile);}
+    .recipe-row{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;}
+    .recipe-row + .recipe-row{border-top:1px solid var(--line);}
+    .recipe-row:hover{background:var(--surface);}
+    .recipe-row .rinfo{flex:1;min-width:0;color:var(--ink);}
+    .recipe-row .rname{font-weight:700;font-size:14px;}
+    .recipe-row .rauthor{font-size:11px;color:var(--ink-soft);margin-top:3px;}
+    .recipe-row .soon{font-size:9px;color:var(--ink-soft);text-transform:uppercase;font-weight:700;letter-spacing:.06em;}
+
+    .illustration-zone{text-align:center;padding-top:4px;}
+    .illustration-frame{max-width:280px;margin:0 auto;}
+    .illustration-frame svg{width:100%;height:auto;display:block;}
+    .illustration-caption{font-size:12px;color:var(--ink-soft);margin-top:8px;min-height:16px;font-family:var(--font-display);font-style:italic;}
+    .illustration-caption strong{color:var(--ink);font-weight:700;font-style:normal;font-family:var(--font-body);}
+
+    .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .stat{position:relative;background:var(--tile);border-radius:var(--radius-md);padding:14px 15px;text-align:left;}
+    .stat.stat-dark{background:var(--ink);color:var(--bg);}
+    .stat-head{display:flex;align-items:center;gap:5px;margin-bottom:7px;}
+    .stat-label{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);}
+    .stat-dark .stat-label{color:var(--bg);opacity:.62;}
+    .stat-value{display:block;font-weight:900;font-size:25px;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+    .stat-text .stat-value{font-size:17px;font-weight:700;letter-spacing:0;line-height:1.12;}
+    .info-btn{width:15px;height:15px;border-radius:50%;border:1.3px solid var(--line-strong);background:none;font-size:9px;font-weight:700;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0;line-height:1;}
+    .stat-dark .info-btn{border-color:rgba(235,232,225,.4);color:var(--bg);}
+    .info-btn.active,.info-btn:hover{border-color:currentColor;color:var(--ink);}
+    .stat-dark .info-btn.active,.stat-dark .info-btn:hover{color:var(--bg);}
+    @media (hover: hover){ .stat:hover .info-panel-hover{display:block;} .info-panel-hover{display:none;} }
+    .info-panel{font-size:11.5px;color:var(--ink-soft);line-height:1.5;margin-top:10px;padding:10px 12px;background:var(--surface);border-radius:var(--radius-sm);}
+    .stat .info-panel-hover{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:6;background:var(--ink);color:var(--bg);box-shadow:0 14px 30px rgba(0,0,0,.22);}
+
+    @keyframes sectionIn{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
+    .fade-in{animation:sectionIn .3s ease;}
+
+    .tip-text{font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
+
+    .prep-list{list-style:none;margin:0 0 18px;padding:0;}
+    .prep-item{display:flex;align-items:center;gap:13px;padding:12px 14px;font-size:13.5px;line-height:1.4;background:var(--tile);border-radius:var(--radius-sm);}
+    .prep-item + .prep-item{margin-top:8px;}
+    .prep-item-icon{width:38px;height:38px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+    .prep-item-icon .icon{width:18px;height:18px;color:var(--ink-soft);}
+
+    .stepper-card{background:var(--tile);border-radius:var(--radius-md);padding:4px 16px;}
+    .stepper-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;}
+    .stepper-row + .stepper-row{border-top:1px solid var(--line);}
+    .stepper-row .label{font-size:13.5px;font-weight:600;max-width:150px;line-height:1.25;}
+    .stepper{display:flex;align-items:center;gap:10px;}
+    .stepper-btn{width:30px;height:30px;border-radius:9px;border:none;background:var(--bg);font-size:17px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);flex:0 0 auto;}
+    .stepper-btn:last-child{background:var(--ink);color:var(--bg);}
+    .stepper-btn:active{transform:scale(.92);}
+    .stepper-input-wrap{display:flex;align-items:baseline;gap:3px;min-width:64px;justify-content:center;}
+    .stepper-input{font-size:15px;font-weight:700;width:42px;text-align:right;border:none;background:none;color:var(--ink);padding:0;-moz-appearance:textfield;font-family:var(--font-body);font-variant-numeric:tabular-nums;}
+    .stepper-input::-webkit-outer-spin-button,.stepper-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+    .stepper-input:focus{outline:none;}
+    .stepper-unit,.stepper-prefix{font-size:13px;color:var(--ink-soft);font-weight:600;}
+
+    .seg-block{padding:14px 0 0;}
+    .seg-block .label{font-size:13.5px;font-weight:600;margin-bottom:9px;}
+    .seg{display:flex;gap:7px;}
+    .seg button{flex:1;padding:9px 4px;border-radius:999px;border:1.5px solid var(--line-strong);background:none;font-size:11.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;}
+    .seg button.active{background:var(--ink);border-color:var(--ink);color:var(--bg);}
+    .seg-block .micro{font-size:11px;color:var(--ink-soft);margin-top:9px;line-height:1.45;}
+
+    .pour-toc{list-style:none;margin:0;padding:0;}
+    .toc-row{display:flex;align-items:baseline;gap:10px;padding:11px 12px;border-radius:var(--radius-sm);opacity:.5;transition:opacity .25s ease,background .25s ease;}
+    .toc-num{font-weight:800;font-size:14px;width:20px;flex:0 0 auto;font-variant-numeric:tabular-nums;}
+    .toc-spacer{flex:1;}
+    .toc-value{font-size:13px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;}
+    .toc-value .sep{color:var(--ink-soft);font-weight:400;margin:0 5px;}
+    .toc-row.current{opacity:1;background:var(--tile);}
+    .toc-row.current.state-pour{box-shadow:inset 3px 0 0 var(--accent-pour-strong);}
+    .toc-row.current.state-wait{box-shadow:inset 3px 0 0 var(--accent-wait-strong);}
+    .toc-row.done{opacity:.45;}
+    .toc-row.done .toc-num{text-decoration:line-through;}
+
+    .timer-pills{display:flex;gap:10px;margin-bottom:18px;}
+    .pill{flex:1;display:flex;align-items:center;gap:8px;background:var(--tile);border-radius:var(--radius-md);padding:11px 13px;}
+    .pill .icon{color:var(--ink-soft);}
+    .pill-text{display:flex;flex-direction:column;line-height:1.15;}
+    .pill-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);}
+    .pill-value{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;}
+
+    .timer-main{text-align:center;margin-bottom:4px;}
+    .timer-state-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-weight:800;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--on-accent);}
+    .timer-state-pill.state-pour{background:var(--accent-pour);} .timer-state-pill.state-wait{background:var(--accent-wait);}
+    .timer-big{display:block;font-weight:900;font-size:60px;line-height:1.02;margin:10px 0 2px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
+    .timer-sub{font-size:15px;font-weight:600;color:var(--ink-soft);}
+    .timer-sub-pour{font-size:17px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+    .timer-controls{display:flex;gap:8px;justify-content:center;margin-top:20px;}
+    .ctrl-btn{width:46px;height:46px;border-radius:50%;border:none;background:var(--tile);cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+    .ctrl-btn .icon{width:17px;height:17px;}
+    .ctrl-btn:hover{background:var(--line);}
+    .ctrl-btn:active{transform:scale(.93);}
+    .ctrl-btn.muted{background:var(--ink);color:var(--bg);}
+
+    .countdown-num{font-weight:900;font-size:70px;text-align:center;margin:8px 0;font-variant-numeric:tabular-nums;}
+    .countdown-label{text-align:center;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--ink-soft);}
+
+    .feedback-zone{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);}
+    .feedback-cta{display:flex;align-items:center;gap:12px;cursor:pointer;background:var(--tile);border:none;border-radius:var(--radius-md);padding:14px 16px;width:100%;text-align:left;color:var(--ink);}
+    .feedback-cta-icon{width:34px;height:34px;border-radius:50%;background:var(--accent-wait);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+    .feedback-cta-icon .icon{width:16px;height:16px;color:var(--accent-wait-strong);}
+    .feedback-cta-text{flex:1;}
+    .feedback-cta-title{font-weight:700;font-size:13.5px;}
+    .feedback-cta-sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+    .feedback-cta-chevron{transition:transform .2s ease;color:var(--ink-soft);}
+    .feedback-cta.open .feedback-cta-chevron{transform:rotate(180deg);}
+    .feedback-body{margin-top:18px;}
+    .feedback-q{margin-bottom:22px;}
+    .feedback-q .qlabel{font-size:12.5px;font-weight:700;margin-bottom:11px;}
+    .feedback-q .seg{flex-wrap:wrap;gap:7px;}
+    .feedback-q .seg button{flex:unset;padding:8px 14px;border-radius:999px;font-size:11.5px;font-weight:600;border:1.5px solid var(--line-strong);background:none;color:var(--ink-soft);cursor:pointer;}
+    .feedback-q .seg button.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+    .feedback-q .tip{font-size:12px;color:var(--ink);line-height:1.55;margin-top:11px;padding:11px 13px;background:var(--accent-wait);border-radius:var(--radius-sm);}
+    .feedback-note{font-size:10.5px;color:var(--ink-soft);font-style:italic;margin-top:8px;padding-top:14px;border-top:1px solid var(--line);}
+
+    .done-banner{text-align:center;padding:6px 0 2px;}
+    .done-banner h2{font-family:var(--font-display);font-style:italic;font-weight:900;font-size:30px;margin:0 0 6px;letter-spacing:-.01em;}
+    .done-banner p{font-size:13px;color:var(--ink-soft);margin-bottom:18px;}
+    .done-actions{display:flex;gap:9px;}
+
+    .btn{border:none;border-radius:999px;padding:15px 20px;font-size:14.5px;font-weight:700;cursor:pointer;width:100%;font-family:var(--font-body);}
+    .btn-primary{background:var(--ink);color:var(--bg);}
+    .btn-primary:active{transform:scale(.985);}
+    .btn-ghost{background:none;border:1.5px solid var(--line-strong);color:var(--ink);}
+    .btn:focus-visible,.seg button:focus-visible,.stepper-btn:focus-visible,.recipe-select-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+    .footer{text-align:center;margin-top:30px;font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;font-weight:600;}
+
+    .ink-stroke{stroke:var(--ink);} .ink-fill{fill:var(--ink);} .paper-fill{fill:var(--bg);}
+    .soft-stroke{stroke:var(--ink-soft);} .line-stroke{stroke:var(--line-strong);}
+
+    .kettle-group{transform-origin:302px 90px;transform:rotate(0deg);transition:transform .55s cubic-bezier(.4,0,.2,1);}
+    .scene.ready .kettle-group{transform:rotate(-9deg);}
+    .scene.pouring .kettle-group{transform:rotate(-20deg);}
+    .stream{opacity:0;transition:opacity .2s ease;}
+    .scene.pouring .stream{opacity:1;animation:flow .5s linear infinite;}
+    @keyframes flow{to{stroke-dashoffset:-22;}}
+    .cup-fill,.dripper-fill{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);transition:transform .5s linear;fill:var(--fill-liquid);}
+    .cup-fill{opacity:.9;} .dripper-fill{opacity:.7;fill:var(--fill-liquid-2);}
+    .plunger-group{transition:transform .8s cubic-bezier(.3,.7,.4,1);}
+    .steam path{opacity:0;}
+    .scene.brewing .steam path{opacity:.32;animation:rise 3.2s ease-in-out infinite;}
+    .steam path:nth-child(2){animation-delay:.9s;}
+    @keyframes rise{0%{opacity:0;transform:translateY(0);}25%{opacity:.36;}100%{opacity:0;transform:translateY(-16px);}}
+    @media (prefers-reduced-motion: reduce){ .kettle-group,.cup-fill,.dripper-fill{transition:none;} .scene.pouring .stream,.scene.brewing .steam path{animation:none;} }
+
+    [hidden]{display:none !important;}
+
+    @media (min-width:880px){
+      .app{max-width:920px;padding:0 34px 64px;}
+      .layout{display:grid;grid-template-columns:300px 1fr;gap:38px;align-items:start;}
+      .illustration-col{position:sticky;top:24px;}
+    }
+  </style>
+</helmet>
+
+<div class="app" id="app">
+  <div class="topbar">
+    <div class="topbar-id">
+      <button class="logo" id="logoBtn" type="button" aria-label="home">BLOOM</button>
+      <span class="tagline" data-i18n="topbar.tagline"></span>
+    </div>
+    <div class="topbar-controls">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="theme"><span class="icon" id="iconTheme"></span></button>
+      <div class="lang-switch" id="langSwitch">
+        <button type="button" data-lang="pt" class="active">PT</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="border-top:none;padding-top:2px;">
+    <div class="recipe-select" id="recipeSelect">
+      <button class="recipe-select-trigger" id="recipeTrigger" type="button">
+        <span class="left"><span class="rname" id="recipeTriggerLabel"></span></span>
+        <span class="icon chevron" id="chevronIcon"></span>
+      </button>
+      <div class="recipe-panel" id="recipePanel" hidden></div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="illustration-col">
+      <div class="illustration-zone">
+        <div class="illustration-frame" id="sceneHost"></div>
+        <p class="illustration-caption" id="illustrationCaption"></p>
+      </div>
+    </div>
+
+    <div>
+      <div class="section" id="statsSection" hidden>
+        <p class="eyebrow" data-i18n="summary.eyebrow"></p>
+        <div class="stats-row">
+          <div class="stat stat-dark" id="statDose">
+            <span class="stat-head"><span class="stat-label" data-i18n="summary.dose"></span><button class="info-btn" type="button" data-info="dose">i</button></span>
+            <span class="stat-value num" id="doseOut"></span>
+            <p class="info-panel info-panel-hover" id="infoDoseHover"></p>
+          </div>
+          <div class="stat" id="statTemp">
+            <span class="stat-head"><span class="stat-label" data-i18n="summary.temp"></span><button class="info-btn" type="button" data-info="temp">i</button></span>
+            <span class="stat-value num" id="tempOut"></span>
+            <p class="info-panel info-panel-hover" id="infoTempHover"></p>
+          </div>
+          <div class="stat stat-text" id="statGrind">
+            <span class="stat-head"><span class="stat-label" data-i18n="summary.grind"></span><button class="info-btn" type="button" data-info="grind">i</button></span>
+            <span class="stat-value" id="grindOut"></span>
+            <p class="info-panel info-panel-hover" id="infoGrindHover"></p>
+          </div>
+          <div class="stat" id="statWater">
+            <span class="stat-head"><span class="stat-label" data-i18n="summary.water"></span></span>
+            <span class="stat-value num" id="waterOut"></span>
+          </div>
+        </div>
+        <p class="info-panel" id="infoPanel" hidden></p>
+      </div>
+
+      <div class="section" id="settingsSection" hidden>
+        <p class="eyebrow" data-i18n="settings.eyebrow"></p>
+        <div class="stepper-card">
+          <div class="stepper-row">
+            <div class="label" data-i18n="settings.volume"></div>
+            <div class="stepper">
+              <button class="stepper-btn" id="volMinus" type="button" aria-label="-">−</button>
+              <span class="stepper-input-wrap"><input class="stepper-input" id="volValue" type="number" inputmode="numeric" value="300"><span class="stepper-unit">ml</span></span>
+              <button class="stepper-btn" id="volPlus" type="button" aria-label="+">+</button>
+            </div>
+          </div>
+          <div class="stepper-row">
+            <div class="label" data-i18n="settings.ratio"></div>
+            <div class="stepper">
+              <button class="stepper-btn" id="ratioMinus" type="button" aria-label="-">−</button>
+              <span class="stepper-input-wrap"><span class="stepper-prefix">1:</span><input class="stepper-input" id="ratioValue" type="number" inputmode="decimal" step="0.5" min="8" max="22" value="15"></span>
+              <button class="stepper-btn" id="ratioPlus" type="button" aria-label="+">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="seg-block" id="balanceBlock">
+          <div class="label" data-i18n="settings.balance"></div>
+          <div class="seg" id="balanceSeg">
+            <button data-val="-1" type="button"></button>
+            <button data-val="0" type="button" class="active"></button>
+            <button data-val="1" type="button"></button>
+          </div>
+          <p class="micro" data-i18n="settings.balanceMicro"></p>
+        </div>
+
+        <div class="seg-block" id="strengthBlock">
+          <div class="label" data-i18n="settings.body"></div>
+          <div class="seg" id="strengthSeg">
+            <button data-val="1" type="button"></button>
+            <button data-val="2" type="button"></button>
+            <button data-val="3" type="button" class="active"></button>
+            <button data-val="4" type="button"></button>
+          </div>
+          <p class="micro" data-i18n="settings.strengthMicro"></p>
+        </div>
+
+        <p class="tip-text" id="fpNote" hidden style="margin-top:14px;" data-i18n="fp.note"></p>
+      </div>
+
+      <div class="section" id="prepSection" hidden>
+        <p class="eyebrow" data-i18n="prep.eyebrow"></p>
+        <ul class="prep-list" id="prepList"></ul>
+        <button class="btn btn-primary" id="prepGoBtn" type="button" data-i18n="prep.cta"></button>
+      </div>
+
+      <div class="section" id="timerSection" hidden>
+        <div class="timer-module">
+          <div id="countdownZone" hidden>
+            <p class="countdown-label" data-i18n="brew.getReady"></p>
+            <span class="countdown-num num" id="countdownNum">3</span>
+          </div>
+          <div id="runningZone" hidden>
+            <div class="timer-pills">
+              <span class="pill"><span class="icon" id="iconClock"></span><span class="pill-text"><span class="pill-label" data-i18n="brew.totalLabel"></span><span class="pill-value num" id="pillTotal"></span></span></span>
+              <span class="pill"><span class="icon" id="iconDroplet"></span><span class="pill-text"><span class="pill-label" data-i18n="brew.positionTinyLabel"></span><span class="pill-value num" id="pillPosition"></span></span></span>
+            </div>
+            <div class="timer-main">
+              <span style="display:inline-flex;align-items:center;gap:7px;">
+                <span class="timer-state-pill" id="timerStatePill"></span>
+                <button class="info-btn" type="button" id="pourInfoBtn" aria-label="how to pour" style="width:17px;height:17px;font-size:10px;">i</button>
+              </span>
+              <p class="info-panel" id="pourInfoPanel" hidden style="font-size:12px;text-align:left;margin:10px 0 0;"></p>
+              <span class="timer-big num" id="timerBig"></span>
+              <span class="timer-sub" id="timerSub"></span>
+            </div>
+            <div class="timer-controls">
+              <button class="ctrl-btn" id="muteToggle" type="button" aria-label="sound"><span class="icon" id="iconSpeaker"></span></button>
+              <button class="ctrl-btn" id="pauseBtn" type="button" aria-label="pause"><span class="icon" id="iconPause"></span></button>
+              <button class="ctrl-btn" id="skipBtn" type="button" aria-label="skip"><span class="icon" id="iconSkip"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="tocSection" hidden>
+        <p class="eyebrow" data-i18n="toc.eyebrow"></p>
+        <ol class="pour-toc" id="pourToc"></ol>
+      </div>
+
+      <div class="section" id="doneSection" hidden>
+        <div class="done-banner">
+          <h2 data-i18n="brew.doneTitle"></h2>
+          <p data-i18n="brew.doneSub"></p>
+          <div class="done-actions">
+            <button class="btn btn-ghost" id="adjustAgainBtn" type="button" data-i18n="brew.adjust"></button>
+            <button class="btn btn-primary" id="brewAgainBtn" type="button" data-i18n="brew.again"></button>
+          </div>
+        </div>
+        <div class="feedback-zone">
+          <button class="feedback-cta" id="feedbackToggle" type="button">
+            <span class="feedback-cta-icon"><span class="icon" id="iconFeedback"></span></span>
+            <span class="feedback-cta-text">
+              <span class="feedback-cta-title" data-i18n="feedback.toggle"></span>
+              <span class="feedback-cta-sub" data-i18n="feedback.sub"></span>
+            </span>
+            <span class="icon feedback-cta-chevron" id="iconFeedbackChevron"></span>
+          </button>
+          <div class="feedback-body" id="feedbackBody" hidden></div>
+        </div>
+      </div>
+
+      <div class="section" id="ctaSection" hidden style="border-top:none;">
+        <button class="btn btn-primary" id="ctaBrew" type="button" data-i18n="settings.cta"></button>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer" data-i18n="footer.note"></p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount(){ try{ this.boot(); }catch(e){ console.error('boot error', e); } }
+  boot(){
+    "use strict";
+    var ICONS = {
+  clock:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.3"/><path d="M8 4.6V8.2L10.6 9.8"/></svg>',
+  droplet:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M8 1.6C8 1.6 3 7.3 3 10.4A5 5 0 0 0 13 10.4C13 7.3 8 1.6 8 1.6Z"/></svg>',
+  bean:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2.1C4.4 2.1 1.8 4.9 1.8 8S4.4 13.9 8 13.9 14.2 11.1 14.2 8 11.6 2.1 8 2.1Z"/><path d="M5.3 4.3C7 6 7 10 5.3 11.7" stroke-linecap="round"/></svg>',
+  thermo:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9.2 2.6a1.5 1.5 0 0 0-3 0v6.5a3 3 0 1 0 3 0Z"/><circle cx="7.7" cy="11.6" r="1.1" fill="currentColor" stroke="none"/></svg>',
+  grind:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><circle cx="5" cy="6.2" r="1.05"/><circle cx="9.3" cy="4.9" r="1.3"/><circle cx="11.2" cy="9" r="1"/><circle cx="6.4" cy="10.6" r="1.4"/><circle cx="9.6" cy="11.6" r=".8"/></svg>',
+  chevron:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6L8 10.4L12.5 6"/></svg>',
+  speaker:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="M2 6.1h2.5L8 3.3v9.4L4.5 9.9H2Z"/><path d="M10.3 5.6a3.3 3.3 0 0 1 0 4.8M12.1 3.7a6.1 6.1 0 0 1 0 8.6"/></svg>',
+  speakerMute:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="M2 6.1h2.5L8 3.3v9.4L4.5 9.9H2Z"/><path d="M10.6 6.4l3.4 3M14 6.4l-3.4 3"/></svg>',
+  pause:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><rect x="4" y="3" width="2.6" height="10" rx="1"/><rect x="9.4" y="3" width="2.6" height="10" rx="1"/></svg>',
+  play:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><path d="M5 3.2v9.6c0 .7.8 1.1 1.4.7l7-4.8c.5-.4.5-1.1 0-1.4l-7-4.8C5.8 2.1 5 2.5 5 3.2Z"/></svg>',
+  skipNext:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><rect x="10.4" y="3" width="2" height="10" rx="1"/><path d="M3.2 3.6v8.8c0 .7.8 1.1 1.4.7l6-4.4c.5-.4.5-1.1 0-1.4l-6-4.4c-.6-.4-1.4 0-1.4.7Z"/></svg>',
+  sun:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="3.1"/><path d="M8 1.6v1.6M8 12.8v1.6M14.4 8h-1.6M3.2 8H1.6M12.5 3.5l-1.1 1.1M4.6 11.4l-1.1 1.1M12.5 12.5l-1.1-1.1M4.6 4.6 3.5 3.5"/></svg>',
+  moon:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><path d="M13.6 9.9A6 6 0 0 1 6.1 2.4a6 6 0 1 0 7.5 7.5Z"/></svg>',
+  check:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.4l3 3 7-7"/></svg>'
+};
+function setIcon(id,name){ var el=document.getElementById(id); if(el) el.innerHTML = ICONS[name]; }
+
+var I18N = {
+  pt: {
+    topbar:{ tagline:"guia de métodos" },
+    badge:{ soon:"em breve" },
+    recipe:{ choose:"selecione um método" },
+    illustration:{ idle:"escolha um método acima" },
+    settings:{ eyebrow:"ajuste sua receita", volume:"quanto café você quer preparar", ratio:"proporção", balance:"equilíbrio", balanceMicro:"despejo inicial menor = mais doce. despejo inicial maior = mais ácido.", body:"corpo", strengthMicro:"menos despejos na segunda fase = corpo mais encorpado.", cta:"iniciar preparo" },
+    summary:{ eyebrow:"antes de começar", dose:"café necessário", temp:"temperatura", grind:"moagem", water:"água total" },
+    info:{ dose:"Calculado a partir do volume e da proporção escolhidos. Pesar o café é mais preciso do que medir por colheres.", temp:"92°C funciona bem pra torras claras e médias. Torras escuras pedem menos calor — tente 86–88°C pra evitar amargor.", grind:"Mais grossa que o V60 convencional. Referência comum nos fóruns: textura de sal marinho grosso. O método tem várias drenagens — moagem fina trava a água e extrai demais." },
+    tip:{ eyebrow:"como despejar", text46:"Despeje em espiral, de dentro pra fora, sem tocar nas bordas do filtro. Pare ao atingir a marca e deixe drenar antes do próximo despejo." },
+    prep:{ eyebrow:"checklist rápido", cta:"pronto, começar despejo", item1:"moa o café — moagem {grind}", item2:"aqueça a água a {temp}", item3:"escalde o filtro e aqueça a coadeira" },
+    fp:{ note:"Proporção recomendada: 1:12 a 1:14. Essa receita não tem ajuste de equilíbrio ou corpo — o método Hoffmann é fixo por design. Os 5 minutos de descanso são essenciais: é o que elimina a borra da xícara.", stepPour:"despeje toda a água de uma vez", stepSteep:"aguarde (não mexa)", stepSkim:"quebre a crosta, retire a espuma", stepRest:"descanse — borras assentam", stepPlunge:"pressione até a superfície, sirva", prepItem3:"separe duas colheres — você vai usá-las pra quebrar a crosta", grindWord:"médio-grossa" },
+    toc:{ eyebrow:"sua receita, passo a passo" },
+    brew:{ getReady:"prepare-se", pouringState:"despejando", waitingState:"aguarde", pourLabel:"até {x}", waitLabel:"até o despejo {n}", waitLabelEnd:"até finalizar", totalLabel:"tempo total", positionTinyLabel:"passo", positionLabel:"{i}/{n}", skip:"pular", pause:"pausar", resume:"continuar", doneTitle:"pronto! ☕", doneSub:"seu café está servido. aproveite a xícara.", adjust:"ajustar receita", again:"preparar de novo", cancelConfirm:"Cancelar o preparo em andamento?" },
+    footer:{ note:"feito à mão, um despejo de cada vez" },
+    grindWord:"médio-grossa",
+    feedback:{ toggle:"como ficou seu café?", sub:"avalie o resultado e receba dicas de ajuste", timeQ:"o tempo de preparo bateu com o esperado?", timeFast:"drenou rápido demais", timeRight:"no tempo certo", timeSlow:"demorou demais", timeFastTip:"da próxima vez, tente uma moagem um pouco mais fina.", timeRightTip:"ótimo — sua moagem está bem calibrada para essa receita.", timeSlowTip:"da próxima vez, tente uma moagem um pouco mais grossa.", bodyQ:"o corpo ficou como você esperava?", bodyLight:"mais leve do que eu queria", bodyRight:"como eu queria", bodyFull:"mais encorpado do que eu queria", bodyLightTip:"tente mais despejos na segunda fase, ou uma moagem um pouco mais fina.", bodyRightTip:"essa configuração de corpo é a sua cara — guarde ela.", bodyFullTip:"tente menos despejos na segunda fase, ou uma moagem um pouco mais grossa.", balanceQ:"o equilíbrio doce/ácido ficou como esperava?", balanceAcidic:"mais ácido do que eu queria", balanceRight:"equilibrado, como eu queria", balanceSweet:"mais doce do que eu queria", balanceAcidicTip:"tente diminuir um pouco a temperatura, ou mover o equilíbrio pro lado doce.", balanceRightTip:"essa é a sua xícara — guarde essa configuração.", balanceSweetTip:"tente aumentar um pouco a temperatura, ou mover o equilíbrio pro lado ácido.", fpStrengthQ:"a força ficou como você esperava?", fpWeak:"fraca, aguada", fpStrengthRight:"equilibrada", fpStrong:"forte demais", fpWeakTip:"tente uma moagem um pouco mais fina, ou diminua o número da proporção (mais café).", fpStrengthRightTip:"essa proporção e moagem são a sua cara — guarde.", fpStrongTip:"tente uma moagem um pouco mais grossa, ou aumente o número da proporção (menos café).", fpSedimentQ:"teve bastante sedimento (borra) na xícara?", fpSedimentLots:"bastante", fpSedimentSome:"um pouco", fpSedimentClean:"limpinho", fpSedimentLotsTip:"capriche em tirar a espuma e os grãos ao quebrar a crosta, e não pressione o êmbolo até o fundo.", fpSedimentSomeTip:"quase lá — deixe descansar um pouco mais antes de pressionar.", fpSedimentCleanTip:"sua técnica de quebrar a crosta está afiada.", note:"são só pistas pra ajustar — o ponto da torra também interfere bastante no resultado." }
+  },
+  en: {
+    topbar:{ tagline:"pour-over guide" },
+    badge:{ soon:"soon" },
+    recipe:{ choose:"choose a method" },
+    illustration:{ idle:"choose a method above" },
+    settings:{ eyebrow:"adjust your recipe", volume:"how much coffee do you want to make", ratio:"ratio", balance:"balance", balanceMicro:"smaller first pour = sweeter. larger first pour = more acidic.", body:"body", strengthMicro:"fewer pours in the second phase = fuller body.", cta:"start brewing" },
+    summary:{ eyebrow:"before you start", dose:"coffee needed", temp:"temperature", grind:"grind", water:"total water" },
+    info:{ dose:"Calculated from the volume and ratio you chose. Weighing the coffee is more precise than scooping it.", temp:"92°C works well for light and medium roasts. Dark roasts want less heat — try 86–88°C to avoid bitterness.", grind:"Coarser than a standard V60. The common reference on r/coffee and r/V60: sea salt texture. The method has several drawdown cycles — fine grind stalls the water and over-extracts." },
+    tip:{ eyebrow:"how to pour", text46:"Pour in a spiral, from the center outward, without touching the filter's edges. Stop at the target and let it drain before the next pour." },
+    prep:{ eyebrow:"quick checklist", cta:"ready, start pouring", item1:"grind your coffee — {grind}", item2:"heat the water to {temp}", item3:"rinse the filter and warm the server" },
+    fp:{ note:"Recommended ratio: 1:12 to 1:14. This recipe has no balance or body dials — Hoffmann's method is intentionally fixed. The 5-minute rest is the key step: it lets all the grounds sink, giving you a much cleaner cup than a traditional French press.", stepPour:"pour all the water at once", stepSteep:"wait (don't stir)", stepSkim:"break the crust, skim the foam", stepRest:"rest — grounds settle", stepPlunge:"press to the surface, serve", prepItem3:"grab two spoons — you'll need them to break the crust", grindWord:"medium-coarse" },
+    toc:{ eyebrow:"your recipe, step by step" },
+    brew:{ getReady:"get ready", pouringState:"pouring", waitingState:"wait", pourLabel:"to {x}", waitLabel:"until pour {n}", waitLabelEnd:"until it's done", totalLabel:"total time", positionTinyLabel:"step", positionLabel:"{i}/{n}", skip:"skip", pause:"pause", resume:"resume", doneTitle:"done! ☕", doneSub:"your coffee's ready. enjoy the cup.", adjust:"adjust recipe", again:"brew again", cancelConfirm:"Cancel the brew in progress?" },
+    footer:{ note:"made by hand, one pour at a time" },
+    grindWord:"medium-coarse",
+    feedback:{ toggle:"how did your coffee turn out?", sub:"rate the result and get tips to improve", timeQ:"did the brew time match what you expected?", timeFast:"drained too fast", timeRight:"right on time", timeSlow:"took too long", timeFastTip:"next time, try a slightly finer grind.", timeRightTip:"nice — your grind is well dialed in for this recipe.", timeSlowTip:"next time, try a slightly coarser grind.", bodyQ:"did the body turn out as expected?", bodyLight:"lighter than I wanted", bodyRight:"just like I wanted", bodyFull:"fuller than I wanted", bodyLightTip:"try more pours in the second phase, or a slightly finer grind.", bodyRightTip:"that body setting is your sweet spot — keep it.", bodyFullTip:"try fewer pours in the second phase, or a slightly coarser grind.", balanceQ:"did the sweet/acidic balance match what you expected?", balanceAcidic:"more acidic than I wanted", balanceRight:"balanced, just like I wanted", balanceSweet:"sweeter than I wanted", balanceAcidicTip:"try lowering the temperature a bit, or shifting balance toward sweet.", balanceRightTip:"that's your cup — keep this setting.", balanceSweetTip:"try raising the temperature a bit, or shifting balance toward acidic.", fpStrengthQ:"did the strength turn out as expected?", fpWeak:"weak, watery", fpStrengthRight:"balanced", fpStrong:"too strong", fpWeakTip:"try a slightly finer grind, or lower the ratio number (more coffee).", fpStrengthRightTip:"that ratio and grind are your sweet spot — keep it.", fpStrongTip:"try a slightly coarser grind, or raise the ratio number (less coffee).", fpSedimentQ:"was there a lot of sediment (grit) in the cup?", fpSedimentLots:"a lot", fpSedimentSome:"a little", fpSedimentClean:"clean", fpSedimentLotsTip:"be thorough skimming the foam and grounds off the crust, and don't press the plunger all the way down.", fpSedimentSomeTip:"almost there — let it settle a bit longer before pressing.", fpSedimentCleanTip:"your crust-breaking technique is dialed in.", note:"these are just clues to adjust — roast level also affects the result quite a bit." }
+  },
+  es: {
+    topbar:{ tagline:"guía de métodos" },
+    badge:{ soon:"próximamente" },
+    recipe:{ choose:"elige un método" },
+    illustration:{ idle:"elige un método arriba" },
+    settings:{ eyebrow:"ajusta tu receta", volume:"¿cuánto café quieres preparar?", ratio:"proporción", balance:"balance", balanceMicro:"primer vertido más pequeño = más dulce. Más grande = más ácido.", body:"cuerpo", strengthMicro:"menos vertidos en la segunda fase = café más ligero.", cta:"iniciar preparación" },
+    summary:{ eyebrow:"antes de empezar", dose:"café necesario", temp:"temperatura", grind:"molienda", water:"agua total" },
+    info:{ dose:"Calculado según el volumen y la proporción elegidos. Pesar el café es más preciso que medirlo con cucharas.", temp:"93°C funciona bien para tuestes claros y medios. Tuestes oscuros necesitan menos calor — prueba 86–88°C para evitar amargor.", grind:"Más grueso que el V60 estándar. Referencia habitual en los foros: textura de sal marina gruesa. El método tiene varios ciclos de drenaje — la molienda fina detiene el agua y sobreextrae." },
+    tip:{ eyebrow:"cómo verter", text46:"Vierte en espiral, del centro hacia afuera, sin tocar los bordes del filtro. Para al llegar al objetivo y deja drenar antes del siguiente vertido." },
+    prep:{ eyebrow:"lista rápida", cta:"listo, empezar vertido", item1:"muele el café — molienda {grind}", item2:"calienta el agua a {temp}", item3:"enjuaga el filtro y calienta el servidor" },
+    fp:{ note:"Proporción recomendada: 1:12 a 1:14. Esta receta no tiene controles de balance o cuerpo — el método Hoffmann es fijo por diseño. Los 5 minutos de reposo son clave: eliminan los posos de la taza.", stepPour:"vierte toda el agua de una vez", stepSteep:"espera (no remuevas)", stepSkim:"rompe la costra, retira la espuma", stepRest:"reposo — los posos se asientan", stepPlunge:"presiona hasta la superficie, sirve", prepItem3:"coge dos cucharas — las necesitarás para romper la costra", grindWord:"medio-gruesa" },
+    toc:{ eyebrow:"tu receta, paso a paso" },
+    brew:{ getReady:"prepárate", pouringState:"vertiendo", waitingState:"espera", pourLabel:"hasta {x}", waitLabel:"hasta el vertido {n}", waitLabelEnd:"hasta el final", totalLabel:"tiempo total", positionTinyLabel:"paso", positionLabel:"{i}/{n}", skip:"saltar", pause:"pausar", resume:"continuar", doneTitle:"¡listo! ☕", doneSub:"tu café está servido. disfruta la taza.", adjust:"ajustar receta", again:"preparar de nuevo", cancelConfirm:"¿Cancelar la preparación en curso?" },
+    footer:{ note:"hecho a mano, un vertido a la vez" },
+    grindWord:"medio-gruesa",
+    feedback:{ toggle:"¿cómo salió tu café?", sub:"evalúa el resultado y recibe consejos de ajuste", timeQ:"¿el tiempo de preparación fue el esperado?", timeFast:"drenó demasiado rápido", timeRight:"en el tiempo justo", timeSlow:"tardó demasiado", timeFastTip:"la próxima vez, prueba una molienda un poco más fina.", timeRightTip:"perfecto — tu molienda está bien calibrada para esta receta.", timeSlowTip:"la próxima vez, prueba una molienda un poco más gruesa.", bodyQ:"¿el cuerpo quedó como esperabas?", bodyLight:"más ligero de lo que quería", bodyRight:"tal como lo quería", bodyFull:"con más cuerpo del que quería", bodyLightTip:"prueba más vertidos en la segunda fase, o una molienda un poco más fina.", bodyRightTip:"esa configuración de cuerpo es perfecta para ti — guárdala.", bodyFullTip:"prueba menos vertidos en la segunda fase, o una molienda un poco más gruesa.", balanceQ:"¿el balance dulce/ácido fue el esperado?", balanceAcidic:"más ácido de lo que quería", balanceRight:"equilibrado, como quería", balanceSweet:"más dulce de lo que quería", balanceAcidicTip:"prueba bajar un poco la temperatura, o mover el balance hacia el lado dulce.", balanceRightTip:"esa es tu taza — guarda esta configuración.", balanceSweetTip:"prueba subir un poco la temperatura, o mover el balance hacia el lado ácido.", fpStrengthQ:"¿la intensidad quedó como esperabas?", fpWeak:"débil, aguado", fpStrengthRight:"equilibrado", fpStrong:"demasiado intenso", fpWeakTip:"prueba una molienda un poco más fina, o reduce el número de proporción (más café).", fpStrengthRightTip:"esa proporción y molienda son perfectas — guárdalas.", fpStrongTip:"prueba una molienda un poco más gruesa, o aumenta el número de proporción (menos café).", fpSedimentQ:"¿hubo mucho sedimento (posos) en la taza?", fpSedimentLots:"bastante", fpSedimentSome:"un poco", fpSedimentClean:"limpio", fpSedimentLotsTip:"sé cuidadoso al retirar la espuma y los posos al romper la costra, y no presiones el émbolo hasta el fondo.", fpSedimentSomeTip:"casi perfecto — deja reposar un poco más antes de presionar.", fpSedimentCleanTip:"tu técnica para romper la costra está dominada.", note:"son solo pistas para ajustar — el nivel de tueste también influye bastante en el resultado." }
+  }
+};
+function t(path){ var parts = path.split("."); var node = I18N[state.lang]; for(var i=0;i<parts.length;i++){ node = node[parts[i]]; if(node===undefined) return ""; } return node; }
+function fmt(str, repl){ return str.replace(/\{(\w+)\}/g, function(_,k){ return repl[k]!==undefined ? repl[k] : ""; }); }
+
+var RECIPES = [
+  { id:"46", type:"46", device:"V60", tagClass:"tag-v60", status:"live", name:{pt:"Método 4:6", en:"4:6 Method", es:"Método 4:6"}, author:"Tetsu Kasuya" },
+  { id:"10pour", type:"10pour", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"10 Despejos (Switch)", en:"10-Pour Switch", es:"10 Vertidos (Switch)"}, author:"Tetsu Kasuya" },
+  { id:"hoffmann", type:"hoffmann", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"V60 Definitivo", en:"Ultimate V60", es:"V60 Definitivo"}, author:"James Hoffmann" },
+  { id:"rao", type:"rao", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Método Swirl", en:"Swirl Method", es:"Método Swirl"}, author:"Scott Rao" },
+  { id:"onyx", type:"onyx", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Receita Onyx", en:"Onyx Recipe", es:"Receta Onyx"}, author:"Onyx Coffee Lab" },
+  { id:"perger", type:"perger", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Técnica de Competição", en:"Competition Technique", es:"Técnica de Competición"}, author:"Matt Perger" },
+  { id:"aeropress", type:"aeropress", device:"AEROPRESS", tagClass:"tag-aeropress", status:"soon", name:{pt:"AeroPress Definitivo", en:"Ultimate AeroPress", es:"AeroPress Definitivo"}, author:"James Hoffmann" },
+  { id:"frenchpress", type:"frenchpress", device:"FRENCH PRESS", tagClass:"tag-frenchpress", status:"live", name:{pt:"Prensa Francesa Clássica", en:"Classic French Press", es:"Prensa Francesa Clásica"}, author:"James Hoffmann" }
+];
+
+var FIXED_TEMP = 92;
+var state = {
+  lang:"pt", selectedRecipe:null, activeType:null, mode:"idle",
+  params:{ volume:300, ratio:15, balance:0, pours2:3 },
+  computed:null, audioCtx:null,
+  brew:{ recipe:null, running:false, paused:false, startTs:0, pausedAccum:0, pauseStartedAt:0, offset:0, elapsed:0, muted:false, doneShown:false, lastTrigger:"", lastHeadsupKey:"" }
+};
+
+function $(sel){ return document.querySelector(sel); }
+function $all(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+function mmss(totalSeconds){ totalSeconds = Math.max(0, Math.round(totalSeconds)); var m = Math.floor(totalSeconds/60), s = totalSeconds%60; return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0"); }
+var sceneEl=null, cupFillEl=null, dripperFillEl=null, plungerEl=null;
+
+function sceneMarkup(uid){
+  var cid="cupClip-"+uid, did="dripClip-"+uid;
+  return ''+
+  '<svg class="scene" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">'+
+    '<defs>'+
+      '<clipPath id="'+cid+'"><path d="M128,304 L272,304 L272,384 Q272,400 252,402 L148,402 Q128,400 128,384 Z"/></clipPath>'+
+      '<clipPath id="'+did+'"><path d="M133,196 L267,196 L206,294 L194,294 Z"/></clipPath>'+
+    '</defs>'+
+    '<line x1="58" y1="416" x2="342" y2="416" class="line-stroke" stroke-width="2.4" stroke-linecap="round"/>'+
+    '<g class="ink-stroke" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">'+
+      '<path d="M124,300 L124,386 Q124,404 146,406 L254,406 Q276,404 276,386 L276,300"/>'+
+      '<path d="M276,306 Q316,314 314,352 Q312,388 276,394"/>'+
+      '<path d="M124,318 L276,318"/>'+
+    '</g>'+
+    '<rect class="cup-fill" x="128" y="304" width="144" height="100" clip-path="url(#'+cid+')"/>'+
+    '<g class="ink-stroke" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">'+
+      '<path d="M126,190 L274,190 L208,300 L192,300 Z"/>'+
+      '<path d="M150,248 L172,288"/><path d="M250,248 L228,288"/>'+
+    '</g>'+
+    '<ellipse cx="200" cy="202" rx="62" ry="9" class="ink-fill" opacity=".5"/>'+
+    '<rect class="dripper-fill" x="133" y="196" width="134" height="100" clip-path="url(#'+did+')"/>'+
+    '<path class="stream ink-stroke" d="M182,178 Q192,190 200,202" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="4 7"/>'+
+    '<g class="steam soft-stroke" stroke-width="2.3" fill="none" stroke-linecap="round">'+
+      '<path d="M186,176 Q178,160 188,146 Q198,132 190,118"/>'+
+      '<path d="M214,176 Q222,162 212,148 Q204,136 212,122"/>'+
+    '</g>'+
+    '<g class="kettle-group">'+
+      '<g class="ink-stroke paper-fill" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round"><path d="M266,58 Q263,30 302,28 Q342,30 342,76 Q344,130 305,148 Q267,142 263,98 Q261,76 266,58 Z"/></g>'+
+      '<g class="ink-stroke" stroke-width="5.4" fill="none" stroke-linecap="round"><path d="M263,106 Q222,110 213,144 Q207,170 182,182"/></g>'+
+      '<g class="ink-stroke" stroke-width="2.8" fill="none" stroke-linecap="round"><path d="M286,32 Q297,8 320,24"/></g>'+
+      '<circle cx="302" cy="32" r="4.3" class="ink-fill"/>'+
+    '</g>'+
+  '</svg>';
+}
+
+function sceneMarkupFP(uid){
+  var cid="carafeClip-"+uid;
+  return ''+
+  '<svg class="scene" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">'+
+    '<defs><clipPath id="'+cid+'"><path d="M126,150 L274,150 L274,388 Q274,394 258,396 L142,396 Q126,394 126,388 Z"/></clipPath></defs>'+
+    '<line x1="55" y1="414" x2="345" y2="414" class="line-stroke" stroke-width="2.4" stroke-linecap="round"/>'+
+    '<g class="ink-stroke" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">'+
+      '<path d="M120,140 L120,374 Q120,394 142,396 L258,396 Q280,394 280,374 L280,140"/>'+
+      '<path d="M280,196 Q312,206 310,256 Q308,298 280,308"/>'+
+    '</g>'+
+    '<path class="ink-fill" d="M120,148 L99,137 L120,167 Z"/>'+
+    '<rect class="cup-fill" x="126" y="150" width="148" height="246" clip-path="url(#'+cid+')"/>'+
+    '<g class="steam soft-stroke" stroke-width="2.3" fill="none" stroke-linecap="round">'+
+      '<path d="M170,132 Q162,116 172,102 Q182,88 174,74"/>'+
+      '<path d="M226,132 Q234,118 224,104 Q216,92 224,78"/>'+
+    '</g>'+
+    '<g class="plunger-group">'+
+      '<line x1="200" y1="56" x2="200" y2="180" class="ink-stroke" stroke-width="3" stroke-linecap="round"/>'+
+      '<rect x="186" y="44" width="28" height="14" rx="4" class="ink-stroke paper-fill" stroke-width="2.6"/>'+
+      '<ellipse cx="200" cy="180" rx="26" ry="5.5" class="ink-stroke paper-fill" stroke-width="2.8"/>'+
+    '</g>'+
+    '<path class="stream ink-stroke" d="M228,150 Q231,158 233,166" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="4 7"/>'+
+    '<g class="kettle-group">'+
+      '<g class="ink-stroke paper-fill" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round"><path d="M266,58 Q263,30 302,28 Q342,30 342,76 Q344,130 305,148 Q267,142 263,98 Q261,76 266,58 Z"/></g>'+
+      '<g class="ink-stroke" stroke-width="5.4" fill="none" stroke-linecap="round"><path d="M263,106 Q228,112 228,150"/></g>'+
+      '<g class="ink-stroke" stroke-width="2.8" fill="none" stroke-linecap="round"><path d="M286,32 Q297,8 320,24"/></g>'+
+      '<circle cx="302" cy="32" r="4.3" class="ink-fill"/>'+
+    '</g>'+
+  '</svg>';
+}
+
+function mountScene(type){
+  var markup = (type==="frenchpress") ? sceneMarkupFP("main") : sceneMarkup("main");
+  $("#sceneHost").innerHTML = markup;
+  sceneEl = $("#sceneHost .scene");
+  cupFillEl = sceneEl.querySelector(".cup-fill");
+  dripperFillEl = sceneEl.querySelector(".dripper-fill");
+  plungerEl = sceneEl.querySelector(".plunger-group");
+}
+
+function setMode(mode){
+  state.mode = mode;
+  var showStats = mode==="configuring";
+  var showSettings = mode==="configuring";
+  var showPrep = mode==="prep";
+  var showTimer = mode==="countdown" || mode==="brewing";
+  var showToc = mode==="configuring" || mode==="countdown" || mode==="brewing" || mode==="done";
+  var showDone = mode==="done";
+  var showCta = mode==="configuring";
+  var lockRecipe = mode==="prep";
+  reveal("statsSection", showStats);
+  reveal("settingsSection", showSettings);
+  reveal("prepSection", showPrep);
+  reveal("timerSection", showTimer);
+  reveal("tocSection", showToc);
+  reveal("doneSection", showDone);
+  reveal("ctaSection", showCta);
+  $("#recipeSelect").classList.toggle("locked", lockRecipe);
+}
+function reveal(id, show){
+  var el = $("#"+id);
+  var wasHidden = el.hidden;
+  el.hidden = !show;
+  if(show && wasHidden){ el.classList.remove("fade-in"); void el.offsetWidth; el.classList.add("fade-in"); }
+}
+
+function applyI18n(){
+  $all("[data-i18n]").forEach(function(el){ var val = t(el.getAttribute("data-i18n")); if(typeof val === "string") el.textContent = val; });
+  $all("#langSwitch button").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-lang")===state.lang); });
+  document.documentElement.lang = state.lang === "pt" ? "pt-BR" : state.lang;
+  if(!state.selectedRecipe) $("#recipeTriggerLabel").textContent = t("recipe.choose");
+}
+
+function populateHoverPanels(){
+  ["dose","temp","grind"].forEach(function(k){
+    var el = document.getElementById("info"+k.charAt(0).toUpperCase()+k.slice(1)+"Hover");
+    if(el) el.textContent = t("info."+k);
+  });
+}
+
+function renderRecipePanel(){
+  var panel = $("#recipePanel");
+  panel.innerHTML = "";
+  RECIPES.forEach(function(r){
+    var row = document.createElement("div");
+    row.className = "recipe-row";
+    var soonTxt = r.status==="soon" ? '<div class="soon">'+t("badge.soon")+'</div>' : "";
+    row.innerHTML =
+      '<span class="tag-pill '+r.tagClass+'">'+r.device+'</span>'+
+      '<span class="rinfo"><span class="rname">'+r.name[state.lang]+'</span><span class="rauthor">'+r.author+'</span></span>'+
+      soonTxt;
+    row.addEventListener("click", function(e){ e.stopPropagation(); selectRecipe(r.id); closePanel(); });
+    panel.appendChild(row);
+  });
+}
+function openPanel(){
+  if((state.brew.running || state.mode==="countdown") && state.mode!=="idle"){
+    if(!confirm(t("brew.cancelConfirm"))) return;
+    state.brew.running = false;
+    if(typeof brewInterval !== "undefined") clearInterval(brewInterval);
+    if(typeof countdownInterval !== "undefined") clearInterval(countdownInterval);
+    if(sceneEl) sceneEl.classList.remove("brewing","pouring","ready");
+    if(cupFillEl) cupFillEl.style.transform = "scaleY(0)";
+    if(dripperFillEl) dripperFillEl.style.transform = "scaleY(0)";
+    if(plungerEl) plungerEl.style.transform = "translateY(0px)";
+    $("#recipeSelect").classList.remove("locked");
+  }
+  $("#recipePanel").hidden=false; $("#recipeSelect").classList.add("open");
+}
+function closePanel(){ $("#recipePanel").hidden=true; $("#recipeSelect").classList.remove("open"); }
+
+function selectRecipe(id){
+  if(state.brew.running) return;
+  state.selectedRecipe = id;
+  var r = RECIPES.filter(function(x){ return x.id===id; })[0];
+  $("#recipeTriggerLabel").innerHTML = '<span class="tag-pill '+r.tagClass+'" style="margin-right:8px;">'+r.device+'</span>'+r.name[state.lang];
+  var cap = $("#illustrationCaption");
+  cap.innerHTML = "<strong>"+r.name[state.lang]+"</strong>" + (r.status==="soon" ? " · "+t("badge.soon") : "");
+  if(r.status === "live"){
+    state.activeType = r.type;
+    mountScene(r.type);
+    $("#balanceBlock").hidden = (r.type==="frenchpress");
+    $("#strengthBlock").hidden = (r.type==="frenchpress");
+    $("#fpNote").hidden = (r.type!=="frenchpress");
+    setMode("configuring");
+    recompute();
+  } else {
+    setMode("idle");
+    $("#recipeTriggerLabel").innerHTML += ' <span style="color:var(--ink-soft);font-weight:400;">· '+t("badge.soon")+'</span>';
+  }
+}
+
+function compute46(p){
+  var totalWater = p.volume;
+  var dose = totalWater / p.ratio;
+  var phase1 = totalWater * 0.4, phase2 = totalWater * 0.6;
+  var firstFrac = 0.5 + p.balance * 0.167;
+  var pours = [ {amount:phase1*firstFrac}, {amount:phase1*(1-firstFrac)} ];
+  var each2 = phase2 / p.pours2;
+  for(var i=0;i<p.pours2;i++) pours.push({amount:each2});
+  var cum = 0;
+  pours.forEach(function(pour,i){ cum += pour.amount; pour.cumulative = cum; pour.start = i*45; pour.duration = 10; pour.kind = "pour"; });
+  var finishTime = pours[pours.length-1].start + 45;
+  return { type:"46", totalWater:totalWater, dose:dose, pours:pours, finishTime:finishTime, temp:FIXED_TEMP };
+}
+function computeFrenchPress(p){
+  var totalWater = p.volume;
+  var dose = totalWater / p.ratio;
+  var pours = [
+    { kind:"pour",   labelKey:"fp.stepPour",   start:0,   duration:30, amount:totalWater, cumulative:totalWater },
+    { kind:"wait",   labelKey:"fp.stepSteep",  start:30,  duration:210 },
+    { kind:"action", labelKey:"fp.stepSkim",   start:240, duration:45  },
+    { kind:"wait",   labelKey:"fp.stepRest",   start:285, duration:300 },
+    { kind:"action", labelKey:"fp.stepPlunge", start:585, duration:20  }
+  ];
+  var finishTime = 605;
+  return { type:"frenchpress", totalWater:totalWater, dose:dose, pours:pours, finishTime:finishTime, temp:93, grindKey:"fp.grindWord" };
+}
+function recompute(){
+  state.computed = (state.activeType==="frenchpress") ? computeFrenchPress(state.params) : compute46(state.params);
+  renderSummary();
+  renderToc();
+}
+function renderSummary(){
+  var c = state.computed;
+  $("#volValue").value = state.params.volume;
+  $("#ratioValue").value = state.params.ratio;
+  $("#doseOut").textContent = Math.round(c.dose) + " g";
+  $("#tempOut").textContent = c.temp + "°C";
+  var grindKey = state.computed.grindKey || "grindWord";
+  $("#grindOut").textContent = t(grindKey);
+  $("#waterOut").textContent = Math.round(c.totalWater) + " ml";
+}
+function renderToc(liveElapsed, finished){
+  var c = state.computed;
+  if(!c) return;
+  var list = $("#pourToc");
+  list.innerHTML = "";
+  var st = (liveElapsed!==undefined && !finished) ? findStage(liveElapsed) : null;
+  c.pours.forEach(function(p,i){
+    var li = document.createElement("li");
+    li.className = "toc-row";
+    if(finished){ li.className += " done"; }
+    else if(st){
+      if(i < st.idx){ li.className += " done"; }
+      else if(i === st.idx){ li.className += " current " + (st.active && p.kind==="pour" ? "state-pour" : "state-wait"); }
+      else { li.className += " upcoming"; }
+    }
+    var valueText = (p.cumulative!=null)
+      ? (Math.round(p.cumulative)+'g<span class="sep">·</span>'+mmss(p.start))
+      : (t(p.labelKey)+'<span class="sep">·</span>'+mmss(p.start));
+    li.innerHTML = '<span class="toc-num">'+(i+1)+'</span><span class="toc-spacer"></span><span class="toc-value">'+valueText+'</span>';
+    list.appendChild(li);
+  });
+}
+
+function wireSetupControls(){
+  function clampVol(v){ return Math.max(150, Math.min(600, v)); }
+  function clampRatio(v){ return Math.max(8, Math.min(22, Math.round(v*2)/2)); }
+  $("#volMinus").addEventListener("click", function(){ state.params.volume = clampVol(state.params.volume-10); recompute(); });
+  $("#volPlus").addEventListener("click", function(){ state.params.volume = clampVol(state.params.volume+10); recompute(); });
+  $("#volValue").addEventListener("change", function(e){ var v = parseInt(e.target.value,10); state.params.volume = clampVol(isNaN(v) ? state.params.volume : v); recompute(); });
+  $("#ratioMinus").addEventListener("click", function(){ state.params.ratio = clampRatio(state.params.ratio-0.5); recompute(); });
+  $("#ratioPlus").addEventListener("click", function(){ state.params.ratio = clampRatio(state.params.ratio+0.5); recompute(); });
+  $("#ratioValue").addEventListener("change", function(e){ var v = parseFloat(e.target.value); state.params.ratio = clampRatio(isNaN(v) ? state.params.ratio : v); recompute(); });
+  $all("#balanceSeg button").forEach(function(btn){ btn.addEventListener("click", function(){ $all("#balanceSeg button").forEach(function(b){ b.classList.remove("active"); }); btn.classList.add("active"); state.params.balance = parseInt(btn.getAttribute("data-val"),10); recompute(); }); });
+  $all("#strengthSeg button").forEach(function(btn){ btn.addEventListener("click", function(){ $all("#strengthSeg button").forEach(function(b){ b.classList.remove("active"); }); btn.classList.add("active"); state.params.pours2 = parseInt(btn.getAttribute("data-val"),10); recompute(); }); });
+  var balLabels = { pt:["doce","equilibrado","ácido"], en:["sweet","balanced","acidic"], es:["dulce","equilibrado","ácido"] };
+  var bodyLabels = { pt:["leve","médio","encorpado","intenso"], en:["light","medium","full","intense"], es:["ligero","medio","con cuerpo","intenso"] };
+  $all("#balanceSeg button").forEach(function(btn,i){ btn.setAttribute("data-idx", i); });
+  $all("#strengthSeg button").forEach(function(btn,i){ btn.setAttribute("data-idx", i); });
+  function applySegLabels(){
+    $all("#balanceSeg button").forEach(function(btn){ btn.textContent = balLabels[state.lang][+btn.getAttribute("data-idx")]; });
+    $all("#strengthSeg button").forEach(function(btn){ btn.textContent = bodyLabels[state.lang][+btn.getAttribute("data-idx")]; });
+  }
+  applySegLabels();
+  window.__applySegLabels = applySegLabels;
+}
+
+function ensureAudio(){
+  if(!state.audioCtx){ try{ state.audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){} }
+  if(state.audioCtx && state.audioCtx.state === "suspended"){ state.audioCtx.resume(); }
+}
+function cue(type){
+  if(state.brew.muted || !state.audioCtx) return;
+  var ctx = state.audioCtx;
+  function tone(freq, start, dur, vol){
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = "sine"; o.frequency.value = freq; g.gain.value = 0.0001;
+    o.connect(g); g.connect(ctx.destination);
+    var now = ctx.currentTime + start;
+    g.gain.exponentialRampToValueAtTime(vol, now+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, now+dur);
+    o.start(now); o.stop(now+dur+0.02);
+  }
+  if(type==="go"){ tone(880,0,0.32,0.18); if(navigator.vibrate) navigator.vibrate(180); }
+  else if(type==="tick"){ tone(660,0,0.1,0.11); }
+  else if(type==="headsup"){ tone(760,0,0.13,0.09); if(navigator.vibrate) navigator.vibrate(50); }
+  else if(type==="done"){ tone(880,0,0.22,0.17); tone(1180,0.18,0.3,0.17); if(navigator.vibrate) navigator.vibrate([90,60,140]); }
+}
+
+var brewInterval=null, countdownInterval=null;
+
+function findStage(elapsed){
+  var pours = state.brew.recipe.pours;
+  var idx = 0;
+  for(var i=0;i<pours.length;i++){ if(pours[i].start <= elapsed) idx = i; }
+  var cur = pours[idx];
+  var dur = cur.duration || 10;
+  var active = elapsed < cur.start + dur;
+  var nextMilestone = active ? cur.start+dur : ((idx+1<pours.length) ? pours[idx+1].start : state.brew.recipe.finishTime);
+  return { idx:idx, cur:cur, active:active, prevMilestone:cur.start, nextMilestone:nextMilestone };
+}
+function computeFracs46(elapsed, st){
+  var recipe = state.brew.recipe, total = recipe.totalWater, pours = recipe.pours, idx = st.idx;
+  var prevCum = idx>0 ? pours[idx-1].cumulative : 0, curCum = pours[idx].cumulative;
+  var cycleStart = pours[idx].start, cycleEnd = st.nextMilestone;
+  var pourDur = pours[idx].duration || 10;
+  var cycleFrac = (cycleEnd>cycleStart) ? Math.max(0,Math.min(1,(elapsed-cycleStart)/(cycleEnd-cycleStart))) : 1;
+  var cupFrac = Math.min(1, (prevCum + (curCum-prevCum)*cycleFrac)/total);
+  var dripperFrac;
+  if(st.active){ dripperFrac = Math.max(0,Math.min(1,(elapsed-cycleStart)/pourDur)); }
+  else { var waitStart=cycleStart+pourDur, waitDur=cycleEnd-waitStart; var waitFrac = waitDur>0 ? Math.max(0,Math.min(1,(elapsed-waitStart)/waitDur)) : 1; dripperFrac = 1-waitFrac; }
+  return { cupFrac:cupFrac, dripperFrac:dripperFrac };
+}
+function applyVisuals46(elapsed, st, finished){
+  var fracs = computeFracs46(elapsed, st);
+  if(sceneEl){
+    sceneEl.classList.toggle("pouring", st.active && st.cur.kind==="pour" && !finished);
+    if(cupFillEl) cupFillEl.style.transform = "scaleY("+(finished?1:fracs.cupFrac)+")";
+    if(dripperFillEl) dripperFillEl.style.transform = "scaleY("+(finished?0:fracs.dripperFrac)+")";
+  }
+}
+function applyVisualsFP(elapsed, st, finished){
+  if(!sceneEl) return;
+  var pours = state.brew.recipe.pours;
+  var pourStep = pours[0], plungeStep = pours[pours.length-1];
+  sceneEl.classList.toggle("pouring", st.active && st.cur.kind==="pour" && !finished);
+  var carafeFrac = finished ? 1 : Math.max(0, Math.min(1, elapsed<=pourStep.start ? 0 : (elapsed-pourStep.start)/pourStep.duration));
+  if(cupFillEl) cupFillEl.style.transform = "scaleY("+carafeFrac+")";
+  var plungeFrac = 0;
+  if(finished){ plungeFrac = 1; }
+  else if(elapsed >= plungeStep.start){ plungeFrac = Math.max(0, Math.min(1, (elapsed-plungeStep.start)/plungeStep.duration)); }
+  if(plungerEl) plungerEl.style.transform = "translateY("+(plungeFrac*86)+"px)";
+}
+function nextStepDescription(pours, idx){
+  var next = pours[idx+1];
+  if(!next) return t("brew.waitLabelEnd");
+  return next.labelKey ? t(next.labelKey) : fmt(t("brew.waitLabel"), {n: idx+2});
+}
+
+function showPrepChecklist(){
+  var c = state.computed;
+  var list = $("#prepList");
+  list.innerHTML = "";
+  var icons = (state.activeType==="frenchpress") ? ["grind","thermo","bean"] : ["grind","thermo","droplet"];
+  var texts = [
+    fmt(t("prep.item1"), {grind:t(state.computed.grindKey || "grindWord")}),
+    fmt(t("prep.item2"), {temp:c.temp+"°C"}),
+    (state.activeType==="frenchpress") ? t("fp.prepItem3") : t("prep.item3")
+  ];
+  texts.forEach(function(text, i){
+    var li = document.createElement("li");
+    li.className = "prep-item";
+    li.innerHTML = '<span class="prep-item-icon"><span class="icon">'+ICONS[icons[i]]+'</span></span><span>'+text+'</span>';
+    list.appendChild(li);
+  });
+  setMode("prep");
+}
+function beginCountdown(){
+  ensureAudio();
+  state.brew.recipe = state.computed;
+  setMode("countdown");
+  $("#countdownZone").hidden=false; $("#runningZone").hidden=true;
+  sceneEl.classList.add("ready");
+  var n=3; $("#countdownNum").textContent=n; cue("tick");
+  if(countdownInterval) clearInterval(countdownInterval);
+  countdownInterval = setInterval(function(){
+    n -= 1;
+    if(n<=0){
+      clearInterval(countdownInterval);
+      $("#countdownZone").hidden=true; $("#runningZone").hidden=false;
+      sceneEl.classList.remove("ready");
+      setMode("brewing");
+      actuallyStartBrewClock();
+    } else { $("#countdownNum").textContent=n; cue("tick"); }
+  },1000);
+}
+function actuallyStartBrewClock(){
+  state.brew.running=true; state.brew.paused=false; state.brew.startTs=performance.now();
+  state.brew.pausedAccum=0; state.brew.offset=0; state.brew.elapsed=0;
+  state.brew.doneShown=false; state.brew.lastTrigger=""; state.brew.lastHeadsupKey="";
+  setIcon("iconPause","pause");
+  sceneEl.classList.add("brewing");
+  if(brewInterval) clearInterval(brewInterval);
+  brewInterval = setInterval(tickBrew, 150);
+  updateBrewUI(0);
+}
+function tickBrew(){
+  if(!state.brew.running) return;
+  if(!state.brew.paused){ state.brew.elapsed = (performance.now()-state.brew.startTs-state.brew.pausedAccum)/1000 + state.brew.offset; }
+  updateBrewUI(state.brew.elapsed);
+}
+function updateBrewUI(elapsed){
+  if(!state.brew.recipe) return;
+  var pours = state.brew.recipe.pours, finishTime = state.brew.recipe.finishTime;
+  var st = findStage(elapsed);
+  var finished = elapsed >= finishTime;
+  var isPourNow = st.active && st.cur.kind==="pour";
+  var isActionNow = st.active && st.cur.kind==="action";
+  var isGoMoment = (isPourNow || isActionNow) && !finished;
+  var triggerKey = st.idx+"-"+st.active+"-"+st.cur.kind;
+  if(triggerKey !== state.brew.lastTrigger && isGoMoment){ cue("go"); }
+  state.brew.lastTrigger = triggerKey;
+  if(!isPourNow && !isActionNow && !finished){
+    var remain = st.nextMilestone - elapsed;
+    var headsupKey = st.idx+"-headsup";
+    if(remain<=3 && remain>0 && state.brew.lastHeadsupKey!==headsupKey){ cue("headsup"); state.brew.lastHeadsupKey = headsupKey; }
+  }
+  $("#pillTotal").textContent = mmss(elapsed);
+  $("#pillPosition").textContent = fmt(t("brew.positionLabel"), {i:st.idx+1, n:pours.length});
+  var pill = $("#timerStatePill");
+  if(finished){ pill.textContent=""; pill.className="timer-state-pill"; $("#timerBig").textContent=""; $("#timerSub").textContent=""; }
+  else if(isPourNow){
+    pill.textContent = t("brew.pouringState"); pill.className="timer-state-pill state-pour";
+    var remainP = Math.max(0, Math.ceil((st.cur.start+st.cur.duration)-elapsed));
+    $("#timerBig").textContent = remainP;
+    $("#timerSub").innerHTML = (st.cur.cumulative!=null) ? '<span class="timer-sub-pour">'+fmt(t("brew.pourLabel"), {x:Math.round(st.cur.cumulative)+"g"})+'</span>' : "";
+  } else if(isActionNow){
+    pill.textContent = t(st.cur.labelKey); pill.className="timer-state-pill state-wait";
+    var remainA = Math.max(0, Math.ceil((st.cur.start+st.cur.duration)-elapsed));
+    $("#timerBig").textContent = remainA; $("#timerSub").textContent = "";
+  } else {
+    pill.textContent = t("brew.waitingState"); pill.className="timer-state-pill state-wait";
+    $("#timerBig").textContent = mmss(st.nextMilestone-elapsed);
+    $("#timerSub").textContent = nextStepDescription(pours, st.idx);
+  }
+  renderToc(elapsed);
+  if(state.activeType === "frenchpress"){ applyVisualsFP(elapsed, st, finished); } else { applyVisuals46(elapsed, st, finished); }
+  if(finished && !state.brew.doneShown){
+    state.brew.doneShown = true; state.brew.running = false;
+    clearInterval(brewInterval);
+    setMode("done");
+    sceneEl.classList.remove("pouring");
+    renderToc(elapsed, true);
+    renderFeedback();
+    $("#feedbackBody").hidden = true;
+    cue("done");
+  }
+}
+
+function renderFeedback(){
+  var qs = (state.activeType === "frenchpress") ? [
+    { q:"feedback.timeQ", opts:[ {val:"fast", label:"feedback.timeFast", tip:"feedback.timeFastTip"}, {val:"right", label:"feedback.timeRight", tip:"feedback.timeRightTip"}, {val:"slow", label:"feedback.timeSlow", tip:"feedback.timeSlowTip"} ]},
+    { q:"feedback.fpStrengthQ", opts:[ {val:"weak", label:"feedback.fpWeak", tip:"feedback.fpWeakTip"}, {val:"right", label:"feedback.fpStrengthRight", tip:"feedback.fpStrengthRightTip"}, {val:"strong", label:"feedback.fpStrong", tip:"feedback.fpStrongTip"} ]},
+    { q:"feedback.fpSedimentQ", opts:[ {val:"lots", label:"feedback.fpSedimentLots", tip:"feedback.fpSedimentLotsTip"}, {val:"some", label:"feedback.fpSedimentSome", tip:"feedback.fpSedimentSomeTip"}, {val:"clean", label:"feedback.fpSedimentClean", tip:"feedback.fpSedimentCleanTip"} ]}
+  ] : [
+    { q:"feedback.timeQ", opts:[ {val:"fast", label:"feedback.timeFast", tip:"feedback.timeFastTip"}, {val:"right", label:"feedback.timeRight", tip:"feedback.timeRightTip"}, {val:"slow", label:"feedback.timeSlow", tip:"feedback.timeSlowTip"} ]},
+    { q:"feedback.bodyQ", opts:[ {val:"light", label:"feedback.bodyLight", tip:"feedback.bodyLightTip"}, {val:"right", label:"feedback.bodyRight", tip:"feedback.bodyRightTip"}, {val:"full", label:"feedback.bodyFull", tip:"feedback.bodyFullTip"} ]},
+    { q:"feedback.balanceQ", opts:[ {val:"acidic", label:"feedback.balanceAcidic", tip:"feedback.balanceAcidicTip"}, {val:"right", label:"feedback.balanceRight", tip:"feedback.balanceRightTip"}, {val:"sweet", label:"feedback.balanceSweet", tip:"feedback.balanceSweetTip"} ]}
+  ];
+  var body = $("#feedbackBody");
+  body.innerHTML = "";
+  qs.forEach(function(qdef){
+    var wrap = document.createElement("div"); wrap.className = "feedback-q";
+    var label = document.createElement("p"); label.className = "qlabel"; label.textContent = t(qdef.q);
+    var seg = document.createElement("div"); seg.className = "seg";
+    var tip = document.createElement("p"); tip.className = "tip"; tip.hidden = true;
+    qdef.opts.forEach(function(opt){
+      var btn = document.createElement("button"); btn.type = "button"; btn.textContent = t(opt.label);
+      btn.addEventListener("click", function(){
+        Array.prototype.slice.call(seg.querySelectorAll("button")).forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active"); tip.textContent = t(opt.tip); tip.hidden = false;
+      });
+      seg.appendChild(btn);
+    });
+    wrap.appendChild(label); wrap.appendChild(seg); wrap.appendChild(tip); body.appendChild(wrap);
+  });
+  var note = document.createElement("p"); note.className = "feedback-note"; note.textContent = t("feedback.note"); body.appendChild(note);
+}
+
+function resetToConfiguring(){
+  state.brew.running = false;
+  if(brewInterval) clearInterval(brewInterval);
+  if(countdownInterval) clearInterval(countdownInterval);
+  setMode("configuring");
+  if(sceneEl){ sceneEl.classList.remove("brewing","pouring","ready"); }
+  if(cupFillEl) cupFillEl.style.transform = "scaleY(0)";
+  if(dripperFillEl) dripperFillEl.style.transform = "scaleY(0)";
+  if(plungerEl) plungerEl.style.transform = "translateY(0px)";
+  renderToc();
+}
+
+function wireBrewControls(){
+  $("#ctaBrew").addEventListener("click", showPrepChecklist);
+  $("#prepGoBtn").addEventListener("click", beginCountdown);
+  $("#pauseBtn").addEventListener("click", function(){
+    if(!state.brew.running) return;
+    if(state.brew.paused){ state.brew.pausedAccum += performance.now()-state.brew.pauseStartedAt; state.brew.paused=false; setIcon("iconPause","pause"); }
+    else { state.brew.paused=true; state.brew.pauseStartedAt=performance.now(); setIcon("iconPause","play"); }
+  });
+  $("#skipBtn").addEventListener("click", function(){
+    if(!state.brew.recipe) return;
+    var st = findStage(state.brew.elapsed);
+    var target = st.nextMilestone;
+    state.brew.offset += (target-state.brew.elapsed);
+    state.brew.elapsed = target;
+    updateBrewUI(state.brew.elapsed);
+  });
+  $("#muteToggle").addEventListener("click", function(){
+    state.brew.muted = !state.brew.muted;
+    setIcon("iconSpeaker", state.brew.muted ? "speakerMute" : "speaker");
+    $("#muteToggle").classList.toggle("muted", state.brew.muted);
+  });
+  $("#adjustAgainBtn").addEventListener("click", resetToConfiguring);
+  $("#brewAgainBtn").addEventListener("click", beginCountdown);
+  setIcon("iconFeedback","droplet"); setIcon("iconFeedbackChevron","chevron");
+  $("#feedbackToggle").addEventListener("click", function(){
+    var hidden = !$("#feedbackBody").hidden;
+    $("#feedbackBody").hidden = hidden;
+    $("#feedbackToggle").classList.toggle("open", !hidden);
+  });
+}
+
+function setTheme(dark){ document.documentElement.classList.toggle("dark", dark); setIcon("iconTheme", dark ? "sun" : "moon"); }
+
+function setLang(lang){
+  if(lang === state.lang) return;
+  state.lang = lang;
+  applyI18n(); renderRecipePanel(); window.__applySegLabels();
+  $("#infoPanel").hidden = true;
+  $all(".info-btn").forEach(function(b){ b.classList.remove("active"); });
+  $("#pourInfoPanel").hidden = true;
+  if(state.selectedRecipe){
+    var r = RECIPES.filter(function(x){ return x.id===state.selectedRecipe; })[0];
+    $("#recipeTriggerLabel").innerHTML = '<span class="tag-pill '+r.tagClass+'" style="margin-right:8px;">'+r.device+'</span>'+r.name[state.lang] + (r.status==="soon" ? ' <span style="color:var(--ink-soft);font-weight:400;">· '+t("badge.soon")+'</span>' : '');
+    var cap = $("#illustrationCaption");
+    cap.innerHTML = "<strong>"+r.name[state.lang]+"</strong>" + (r.status==="soon" ? " · "+t("badge.soon") : "");
+  }
+  if(state.computed){ renderSummary(); populateHoverPanels(); }
+  if(state.brew.recipe && state.brew.doneShown){ renderToc(state.brew.elapsed, true); renderFeedback(); $("#feedbackBody").hidden = true; }
+  else if(state.brew.recipe && state.brew.running){ renderToc(state.brew.elapsed); }
+  else if(state.computed){ renderToc(); }
+}
+
+function init(){
+  mountScene("46");
+  $("#illustrationCaption").textContent = t("illustration.idle");
+  $("#recipeTriggerLabel").textContent = t("recipe.choose");
+  setIcon("chevronIcon","chevron"); setIcon("iconDose","bean"); setIcon("iconTemp","thermo"); setIcon("iconGrind","grind");
+  setIcon("iconClock","clock"); setIcon("iconDroplet","droplet"); setIcon("iconSpeaker","speaker"); setIcon("iconPause","pause"); setIcon("iconSkip","skipNext");
+  renderRecipePanel(); applyI18n(); wireSetupControls(); wireBrewControls(); setMode("idle");
+  closePanel();
+  populateHoverPanels();
+  var isTouch = window.matchMedia && !window.matchMedia("(hover: hover)").matches;
+  $all(".info-btn[data-info]").forEach(function(btn){
+    btn.addEventListener("click", function(e){
+      e.stopPropagation();
+      if(!isTouch) return;
+      var key = btn.getAttribute("data-info");
+      var wasActive = btn.classList.contains("active");
+      $all(".info-btn[data-info]").forEach(function(b){ b.classList.remove("active"); });
+      if(wasActive){ $("#infoPanel").hidden = true; }
+      else { btn.classList.add("active"); $("#infoPanel").textContent = t("info."+key); $("#infoPanel").hidden = false; }
+    });
+  });
+  $("#pourInfoBtn").addEventListener("click", function(e){
+    e.stopPropagation();
+    var wasActive = $("#pourInfoBtn").classList.contains("active");
+    $("#pourInfoBtn").classList.toggle("active", !wasActive);
+    $("#pourInfoPanel").textContent = t("tip.text46");
+    $("#pourInfoPanel").hidden = wasActive;
+  });
+  $("#recipeTrigger").addEventListener("click", function(e){ e.stopPropagation(); if($("#recipePanel").hidden){ openPanel(); } else { closePanel(); } });
+  document.addEventListener("click", function(e){ if(!$("#recipeSelect").contains(e.target)) closePanel(); });
+  $all("#langSwitch button").forEach(function(btn){ btn.addEventListener("click", function(){ setLang(btn.getAttribute("data-lang")); }); });
+  var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  setTheme(prefersDark);
+  $("#themeToggle").addEventListener("click", function(){ setTheme(!document.documentElement.classList.contains("dark")); });
+  $("#logoBtn").addEventListener("click", function(){
+    if(state.brew.running || state.mode === "countdown"){
+      if(!confirm(t("brew.cancelConfirm"))) return;
+      state.brew.running = false;
+      if(typeof brewInterval !== "undefined") clearInterval(brewInterval);
+      if(typeof countdownInterval !== "undefined") clearInterval(countdownInterval);
+      if(sceneEl) sceneEl.classList.remove("brewing","pouring","ready");
+      if(cupFillEl) cupFillEl.style.transform = "scaleY(0)";
+      if(dripperFillEl) dripperFillEl.style.transform = "scaleY(0)";
+      if(plungerEl) plungerEl.style.transform = "translateY(0px)";
+    }
+    state.selectedRecipe = null; state.activeType = null; state.computed = null;
+    state.brew.recipe = null; state.brew.doneShown = false;
+    setMode("idle"); mountScene("46");
+    $("#illustrationCaption").textContent = t("illustration.idle");
+    $("#recipeTriggerLabel").textContent = t("recipe.choose");
+    closePanel();
+  });
+}
+    if(typeof init === "function") init();
+  }
+}
+</script>
+</body>
+</html>
