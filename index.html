@@ -1035,8 +1035,9 @@ function setLang(lang){
     cap.innerHTML = "<strong>"+r.name[state.lang]+"</strong>" + (r.status==="soon" ? " · "+t("badge.soon") : "");
   }
   if(state.computed){ renderSummary(); populateHoverPanels(); }
+  if(state.mode==="prep"){ showPrepChecklist(); }
   if(state.brew.recipe && state.brew.doneShown){ renderToc(state.brew.elapsed, true); renderFeedback(); $("#feedbackBody").hidden = true; }
-  else if(state.brew.recipe && state.brew.running){ renderToc(state.brew.elapsed); }
+  else if(state.brew.recipe && state.brew.running){ updateBrewUI(state.brew.elapsed); }
   else if(state.computed){ renderToc(); }
 }
 
