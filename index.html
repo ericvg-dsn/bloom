@@ -9,35 +9,35 @@
 <x-dc>
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap">
-  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/cooper-hewitt">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Instrument+Serif:ital@0;1&amp;family=Space+Mono:wght@400;700&amp;display=swap">
   <style>
     :root{
-      --bg:#EBE8E1; --surface:rgba(23,21,15,.05); --tile:#EFEDE7;
-      --ink:#17150F; --ink-soft:#8A8475; --ink-soft2:#6E6757;
-      --line:rgba(23,21,15,.12); --line-strong:rgba(23,21,15,.22);
-      --accent:#2E22E0;
-      --accent-pour:#C9D9EA; --accent-pour-strong:#3F5C86;
-      --accent-wait:#EBE1A4; --accent-wait-strong:#897219;
-      --tag-v60:#E9E0A4; --tag-aeropress:#C7D7EA; --tag-frenchpress:#E3C7BB;
-      --on-accent:#17150F;
-      --fill-liquid:#9A6B3F; --fill-liquid-2:rgba(154,107,63,.42);
-      --radius-lg:18px; --radius-md:16px; --radius-sm:12px;
-      --font-display:'Merriweather',Georgia,serif;
-      --font-body:'Cooper Hewitt',system-ui,Segoe UI,sans-serif;
+      --bg:#F3E8E1; --surface:#FCF6F2; --tile:#ECDBD3;
+      --ink:#2A1F1F; --ink-soft:#9B847C; --ink-soft2:#73605A;
+      --line:rgba(42,31,31,.10); --line-strong:rgba(42,31,31,.18);
+      --accent:#C25E74; --accent-soft:#F3D9DF;
+      --accent-pour:#A9C6DE; --accent-pour-strong:#3F5F82;
+      --accent-wait:#EBC9A8; --accent-wait-strong:#9A6A3A;
+      --tag-v60:#EAD79A; --tag-aeropress:#AEC9DE; --tag-frenchpress:#E6AEBC;
+      --on-accent:#2A1F1F;
+      --fill-liquid:#A8662F; --fill-liquid-2:rgba(168,102,47,.4);
+      --radius-lg:12px; --radius-md:10px; --radius-sm:8px;
+      --font-display:'Instrument Serif',Georgia,serif;
+      --font-body:'Hanken Grotesk',system-ui,Segoe UI,sans-serif;
+      --font-mono:'Space Mono',ui-monospace,SFMono-Regular,monospace;
       --maxw:430px;
     }
     html.dark{
-      --bg:#161512; --surface:rgba(237,233,223,.05); --tile:#22201B;
-      --ink:#ECE8DE; --ink-soft:#8E887B; --ink-soft2:#A29C8F;
-      --line:rgba(237,233,223,.12); --line-strong:rgba(237,233,223,.22);
-      --accent:#8580FF;
-      --accent-pour:#2E4860; --accent-pour-strong:#9DBDE0;
-      --accent-wait:#4F451C; --accent-wait-strong:#D8C062;
-      --tag-v60:#49431F; --tag-aeropress:#2C4054; --tag-frenchpress:#49301F;
-      --on-accent:#ECE8DE;
-      --fill-liquid:#B07E4A; --fill-liquid-2:rgba(176,126,74,.4);
+      --bg:#1B171A; --surface:#272027; --tile:#2D2630;
+      --ink:#F0E6E4; --ink-soft:#A2908E; --ink-soft2:#BCA9A6;
+      --line:rgba(240,230,228,.10); --line-strong:rgba(240,230,228,.20);
+      --accent:#CA6A84; --accent-soft:#3A2530;
+      --accent-pour:#34506B; --accent-pour-strong:#A9C6DE;
+      --accent-wait:#5A4630; --accent-wait-strong:#E8C08A;
+      --tag-v60:#5A4A1E; --tag-aeropress:#32506B; --tag-frenchpress:#5A2E3C;
+      --on-accent:#F0E6E4;
+      --fill-liquid:#C58A5E; --fill-liquid-2:rgba(197,138,94,.4);
     }
     html{transition:background-color .25s ease;}
     *{box-sizing:border-box;}
@@ -52,21 +52,21 @@
 
     .topbar{display:flex;align-items:center;justify-content:space-between;padding:24px 2px 18px;}
     .topbar-id{display:flex;align-items:baseline;gap:9px;}
-    .logo{font-family:var(--font-body);font-weight:900;font-size:22px;letter-spacing:-.02em;cursor:pointer;text-decoration:none;color:inherit;text-transform:uppercase;background:none;border:none;padding:0;}
+    .logo{font-family:var(--font-display);font-weight:400;font-style:italic;font-size:30px;letter-spacing:.01em;cursor:pointer;text-decoration:none;color:inherit;background:none;border:none;padding:0;line-height:1;}
     .logo:hover{opacity:.7;}
-    .tagline{font-size:9px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;letter-spacing:.14em;}
+    .tagline{font-family:var(--font-mono);font-size:9px;color:var(--ink-soft);font-weight:400;text-transform:uppercase;letter-spacing:.1em;}
     .topbar-controls{display:flex;align-items:center;gap:8px;}
-    .lang-switch{display:flex;border:1.5px solid var(--line-strong);border-radius:999px;overflow:hidden;}
-    .lang-switch button{padding:5px 10px;font-size:10.5px;font-weight:700;background:none;border:none;color:var(--ink-soft);cursor:pointer;}
+    .lang-switch{display:flex;border:1.5px solid var(--line-strong);border-radius:8px;overflow:hidden;}
+    .lang-switch button{font-family:var(--font-mono);padding:5px 10px;font-size:10px;font-weight:700;background:none;border:none;color:var(--ink-soft);cursor:pointer;}
     .lang-switch button.active{background:var(--ink);color:var(--bg);}
-    .theme-toggle{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--line-strong);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);flex:0 0 auto;}
+    .theme-toggle{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--line-strong);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);flex:0 0 auto;}
     .theme-toggle:hover{border-color:var(--ink);color:var(--ink);}
 
     .section{padding:18px 2px;}
     .section + .section{border-top:1px solid var(--line);}
-    .eyebrow{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-soft);margin:0 0 12px;}
+    .eyebrow{font-family:var(--font-mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);margin:0 0 13px;}
 
-    .tag-pill{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:999px;color:var(--on-accent);}
+    .tag-pill{display:inline-block;font-family:var(--font-mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:3px 8px;border-radius:5px;color:var(--on-accent);}
     .tag-v60{background:var(--tag-v60);} .tag-aeropress{background:var(--tag-aeropress);} .tag-frenchpress{background:var(--tag-frenchpress);}
 
     .recipe-select{position:relative;}
@@ -81,29 +81,31 @@
     .recipe-row + .recipe-row{border-top:1px solid var(--line);}
     .recipe-row:hover{background:var(--surface);}
     .recipe-row .rinfo{flex:1;min-width:0;color:var(--ink);}
-    .recipe-row .rname{font-weight:700;font-size:14px;}
-    .recipe-row .rauthor{font-size:11px;color:var(--ink-soft);margin-top:3px;}
+    .recipe-row .rname{display:block;font-weight:700;font-size:15px;}
+    .recipe-row .rauthor{display:block;font-size:12px;color:var(--ink-soft);margin-top:6px;}
     .recipe-row .soon{font-size:9px;color:var(--ink-soft);text-transform:uppercase;font-weight:700;letter-spacing:.06em;}
 
     .illustration-zone{text-align:center;padding-top:4px;}
-    .illustration-frame{max-width:280px;margin:0 auto;}
-    .illustration-frame svg{width:100%;height:auto;display:block;}
-    .illustration-caption{font-size:12px;color:var(--ink-soft);margin-top:8px;min-height:16px;font-family:var(--font-display);font-style:italic;}
-    .illustration-caption strong{color:var(--ink);font-weight:700;font-style:normal;font-family:var(--font-body);}
+    .illustration-frame{max-width:282px;margin:0 auto;position:relative;}
+    .illustration-frame::before{content:"";position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);width:250px;height:250px;border-radius:50%;background:var(--accent-soft);z-index:0;}
+    .illustration-frame svg{position:relative;z-index:1;width:100%;height:auto;display:block;}
+    .illustration-caption{font-size:17px;color:var(--ink-soft2);margin-top:13px;min-height:18px;font-family:var(--font-display);font-style:italic;}
+    .illustration-caption strong{color:var(--ink);font-weight:400;font-style:normal;font-family:var(--font-display);}
 
     .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
     .stat{position:relative;background:var(--tile);border-radius:var(--radius-md);padding:14px 15px;text-align:left;}
-    .stat.stat-dark{background:var(--ink);color:var(--bg);}
+    .stat.stat-dark{background:var(--accent);color:#FBF6EC;}
     .stat-head{display:flex;align-items:center;gap:5px;margin-bottom:7px;}
-    .stat-label{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);}
-    .stat-dark .stat-label{color:var(--bg);opacity:.62;}
-    .stat-value{display:block;font-weight:900;font-size:25px;line-height:1.05;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
-    .stat-text .stat-value{font-size:17px;font-weight:700;letter-spacing:0;line-height:1.12;}
+    .stat-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);}
+    .stat-dark .stat-label{color:#FBF6EC;opacity:.72;}
+    .stat-value{display:block;font-family:var(--font-mono);font-weight:700;font-size:23px;line-height:1.08;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+    .stat-text .stat-value{font-family:var(--font-body);font-size:16px;font-weight:700;letter-spacing:0;line-height:1.14;}
     .info-btn{width:15px;height:15px;border-radius:50%;border:1.3px solid var(--line-strong);background:none;font-size:9px;font-weight:700;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0;line-height:1;}
-    .stat-dark .info-btn{border-color:rgba(235,232,225,.4);color:var(--bg);}
+    .stat-dark .info-btn{border-color:rgba(251,246,236,.45);color:#FBF6EC;}
     .info-btn.active,.info-btn:hover{border-color:currentColor;color:var(--ink);}
-    .stat-dark .info-btn.active,.stat-dark .info-btn:hover{color:var(--bg);}
-    @media (hover: hover){ .stat:hover .info-panel-hover{display:block;} .info-panel-hover{display:none;} }
+    .stat-dark .info-btn.active,.stat-dark .info-btn:hover{color:#FBF6EC;}
+    .info-panel-hover{display:none;}
+    @media (hover: hover){ .stat:hover .info-panel-hover{display:block;} }
     .info-panel{font-size:11.5px;color:var(--ink-soft);line-height:1.5;margin-top:10px;padding:10px 12px;background:var(--surface);border-radius:var(--radius-sm);}
     .stat .info-panel-hover{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:6;background:var(--ink);color:var(--bg);box-shadow:0 14px 30px rgba(0,0,0,.22);}
 
@@ -113,70 +115,73 @@
     .tip-text{font-size:12.5px;color:var(--ink-soft);line-height:1.55;}
 
     .prep-list{list-style:none;margin:0 0 18px;padding:0;}
-    .prep-item{display:flex;align-items:center;gap:13px;padding:12px 14px;font-size:13.5px;line-height:1.4;background:var(--tile);border-radius:var(--radius-sm);}
+    .prep-item{display:flex;align-items:center;gap:13px;padding:13px 15px;font-size:14.5px;line-height:1.4;background:var(--tile);border-radius:var(--radius-sm);}
     .prep-item + .prep-item{margin-top:8px;}
-    .prep-item-icon{width:38px;height:38px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+    .prep-item-icon{width:40px;height:40px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
     .prep-item-icon .icon{width:18px;height:18px;color:var(--ink-soft);}
 
     .stepper-card{background:var(--tile);border-radius:var(--radius-md);padding:4px 16px;}
     .stepper-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;}
     .stepper-row + .stepper-row{border-top:1px solid var(--line);}
-    .stepper-row .label{font-size:13.5px;font-weight:600;max-width:150px;line-height:1.25;}
+    .stepper-row .label{font-size:15px;font-weight:600;max-width:175px;line-height:1.25;}
     .stepper{display:flex;align-items:center;gap:10px;}
-    .stepper-btn{width:30px;height:30px;border-radius:9px;border:none;background:var(--bg);font-size:17px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);flex:0 0 auto;}
+    .stepper-btn{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);flex:0 0 auto;}
     .stepper-btn:last-child{background:var(--ink);color:var(--bg);}
     .stepper-btn:active{transform:scale(.92);}
     .stepper-input-wrap{display:flex;align-items:baseline;gap:3px;min-width:64px;justify-content:center;}
-    .stepper-input{font-size:15px;font-weight:700;width:42px;text-align:right;border:none;background:none;color:var(--ink);padding:0;-moz-appearance:textfield;font-family:var(--font-body);font-variant-numeric:tabular-nums;}
+    .stepper-input{font-family:var(--font-mono);font-size:14px;font-weight:700;width:44px;text-align:right;border:none;background:none;color:var(--ink);padding:0;-moz-appearance:textfield;font-variant-numeric:tabular-nums;}
     .stepper-input::-webkit-outer-spin-button,.stepper-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
     .stepper-input:focus{outline:none;}
     .stepper-unit,.stepper-prefix{font-size:13px;color:var(--ink-soft);font-weight:600;}
 
     .seg-block{padding:14px 0 0;}
-    .seg-block .label{font-size:13.5px;font-weight:600;margin-bottom:9px;}
+    .seg-block .label{font-size:15px;font-weight:600;margin-bottom:11px;}
     .seg{display:flex;gap:7px;}
-    .seg button{flex:1;padding:9px 4px;border-radius:999px;border:1.5px solid var(--line-strong);background:none;font-size:11.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;}
+    .seg button{flex:1;padding:10px 4px;border-radius:8px;border:1.5px solid var(--line-strong);background:none;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;}
     .seg button.active{background:var(--ink);border-color:var(--ink);color:var(--bg);}
-    .seg-block .micro{font-size:11px;color:var(--ink-soft);margin-top:9px;line-height:1.45;}
+    .seg-block .micro{font-size:12.5px;color:var(--ink-soft2);margin-top:11px;line-height:1.5;}
 
     .pour-toc{list-style:none;margin:0;padding:0;}
-    .toc-row{display:flex;align-items:baseline;gap:10px;padding:11px 12px;border-radius:var(--radius-sm);opacity:.5;transition:opacity .25s ease,background .25s ease;}
-    .toc-num{font-weight:800;font-size:14px;width:20px;flex:0 0 auto;font-variant-numeric:tabular-nums;}
+    .toc-row{display:flex;align-items:center;gap:14px;padding:14px 15px;border-radius:10px;background:var(--tile);transition:opacity .25s ease,background .25s ease;}
+    .toc-row + .toc-row{margin-top:9px;}
+    .toc-num{font-family:var(--font-mono);font-weight:700;font-size:15px;width:32px;height:32px;border-radius:7px;background:var(--bg);color:var(--ink);display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-variant-numeric:tabular-nums;}
     .toc-spacer{flex:1;}
-    .toc-value{font-size:13px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;}
-    .toc-value .sep{color:var(--ink-soft);font-weight:400;margin:0 5px;}
-    .toc-row.current{opacity:1;background:var(--tile);}
-    .toc-row.current.state-pour{box-shadow:inset 3px 0 0 var(--accent-pour-strong);}
-    .toc-row.current.state-wait{box-shadow:inset 3px 0 0 var(--accent-wait-strong);}
-    .toc-row.done{opacity:.45;}
+    .toc-value{font-family:var(--font-mono);font-size:15px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--ink);}
+    .toc-value .sep{color:var(--ink-soft);font-weight:400;margin:0 6px;}
+    .toc-row.current{background:var(--accent-soft);}
+    .toc-row.current.state-pour{box-shadow:inset 4px 0 0 var(--accent-pour-strong);}
+    .toc-row.current.state-wait{box-shadow:inset 4px 0 0 var(--accent-wait-strong);}
+    .toc-row.done{opacity:.5;}
     .toc-row.done .toc-num{text-decoration:line-through;}
 
-    .timer-pills{display:flex;gap:10px;margin-bottom:18px;}
+    .timer-pills{display:flex;gap:10px;margin-bottom:12px;}
+    .brew-progress{height:8px;border-radius:5px;background:var(--tile);overflow:hidden;margin-bottom:18px;}
+    .brew-progress-fill{display:block;height:100%;width:0;border-radius:5px;background:var(--accent);transition:width .25s linear;}
     .pill{flex:1;display:flex;align-items:center;gap:8px;background:var(--tile);border-radius:var(--radius-md);padding:11px 13px;}
     .pill .icon{color:var(--ink-soft);}
     .pill-text{display:flex;flex-direction:column;line-height:1.15;}
-    .pill-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);}
-    .pill-value{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;}
+    .pill-label{font-family:var(--font-mono);font-size:8px;font-weight:400;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);}
+    .pill-value{font-family:var(--font-mono);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;}
 
     .timer-main{text-align:center;margin-bottom:4px;}
-    .timer-state-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-weight:800;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--on-accent);}
+    .timer-state-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:7px;font-family:var(--font-mono);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-accent);}
     .timer-state-pill.state-pour{background:var(--accent-pour);} .timer-state-pill.state-wait{background:var(--accent-wait);}
-    .timer-big{display:block;font-weight:900;font-size:60px;line-height:1.02;margin:10px 0 2px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
+    .timer-big{display:block;font-family:var(--font-mono);font-weight:700;font-size:58px;line-height:1.02;margin:12px 0 2px;letter-spacing:-.04em;font-variant-numeric:tabular-nums;}
     .timer-sub{font-size:15px;font-weight:600;color:var(--ink-soft);}
-    .timer-sub-pour{font-size:17px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+    .timer-sub-pour{font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
     .timer-controls{display:flex;gap:8px;justify-content:center;margin-top:20px;}
-    .ctrl-btn{width:46px;height:46px;border-radius:50%;border:none;background:var(--tile);cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+    .ctrl-btn{width:48px;height:48px;border-radius:10px;border:none;background:var(--tile);cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
     .ctrl-btn .icon{width:17px;height:17px;}
     .ctrl-btn:hover{background:var(--line);}
     .ctrl-btn:active{transform:scale(.93);}
     .ctrl-btn.muted{background:var(--ink);color:var(--bg);}
 
-    .countdown-num{font-weight:900;font-size:70px;text-align:center;margin:8px 0;font-variant-numeric:tabular-nums;}
-    .countdown-label{text-align:center;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--ink-soft);}
+    .countdown-num{font-family:var(--font-mono);font-weight:700;font-size:66px;text-align:center;margin:8px 0;font-variant-numeric:tabular-nums;}
+    .countdown-label{font-family:var(--font-mono);text-align:center;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:11px;color:var(--ink-soft);}
 
     .feedback-zone{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);}
     .feedback-cta{display:flex;align-items:center;gap:12px;cursor:pointer;background:var(--tile);border:none;border-radius:var(--radius-md);padding:14px 16px;width:100%;text-align:left;color:var(--ink);}
-    .feedback-cta-icon{width:34px;height:34px;border-radius:50%;background:var(--accent-wait);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+    .feedback-cta-icon{width:36px;height:36px;border-radius:8px;background:var(--accent-wait);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
     .feedback-cta-icon .icon{width:16px;height:16px;color:var(--accent-wait-strong);}
     .feedback-cta-text{flex:1;}
     .feedback-cta-title{font-weight:700;font-size:13.5px;}
@@ -187,18 +192,20 @@
     .feedback-q{margin-bottom:22px;}
     .feedback-q .qlabel{font-size:12.5px;font-weight:700;margin-bottom:11px;}
     .feedback-q .seg{flex-wrap:wrap;gap:7px;}
-    .feedback-q .seg button{flex:unset;padding:8px 14px;border-radius:999px;font-size:11.5px;font-weight:600;border:1.5px solid var(--line-strong);background:none;color:var(--ink-soft);cursor:pointer;}
+    .feedback-q .seg button{flex:unset;padding:9px 14px;border-radius:8px;font-size:12.5px;font-weight:600;border:1.5px solid var(--line-strong);background:none;color:var(--ink-soft);cursor:pointer;}
     .feedback-q .seg button.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
     .feedback-q .tip{font-size:12px;color:var(--ink);line-height:1.55;margin-top:11px;padding:11px 13px;background:var(--accent-wait);border-radius:var(--radius-sm);}
     .feedback-note{font-size:10.5px;color:var(--ink-soft);font-style:italic;margin-top:8px;padding-top:14px;border-top:1px solid var(--line);}
 
     .done-banner{text-align:center;padding:6px 0 2px;}
-    .done-banner h2{font-family:var(--font-display);font-style:italic;font-weight:900;font-size:30px;margin:0 0 6px;letter-spacing:-.01em;}
+    .done-icon{display:block;width:44px;height:44px;margin:2px auto 12px;color:var(--accent);}
+    .done-icon svg{width:100%;height:100%;}
+    .done-banner h2{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:36px;margin:0 0 6px;letter-spacing:0;}
     .done-banner p{font-size:13px;color:var(--ink-soft);margin-bottom:18px;}
     .done-actions{display:flex;gap:9px;}
 
-    .btn{border:none;border-radius:999px;padding:15px 20px;font-size:14.5px;font-weight:700;cursor:pointer;width:100%;font-family:var(--font-body);}
-    .btn-primary{background:var(--ink);color:var(--bg);}
+    .btn{border:none;border-radius:8px;padding:16px 20px;font-size:15px;font-weight:700;cursor:pointer;width:100%;font-family:var(--font-body);}
+    .btn-primary{background:var(--accent);color:#FBF6EC;}
     .btn-primary:active{transform:scale(.985);}
     .btn-ghost{background:none;border:1.5px solid var(--line-strong);color:var(--ink);}
     .btn:focus-visible,.seg button:focus-visible,.stepper-btn:focus-visible,.recipe-select-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
@@ -255,7 +262,7 @@
         <span class="left"><span class="rname" id="recipeTriggerLabel"></span></span>
         <span class="icon chevron" id="chevronIcon"></span>
       </button>
-      <div class="recipe-panel" id="recipePanel" hidden></div>
+      <div class="recipe-panel" id="recipePanel" hidden=""></div>
     </div>
   </div>
 
@@ -268,33 +275,30 @@
     </div>
 
     <div>
-      <div class="section" id="statsSection" hidden>
+      <div class="section" id="statsSection" hidden="">
         <p class="eyebrow" data-i18n="summary.eyebrow"></p>
         <div class="stats-row">
           <div class="stat stat-dark" id="statDose">
-            <span class="stat-head"><span class="stat-label" data-i18n="summary.dose"></span><button class="info-btn" type="button" data-info="dose">i</button></span>
+            <span class="stat-head"><span class="stat-label" data-i18n="summary.dose"></span></span>
             <span class="stat-value num" id="doseOut"></span>
-            <p class="info-panel info-panel-hover" id="infoDoseHover"></p>
           </div>
           <div class="stat" id="statTemp">
-            <span class="stat-head"><span class="stat-label" data-i18n="summary.temp"></span><button class="info-btn" type="button" data-info="temp">i</button></span>
+            <span class="stat-head"><span class="stat-label" data-i18n="summary.temp"></span></span>
             <span class="stat-value num" id="tempOut"></span>
-            <p class="info-panel info-panel-hover" id="infoTempHover"></p>
           </div>
           <div class="stat stat-text" id="statGrind">
-            <span class="stat-head"><span class="stat-label" data-i18n="summary.grind"></span><button class="info-btn" type="button" data-info="grind">i</button></span>
+            <span class="stat-head"><span class="stat-label" data-i18n="summary.grind"></span></span>
             <span class="stat-value" id="grindOut"></span>
-            <p class="info-panel info-panel-hover" id="infoGrindHover"></p>
           </div>
           <div class="stat" id="statWater">
             <span class="stat-head"><span class="stat-label" data-i18n="summary.water"></span></span>
             <span class="stat-value num" id="waterOut"></span>
           </div>
         </div>
-        <p class="info-panel" id="infoPanel" hidden></p>
+        <p class="info-panel" id="infoPanel" hidden=""></p>
       </div>
 
-      <div class="section" id="settingsSection" hidden>
+      <div class="section" id="settingsSection" hidden="">
         <p class="eyebrow" data-i18n="settings.eyebrow"></p>
         <div class="stepper-card">
           <div class="stepper-row">
@@ -336,32 +340,32 @@
           <p class="micro" data-i18n="settings.strengthMicro"></p>
         </div>
 
-        <p class="tip-text" id="fpNote" hidden style="margin-top:14px;" data-i18n="fp.note"></p>
+        <p class="tip-text" id="fpNote" hidden="" style="margin-top:14px;" data-i18n="fp.note"></p>
       </div>
 
-      <div class="section" id="prepSection" hidden>
+      <div class="section" id="prepSection" hidden="">
         <p class="eyebrow" data-i18n="prep.eyebrow"></p>
         <ul class="prep-list" id="prepList"></ul>
         <button class="btn btn-primary" id="prepGoBtn" type="button" data-i18n="prep.cta"></button>
       </div>
 
-      <div class="section" id="timerSection" hidden>
+      <div class="section" id="timerSection" hidden="">
         <div class="timer-module">
-          <div id="countdownZone" hidden>
+          <div id="countdownZone" hidden="">
             <p class="countdown-label" data-i18n="brew.getReady"></p>
             <span class="countdown-num num" id="countdownNum">3</span>
           </div>
-          <div id="runningZone" hidden>
+          <div id="runningZone" hidden="">
             <div class="timer-pills">
               <span class="pill"><span class="icon" id="iconClock"></span><span class="pill-text"><span class="pill-label" data-i18n="brew.totalLabel"></span><span class="pill-value num" id="pillTotal"></span></span></span>
               <span class="pill"><span class="icon" id="iconDroplet"></span><span class="pill-text"><span class="pill-label" data-i18n="brew.positionTinyLabel"></span><span class="pill-value num" id="pillPosition"></span></span></span>
             </div>
+            <div class="brew-progress"><span class="brew-progress-fill" id="brewProgressFill"></span></div>
             <div class="timer-main">
               <span style="display:inline-flex;align-items:center;gap:7px;">
                 <span class="timer-state-pill" id="timerStatePill"></span>
-                <button class="info-btn" type="button" id="pourInfoBtn" aria-label="how to pour" style="width:17px;height:17px;font-size:10px;">i</button>
               </span>
-              <p class="info-panel" id="pourInfoPanel" hidden style="font-size:12px;text-align:left;margin:10px 0 0;"></p>
+              <p class="info-panel" id="pourInfoPanel" hidden="" style="font-size:12px;text-align:left;margin:10px 0 0;"></p>
               <span class="timer-big num" id="timerBig"></span>
               <span class="timer-sub" id="timerSub"></span>
             </div>
@@ -374,13 +378,14 @@
         </div>
       </div>
 
-      <div class="section" id="tocSection" hidden>
+      <div class="section" id="tocSection" hidden="">
         <p class="eyebrow" data-i18n="toc.eyebrow"></p>
         <ol class="pour-toc" id="pourToc"></ol>
       </div>
 
-      <div class="section" id="doneSection" hidden>
+      <div class="section" id="doneSection" hidden="">
         <div class="done-banner">
+          <span class="done-icon" id="iconDone" aria-hidden="true"></span>
           <h2 data-i18n="brew.doneTitle"></h2>
           <p data-i18n="brew.doneSub"></p>
           <div class="done-actions">
@@ -397,11 +402,11 @@
             </span>
             <span class="icon feedback-cta-chevron" id="iconFeedbackChevron"></span>
           </button>
-          <div class="feedback-body" id="feedbackBody" hidden></div>
+          <div class="feedback-body" id="feedbackBody" hidden=""></div>
         </div>
       </div>
 
-      <div class="section" id="ctaSection" hidden style="border-top:none;">
+      <div class="section" id="ctaSection" hidden="" style="border-top:none;">
         <button class="btn btn-primary" id="ctaBrew" type="button" data-i18n="settings.cta"></button>
       </div>
     </div>
@@ -416,20 +421,21 @@ class Component extends DCLogic {
   boot(){
     "use strict";
     var ICONS = {
-  clock:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.3"/><path d="M8 4.6V8.2L10.6 9.8"/></svg>',
-  droplet:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M8 1.6C8 1.6 3 7.3 3 10.4A5 5 0 0 0 13 10.4C13 7.3 8 1.6 8 1.6Z"/></svg>',
-  bean:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2.1C4.4 2.1 1.8 4.9 1.8 8S4.4 13.9 8 13.9 14.2 11.1 14.2 8 11.6 2.1 8 2.1Z"/><path d="M5.3 4.3C7 6 7 10 5.3 11.7" stroke-linecap="round"/></svg>',
-  thermo:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9.2 2.6a1.5 1.5 0 0 0-3 0v6.5a3 3 0 1 0 3 0Z"/><circle cx="7.7" cy="11.6" r="1.1" fill="currentColor" stroke="none"/></svg>',
-  grind:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><circle cx="5" cy="6.2" r="1.05"/><circle cx="9.3" cy="4.9" r="1.3"/><circle cx="11.2" cy="9" r="1"/><circle cx="6.4" cy="10.6" r="1.4"/><circle cx="9.6" cy="11.6" r=".8"/></svg>',
-  chevron:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6L8 10.4L12.5 6"/></svg>',
-  speaker:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="M2 6.1h2.5L8 3.3v9.4L4.5 9.9H2Z"/><path d="M10.3 5.6a3.3 3.3 0 0 1 0 4.8M12.1 3.7a6.1 6.1 0 0 1 0 8.6"/></svg>',
-  speakerMute:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="M2 6.1h2.5L8 3.3v9.4L4.5 9.9H2Z"/><path d="M10.6 6.4l3.4 3M14 6.4l-3.4 3"/></svg>',
-  pause:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><rect x="4" y="3" width="2.6" height="10" rx="1"/><rect x="9.4" y="3" width="2.6" height="10" rx="1"/></svg>',
-  play:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><path d="M5 3.2v9.6c0 .7.8 1.1 1.4.7l7-4.8c.5-.4.5-1.1 0-1.4l-7-4.8C5.8 2.1 5 2.5 5 3.2Z"/></svg>',
-  skipNext:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><rect x="10.4" y="3" width="2" height="10" rx="1"/><path d="M3.2 3.6v8.8c0 .7.8 1.1 1.4.7l6-4.4c.5-.4.5-1.1 0-1.4l-6-4.4c-.6-.4-1.4 0-1.4.7Z"/></svg>',
-  sun:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="3.1"/><path d="M8 1.6v1.6M8 12.8v1.6M14.4 8h-1.6M3.2 8H1.6M12.5 3.5l-1.1 1.1M4.6 11.4l-1.1 1.1M12.5 12.5l-1.1-1.1M4.6 4.6 3.5 3.5"/></svg>',
+  clock:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.7V8.2L10.5 9.7"/></svg>',
+  droplet:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M8 1.8C8 1.8 3.2 7.1 3.2 10.3A4.8 4.8 0 0 0 12.8 10.3C12.8 7.1 8 1.8 8 1.8Z"/></svg>',
+  bean:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><ellipse cx="8" cy="8" rx="5.6" ry="6"/><path d="M5.6 4.6C7.2 6 7.2 10 5.6 11.4"/></svg>',
+  thermo:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 2.7a1.5 1.5 0 0 0-3 0v6.4a3 3 0 1 0 3 0Z"/><circle cx="7.7" cy="11.5" r="1" fill="currentColor" stroke="none"/></svg>',
+  grind:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><circle cx="5" cy="6" r="1.15"/><circle cx="9.4" cy="4.8" r="1.35"/><circle cx="11.2" cy="9" r="1.05"/><circle cx="6.3" cy="10.5" r="1.45"/><circle cx="9.7" cy="11.6" r=".85"/></svg>',
+  chevron:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6L8 10.4L12.5 6"/></svg>',
+  speaker:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="M2 6.1h2.5L8 3.3v9.4L4.5 9.9H2Z"/><path d="M10.3 5.6a3.3 3.3 0 0 1 0 4.8M12.1 3.7a6.1 6.1 0 0 1 0 8.6"/></svg>',
+  speakerMute:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="M2 6.1h2.5L8 3.3v9.4L4.5 9.9H2Z"/><path d="M10.6 6.4l3.4 3M14 6.4l-3.4 3"/></svg>',
+  pause:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><rect x="4" y="3" width="2.7" height="10" rx="1.3"/><rect x="9.3" y="3" width="2.7" height="10" rx="1.3"/></svg>',
+  play:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><path d="M5 3.4v9.2c0 .7.8 1.1 1.4.7l6.8-4.6c.5-.4.5-1.1 0-1.5L6.4 2.7C5.8 2.3 5 2.7 5 3.4Z"/></svg>',
+  skipNext:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><rect x="10.4" y="3.2" width="2" height="9.6" rx="1"/><path d="M3.4 3.8v8.4c0 .7.8 1.1 1.4.7l5.8-4.2c.5-.4.5-1.1 0-1.5L4.8 3.1c-.6-.4-1.4 0-1.4.7Z"/></svg>',
+  sun:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="3"/><path d="M8 1.7v1.5M8 12.8v1.5M14.3 8h-1.5M3.2 8H1.7M12.4 3.6l-1 1M4.6 11.4l-1 1M12.4 12.4l-1-1M4.6 4.6l-1-1"/></svg>',
   moon:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><path d="M13.6 9.9A6 6 0 0 1 6.1 2.4a6 6 0 1 0 7.5 7.5Z"/></svg>',
-  check:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.4l3 3 7-7"/></svg>'
+  cup:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 5.5h7.2v3.6a2.6 2.6 0 0 1-2.6 2.6H5.8a2.6 2.6 0 0 1-2.6-2.6Z"/><path d="M10.4 6.4h1.4a1.6 1.6 0 0 1 0 3.2h-1.4"/><path d="M5.2 2.2v1.4M7.6 2.2v1.4"/></svg>',
+  check:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.4l3 3 7-7"/></svg>'
 };
 function setIcon(id,name){ var el=document.getElementById(id); if(el) el.innerHTML = ICONS[name]; }
 
@@ -437,53 +443,53 @@ var I18N = {
   pt: {
     topbar:{ tagline:"guia de métodos" },
     badge:{ soon:"em breve" },
-    recipe:{ choose:"selecione um método" },
-    illustration:{ idle:"escolha um método acima" },
-    settings:{ eyebrow:"ajuste sua receita", volume:"quanto café você quer preparar", ratio:"proporção", balance:"equilíbrio", balanceMicro:"despejo inicial menor = mais doce. despejo inicial maior = mais ácido.", body:"corpo", strengthMicro:"menos despejos na segunda fase = corpo mais encorpado.", cta:"iniciar preparo" },
+    recipe:{ choose:"Selecione um método" },
+    illustration:{ idle:"Escolha um método acima" },
+    settings:{ eyebrow:"ajuste sua receita", volume:"Quanto café preparar?", ratio:"Proporção", balance:"Equilíbrio", balanceMicro:"Despejo inicial menor adoça; maior realça a acidez.", body:"Corpo", strengthMicro:"Menos despejos = corpo mais encorpado.", cta:"Iniciar preparo" },
     summary:{ eyebrow:"antes de começar", dose:"café necessário", temp:"temperatura", grind:"moagem", water:"água total" },
-    info:{ dose:"Calculado a partir do volume e da proporção escolhidos. Pesar o café é mais preciso do que medir por colheres.", temp:"92°C funciona bem pra torras claras e médias. Torras escuras pedem menos calor — tente 86–88°C pra evitar amargor.", grind:"Mais grossa que o V60 convencional. Referência comum nos fóruns: textura de sal marinho grosso. O método tem várias drenagens — moagem fina trava a água e extrai demais." },
-    tip:{ eyebrow:"como despejar", text46:"Despeje em espiral, de dentro pra fora, sem tocar nas bordas do filtro. Pare ao atingir a marca e deixe drenar antes do próximo despejo." },
-    prep:{ eyebrow:"checklist rápido", cta:"pronto, começar despejo", item1:"moa o café — moagem {grind}", item2:"aqueça a água a {temp}", item3:"escalde o filtro e aqueça a coadeira" },
+    info:{ dose:"Calculado pelo volume e proporção. Pese o café — é mais preciso que medir por colheres.", temp:"92°C vai bem em torras claras e médias. Torras escuras: 86–88°C pra evitar amargor.", grind:"Mais grossa que o V60 comum — textura de sal grosso. Moagem fina trava a água e extrai demais." },
+    tip:{ eyebrow:"como despejar", text46:"Despeje em espiral, do centro pra fora, sem tocar no filtro. Pare na marca e deixe drenar antes do próximo." },
+    prep:{ eyebrow:"checklist rápido", cta:"Pronto, começar despejo", item1:"Moa o café — moagem {grind}", item2:"Aqueça a água a {temp}", item3:"Escalde o filtro e aqueça a coadeira" },
     fp:{ note:"Proporção recomendada: 1:12 a 1:14. Essa receita não tem ajuste de equilíbrio ou corpo — o método Hoffmann é fixo por design. Os 5 minutos de descanso são essenciais: é o que elimina a borra da xícara.", stepPour:"despeje toda a água de uma vez", stepSteep:"aguarde (não mexa)", stepSkim:"quebre a crosta, retire a espuma", stepRest:"descanse — borras assentam", stepPlunge:"pressione até a superfície, sirva", prepItem3:"separe duas colheres — você vai usá-las pra quebrar a crosta", grindWord:"médio-grossa" },
     toc:{ eyebrow:"sua receita, passo a passo" },
-    brew:{ getReady:"prepare-se", pouringState:"despejando", waitingState:"aguarde", pourLabel:"até {x}", waitLabel:"até o despejo {n}", waitLabelEnd:"até finalizar", totalLabel:"tempo total", positionTinyLabel:"passo", positionLabel:"{i}/{n}", skip:"pular", pause:"pausar", resume:"continuar", doneTitle:"pronto! ☕", doneSub:"seu café está servido. aproveite a xícara.", adjust:"ajustar receita", again:"preparar de novo", cancelConfirm:"Cancelar o preparo em andamento?" },
+    brew:{ getReady:"prepare-se", pouringState:"despejando", waitingState:"aguarde", pourLabel:"até {x}", waitLabel:"até o despejo {n}", waitLabelEnd:"até finalizar", totalLabel:"tempo total", positionTinyLabel:"passo", positionLabel:"{i}/{n}", skip:"pular", pause:"pausar", resume:"continuar", doneTitle:"Tudo pronto", doneSub:"Seu café está servido. Aproveite a xícara.", adjust:"Ajustar receita", again:"Preparar de novo", cancelConfirm:"Cancelar o preparo em andamento?" },
     footer:{ note:"feito à mão, um despejo de cada vez" },
     grindWord:"médio-grossa",
-    feedback:{ toggle:"como ficou seu café?", sub:"avalie o resultado e receba dicas de ajuste", timeQ:"o tempo de preparo bateu com o esperado?", timeFast:"drenou rápido demais", timeRight:"no tempo certo", timeSlow:"demorou demais", timeFastTip:"da próxima vez, tente uma moagem um pouco mais fina.", timeRightTip:"ótimo — sua moagem está bem calibrada para essa receita.", timeSlowTip:"da próxima vez, tente uma moagem um pouco mais grossa.", bodyQ:"o corpo ficou como você esperava?", bodyLight:"mais leve do que eu queria", bodyRight:"como eu queria", bodyFull:"mais encorpado do que eu queria", bodyLightTip:"tente mais despejos na segunda fase, ou uma moagem um pouco mais fina.", bodyRightTip:"essa configuração de corpo é a sua cara — guarde ela.", bodyFullTip:"tente menos despejos na segunda fase, ou uma moagem um pouco mais grossa.", balanceQ:"o equilíbrio doce/ácido ficou como esperava?", balanceAcidic:"mais ácido do que eu queria", balanceRight:"equilibrado, como eu queria", balanceSweet:"mais doce do que eu queria", balanceAcidicTip:"tente diminuir um pouco a temperatura, ou mover o equilíbrio pro lado doce.", balanceRightTip:"essa é a sua xícara — guarde essa configuração.", balanceSweetTip:"tente aumentar um pouco a temperatura, ou mover o equilíbrio pro lado ácido.", fpStrengthQ:"a força ficou como você esperava?", fpWeak:"fraca, aguada", fpStrengthRight:"equilibrada", fpStrong:"forte demais", fpWeakTip:"tente uma moagem um pouco mais fina, ou diminua o número da proporção (mais café).", fpStrengthRightTip:"essa proporção e moagem são a sua cara — guarde.", fpStrongTip:"tente uma moagem um pouco mais grossa, ou aumente o número da proporção (menos café).", fpSedimentQ:"teve bastante sedimento (borra) na xícara?", fpSedimentLots:"bastante", fpSedimentSome:"um pouco", fpSedimentClean:"limpinho", fpSedimentLotsTip:"capriche em tirar a espuma e os grãos ao quebrar a crosta, e não pressione o êmbolo até o fundo.", fpSedimentSomeTip:"quase lá — deixe descansar um pouco mais antes de pressionar.", fpSedimentCleanTip:"sua técnica de quebrar a crosta está afiada.", note:"são só pistas pra ajustar — o ponto da torra também interfere bastante no resultado." }
+    feedback:{ toggle:"Como ficou seu café?", sub:"Avalie o resultado e receba dicas de ajuste", timeQ:"o tempo de preparo bateu com o esperado?", timeFast:"drenou rápido demais", timeRight:"no tempo certo", timeSlow:"demorou demais", timeFastTip:"da próxima vez, tente uma moagem um pouco mais fina.", timeRightTip:"ótimo — sua moagem está bem calibrada para essa receita.", timeSlowTip:"da próxima vez, tente uma moagem um pouco mais grossa.", bodyQ:"o corpo ficou como você esperava?", bodyLight:"mais leve do que eu queria", bodyRight:"como eu queria", bodyFull:"mais encorpado do que eu queria", bodyLightTip:"tente mais despejos na segunda fase, ou uma moagem um pouco mais fina.", bodyRightTip:"essa configuração de corpo é a sua cara — guarde ela.", bodyFullTip:"tente menos despejos na segunda fase, ou uma moagem um pouco mais grossa.", balanceQ:"o equilíbrio doce/ácido ficou como esperava?", balanceAcidic:"mais ácido do que eu queria", balanceRight:"equilibrado, como eu queria", balanceSweet:"mais doce do que eu queria", balanceAcidicTip:"tente diminuir um pouco a temperatura, ou mover o equilíbrio pro lado doce.", balanceRightTip:"essa é a sua xícara — guarde essa configuração.", balanceSweetTip:"tente aumentar um pouco a temperatura, ou mover o equilíbrio pro lado ácido.", fpStrengthQ:"a força ficou como você esperava?", fpWeak:"fraca, aguada", fpStrengthRight:"equilibrada", fpStrong:"forte demais", fpWeakTip:"tente uma moagem um pouco mais fina, ou diminua o número da proporção (mais café).", fpStrengthRightTip:"essa proporção e moagem são a sua cara — guarde.", fpStrongTip:"tente uma moagem um pouco mais grossa, ou aumente o número da proporção (menos café).", fpSedimentQ:"teve bastante sedimento (borra) na xícara?", fpSedimentLots:"bastante", fpSedimentSome:"um pouco", fpSedimentClean:"limpinho", fpSedimentLotsTip:"capriche em tirar a espuma e os grãos ao quebrar a crosta, e não pressione o êmbolo até o fundo.", fpSedimentSomeTip:"quase lá — deixe descansar um pouco mais antes de pressionar.", fpSedimentCleanTip:"sua técnica de quebrar a crosta está afiada.", note:"são só pistas pra ajustar — o ponto da torra também interfere bastante no resultado." }
   },
   en: {
     topbar:{ tagline:"pour-over guide" },
     badge:{ soon:"soon" },
-    recipe:{ choose:"choose a method" },
-    illustration:{ idle:"choose a method above" },
-    settings:{ eyebrow:"adjust your recipe", volume:"how much coffee do you want to make", ratio:"ratio", balance:"balance", balanceMicro:"smaller first pour = sweeter. larger first pour = more acidic.", body:"body", strengthMicro:"fewer pours in the second phase = fuller body.", cta:"start brewing" },
+    recipe:{ choose:"Choose a method" },
+    illustration:{ idle:"Choose a method above" },
+    settings:{ eyebrow:"adjust your recipe", volume:"How much coffee?", ratio:"Ratio", balance:"Balance", balanceMicro:"Smaller first pour sweetens; larger adds acidity.", body:"Body", strengthMicro:"Fewer pours = fuller body.", cta:"Start brewing" },
     summary:{ eyebrow:"before you start", dose:"coffee needed", temp:"temperature", grind:"grind", water:"total water" },
-    info:{ dose:"Calculated from the volume and ratio you chose. Weighing the coffee is more precise than scooping it.", temp:"92°C works well for light and medium roasts. Dark roasts want less heat — try 86–88°C to avoid bitterness.", grind:"Coarser than a standard V60. The common reference on r/coffee and r/V60: sea salt texture. The method has several drawdown cycles — fine grind stalls the water and over-extracts." },
-    tip:{ eyebrow:"how to pour", text46:"Pour in a spiral, from the center outward, without touching the filter's edges. Stop at the target and let it drain before the next pour." },
-    prep:{ eyebrow:"quick checklist", cta:"ready, start pouring", item1:"grind your coffee — {grind}", item2:"heat the water to {temp}", item3:"rinse the filter and warm the server" },
+    info:{ dose:"Calculated from your volume and ratio. Weigh the coffee — more precise than scooping.", temp:"92°C suits light and medium roasts. Dark roasts: 86–88°C to avoid bitterness.", grind:"Coarser than a standard V60 — sea-salt texture. Fine grind stalls the water and over-extracts." },
+    tip:{ eyebrow:"how to pour", text46:"Pour in a spiral, center outward, without touching the filter. Stop at the target and let it drain." },
+    prep:{ eyebrow:"quick checklist", cta:"Ready, start pouring", item1:"Grind your coffee — {grind}", item2:"Heat the water to {temp}", item3:"Rinse the filter and warm the server" },
     fp:{ note:"Recommended ratio: 1:12 to 1:14. This recipe has no balance or body dials — Hoffmann's method is intentionally fixed. The 5-minute rest is the key step: it lets all the grounds sink, giving you a much cleaner cup than a traditional French press.", stepPour:"pour all the water at once", stepSteep:"wait (don't stir)", stepSkim:"break the crust, skim the foam", stepRest:"rest — grounds settle", stepPlunge:"press to the surface, serve", prepItem3:"grab two spoons — you'll need them to break the crust", grindWord:"medium-coarse" },
     toc:{ eyebrow:"your recipe, step by step" },
-    brew:{ getReady:"get ready", pouringState:"pouring", waitingState:"wait", pourLabel:"to {x}", waitLabel:"until pour {n}", waitLabelEnd:"until it's done", totalLabel:"total time", positionTinyLabel:"step", positionLabel:"{i}/{n}", skip:"skip", pause:"pause", resume:"resume", doneTitle:"done! ☕", doneSub:"your coffee's ready. enjoy the cup.", adjust:"adjust recipe", again:"brew again", cancelConfirm:"Cancel the brew in progress?" },
+    brew:{ getReady:"get ready", pouringState:"pouring", waitingState:"wait", pourLabel:"to {x}", waitLabel:"until pour {n}", waitLabelEnd:"until it's done", totalLabel:"total time", positionTinyLabel:"step", positionLabel:"{i}/{n}", skip:"skip", pause:"pause", resume:"resume", doneTitle:"All set", doneSub:"Your coffee's ready. Enjoy the cup.", adjust:"Adjust recipe", again:"Brew again", cancelConfirm:"Cancel the brew in progress?" },
     footer:{ note:"made by hand, one pour at a time" },
     grindWord:"medium-coarse",
-    feedback:{ toggle:"how did your coffee turn out?", sub:"rate the result and get tips to improve", timeQ:"did the brew time match what you expected?", timeFast:"drained too fast", timeRight:"right on time", timeSlow:"took too long", timeFastTip:"next time, try a slightly finer grind.", timeRightTip:"nice — your grind is well dialed in for this recipe.", timeSlowTip:"next time, try a slightly coarser grind.", bodyQ:"did the body turn out as expected?", bodyLight:"lighter than I wanted", bodyRight:"just like I wanted", bodyFull:"fuller than I wanted", bodyLightTip:"try more pours in the second phase, or a slightly finer grind.", bodyRightTip:"that body setting is your sweet spot — keep it.", bodyFullTip:"try fewer pours in the second phase, or a slightly coarser grind.", balanceQ:"did the sweet/acidic balance match what you expected?", balanceAcidic:"more acidic than I wanted", balanceRight:"balanced, just like I wanted", balanceSweet:"sweeter than I wanted", balanceAcidicTip:"try lowering the temperature a bit, or shifting balance toward sweet.", balanceRightTip:"that's your cup — keep this setting.", balanceSweetTip:"try raising the temperature a bit, or shifting balance toward acidic.", fpStrengthQ:"did the strength turn out as expected?", fpWeak:"weak, watery", fpStrengthRight:"balanced", fpStrong:"too strong", fpWeakTip:"try a slightly finer grind, or lower the ratio number (more coffee).", fpStrengthRightTip:"that ratio and grind are your sweet spot — keep it.", fpStrongTip:"try a slightly coarser grind, or raise the ratio number (less coffee).", fpSedimentQ:"was there a lot of sediment (grit) in the cup?", fpSedimentLots:"a lot", fpSedimentSome:"a little", fpSedimentClean:"clean", fpSedimentLotsTip:"be thorough skimming the foam and grounds off the crust, and don't press the plunger all the way down.", fpSedimentSomeTip:"almost there — let it settle a bit longer before pressing.", fpSedimentCleanTip:"your crust-breaking technique is dialed in.", note:"these are just clues to adjust — roast level also affects the result quite a bit." }
+    feedback:{ toggle:"How did your coffee turn out?", sub:"Rate the result and get tips to improve", timeQ:"did the brew time match what you expected?", timeFast:"drained too fast", timeRight:"right on time", timeSlow:"took too long", timeFastTip:"next time, try a slightly finer grind.", timeRightTip:"nice — your grind is well dialed in for this recipe.", timeSlowTip:"next time, try a slightly coarser grind.", bodyQ:"did the body turn out as expected?", bodyLight:"lighter than I wanted", bodyRight:"just like I wanted", bodyFull:"fuller than I wanted", bodyLightTip:"try more pours in the second phase, or a slightly finer grind.", bodyRightTip:"that body setting is your sweet spot — keep it.", bodyFullTip:"try fewer pours in the second phase, or a slightly coarser grind.", balanceQ:"did the sweet/acidic balance match what you expected?", balanceAcidic:"more acidic than I wanted", balanceRight:"balanced, just like I wanted", balanceSweet:"sweeter than I wanted", balanceAcidicTip:"try lowering the temperature a bit, or shifting balance toward sweet.", balanceRightTip:"that's your cup — keep this setting.", balanceSweetTip:"try raising the temperature a bit, or shifting balance toward acidic.", fpStrengthQ:"did the strength turn out as expected?", fpWeak:"weak, watery", fpStrengthRight:"balanced", fpStrong:"too strong", fpWeakTip:"try a slightly finer grind, or lower the ratio number (more coffee).", fpStrengthRightTip:"that ratio and grind are your sweet spot — keep it.", fpStrongTip:"try a slightly coarser grind, or raise the ratio number (less coffee).", fpSedimentQ:"was there a lot of sediment (grit) in the cup?", fpSedimentLots:"a lot", fpSedimentSome:"a little", fpSedimentClean:"clean", fpSedimentLotsTip:"be thorough skimming the foam and grounds off the crust, and don't press the plunger all the way down.", fpSedimentSomeTip:"almost there — let it settle a bit longer before pressing.", fpSedimentCleanTip:"your crust-breaking technique is dialed in.", note:"these are just clues to adjust — roast level also affects the result quite a bit." }
   },
   es: {
     topbar:{ tagline:"guía de métodos" },
     badge:{ soon:"próximamente" },
-    recipe:{ choose:"elige un método" },
-    illustration:{ idle:"elige un método arriba" },
-    settings:{ eyebrow:"ajusta tu receta", volume:"¿cuánto café quieres preparar?", ratio:"proporción", balance:"balance", balanceMicro:"primer vertido más pequeño = más dulce. Más grande = más ácido.", body:"cuerpo", strengthMicro:"menos vertidos en la segunda fase = café más ligero.", cta:"iniciar preparación" },
+    recipe:{ choose:"Elige un método" },
+    illustration:{ idle:"Elige un método arriba" },
+    settings:{ eyebrow:"ajusta tu receta", volume:"¿Cuánto café preparar?", ratio:"Proporción", balance:"Balance", balanceMicro:"Primer vertido menor endulza; mayor realza la acidez.", body:"Cuerpo", strengthMicro:"Menos vertidos = más cuerpo.", cta:"Iniciar preparación" },
     summary:{ eyebrow:"antes de empezar", dose:"café necesario", temp:"temperatura", grind:"molienda", water:"agua total" },
-    info:{ dose:"Calculado según el volumen y la proporción elegidos. Pesar el café es más preciso que medirlo con cucharas.", temp:"93°C funciona bien para tuestes claros y medios. Tuestes oscuros necesitan menos calor — prueba 86–88°C para evitar amargor.", grind:"Más grueso que el V60 estándar. Referencia habitual en los foros: textura de sal marina gruesa. El método tiene varios ciclos de drenaje — la molienda fina detiene el agua y sobreextrae." },
-    tip:{ eyebrow:"cómo verter", text46:"Vierte en espiral, del centro hacia afuera, sin tocar los bordes del filtro. Para al llegar al objetivo y deja drenar antes del siguiente vertido." },
-    prep:{ eyebrow:"lista rápida", cta:"listo, empezar vertido", item1:"muele el café — molienda {grind}", item2:"calienta el agua a {temp}", item3:"enjuaga el filtro y calienta el servidor" },
+    info:{ dose:"Calculado por el volumen y la proporción. Pesa el café — más preciso que medir con cucharas.", temp:"92°C va bien en tuestes claros y medios. Tuestes oscuros: 86–88°C para evitar amargor.", grind:"Más grueso que el V60 común — textura de sal gruesa. Molienda fina detiene el agua y sobreextrae." },
+    tip:{ eyebrow:"cómo verter", text46:"Vierte en espiral, del centro hacia afuera, sin tocar el filtro. Para en la marca y deja drenar." },
+    prep:{ eyebrow:"lista rápida", cta:"Listo, empezar vertido", item1:"Muele el café — molienda {grind}", item2:"Calienta el agua a {temp}", item3:"Enjuaga el filtro y calienta el servidor" },
     fp:{ note:"Proporción recomendada: 1:12 a 1:14. Esta receta no tiene controles de balance o cuerpo — el método Hoffmann es fijo por diseño. Los 5 minutos de reposo son clave: eliminan los posos de la taza.", stepPour:"vierte toda el agua de una vez", stepSteep:"espera (no remuevas)", stepSkim:"rompe la costra, retira la espuma", stepRest:"reposo — los posos se asientan", stepPlunge:"presiona hasta la superficie, sirve", prepItem3:"coge dos cucharas — las necesitarás para romper la costra", grindWord:"medio-gruesa" },
     toc:{ eyebrow:"tu receta, paso a paso" },
-    brew:{ getReady:"prepárate", pouringState:"vertiendo", waitingState:"espera", pourLabel:"hasta {x}", waitLabel:"hasta el vertido {n}", waitLabelEnd:"hasta el final", totalLabel:"tiempo total", positionTinyLabel:"paso", positionLabel:"{i}/{n}", skip:"saltar", pause:"pausar", resume:"continuar", doneTitle:"¡listo! ☕", doneSub:"tu café está servido. disfruta la taza.", adjust:"ajustar receta", again:"preparar de nuevo", cancelConfirm:"¿Cancelar la preparación en curso?" },
+    brew:{ getReady:"prepárate", pouringState:"vertiendo", waitingState:"espera", pourLabel:"hasta {x}", waitLabel:"hasta el vertido {n}", waitLabelEnd:"hasta el final", totalLabel:"tiempo total", positionTinyLabel:"paso", positionLabel:"{i}/{n}", skip:"saltar", pause:"pausar", resume:"continuar", doneTitle:"¡Todo listo!", doneSub:"Tu café está servido. Disfruta la taza.", adjust:"Ajustar receta", again:"Preparar de nuevo", cancelConfirm:"¿Cancelar la preparación en curso?" },
     footer:{ note:"hecho a mano, un vertido a la vez" },
     grindWord:"medio-gruesa",
-    feedback:{ toggle:"¿cómo salió tu café?", sub:"evalúa el resultado y recibe consejos de ajuste", timeQ:"¿el tiempo de preparación fue el esperado?", timeFast:"drenó demasiado rápido", timeRight:"en el tiempo justo", timeSlow:"tardó demasiado", timeFastTip:"la próxima vez, prueba una molienda un poco más fina.", timeRightTip:"perfecto — tu molienda está bien calibrada para esta receta.", timeSlowTip:"la próxima vez, prueba una molienda un poco más gruesa.", bodyQ:"¿el cuerpo quedó como esperabas?", bodyLight:"más ligero de lo que quería", bodyRight:"tal como lo quería", bodyFull:"con más cuerpo del que quería", bodyLightTip:"prueba más vertidos en la segunda fase, o una molienda un poco más fina.", bodyRightTip:"esa configuración de cuerpo es perfecta para ti — guárdala.", bodyFullTip:"prueba menos vertidos en la segunda fase, o una molienda un poco más gruesa.", balanceQ:"¿el balance dulce/ácido fue el esperado?", balanceAcidic:"más ácido de lo que quería", balanceRight:"equilibrado, como quería", balanceSweet:"más dulce de lo que quería", balanceAcidicTip:"prueba bajar un poco la temperatura, o mover el balance hacia el lado dulce.", balanceRightTip:"esa es tu taza — guarda esta configuración.", balanceSweetTip:"prueba subir un poco la temperatura, o mover el balance hacia el lado ácido.", fpStrengthQ:"¿la intensidad quedó como esperabas?", fpWeak:"débil, aguado", fpStrengthRight:"equilibrado", fpStrong:"demasiado intenso", fpWeakTip:"prueba una molienda un poco más fina, o reduce el número de proporción (más café).", fpStrengthRightTip:"esa proporción y molienda son perfectas — guárdalas.", fpStrongTip:"prueba una molienda un poco más gruesa, o aumenta el número de proporción (menos café).", fpSedimentQ:"¿hubo mucho sedimento (posos) en la taza?", fpSedimentLots:"bastante", fpSedimentSome:"un poco", fpSedimentClean:"limpio", fpSedimentLotsTip:"sé cuidadoso al retirar la espuma y los posos al romper la costra, y no presiones el émbolo hasta el fondo.", fpSedimentSomeTip:"casi perfecto — deja reposar un poco más antes de presionar.", fpSedimentCleanTip:"tu técnica para romper la costra está dominada.", note:"son solo pistas para ajustar — el nivel de tueste también influye bastante en el resultado." }
+    feedback:{ toggle:"¿Cómo salió tu café?", sub:"Evalúa el resultado y recibe consejos de ajuste", timeQ:"¿el tiempo de preparación fue el esperado?", timeFast:"drenó demasiado rápido", timeRight:"en el tiempo justo", timeSlow:"tardó demasiado", timeFastTip:"la próxima vez, prueba una molienda un poco más fina.", timeRightTip:"perfecto — tu molienda está bien calibrada para esta receta.", timeSlowTip:"la próxima vez, prueba una molienda un poco más gruesa.", bodyQ:"¿el cuerpo quedó como esperabas?", bodyLight:"más ligero de lo que quería", bodyRight:"tal como lo quería", bodyFull:"con más cuerpo del que quería", bodyLightTip:"prueba más vertidos en la segunda fase, o una molienda un poco más fina.", bodyRightTip:"esa configuración de cuerpo es perfecta para ti — guárdala.", bodyFullTip:"prueba menos vertidos en la segunda fase, o una molienda un poco más gruesa.", balanceQ:"¿el balance dulce/ácido fue el esperado?", balanceAcidic:"más ácido de lo que quería", balanceRight:"equilibrado, como quería", balanceSweet:"más dulce de lo que quería", balanceAcidicTip:"prueba bajar un poco la temperatura, o mover el balance hacia el lado dulce.", balanceRightTip:"esa es tu taza — guarda esta configuración.", balanceSweetTip:"prueba subir un poco la temperatura, o mover el balance hacia el lado ácido.", fpStrengthQ:"¿la intensidad quedó como esperabas?", fpWeak:"débil, aguado", fpStrengthRight:"equilibrado", fpStrong:"demasiado intenso", fpWeakTip:"prueba una molienda un poco más fina, o reduce el número de proporción (más café).", fpStrengthRightTip:"esa proporción y molienda son perfectas — guárdalas.", fpStrongTip:"prueba una molienda un poco más gruesa, o aumenta el número de proporción (menos café).", fpSedimentQ:"¿hubo mucho sedimento (posos) en la taza?", fpSedimentLots:"bastante", fpSedimentSome:"un poco", fpSedimentClean:"limpio", fpSedimentLotsTip:"sé cuidadoso al retirar la espuma y los posos al romper la costra, y no presiones el émbolo hasta el fondo.", fpSedimentSomeTip:"casi perfecto — deja reposar un poco más antes de presionar.", fpSedimentCleanTip:"tu técnica para romper la costra está dominada.", note:"son solo pistas para ajustar — el nivel de tueste también influye bastante en el resultado." }
   }
 };
 function t(path){ var parts = path.split("."); var node = I18N[state.lang]; for(var i=0;i<parts.length;i++){ node = node[parts[i]]; if(node===undefined) return ""; } return node; }
@@ -755,8 +761,8 @@ function wireSetupControls(){
   $("#ratioValue").addEventListener("change", function(e){ var v = parseFloat(e.target.value); state.params.ratio = clampRatio(isNaN(v) ? state.params.ratio : v); recompute(); });
   $all("#balanceSeg button").forEach(function(btn){ btn.addEventListener("click", function(){ $all("#balanceSeg button").forEach(function(b){ b.classList.remove("active"); }); btn.classList.add("active"); state.params.balance = parseInt(btn.getAttribute("data-val"),10); recompute(); }); });
   $all("#strengthSeg button").forEach(function(btn){ btn.addEventListener("click", function(){ $all("#strengthSeg button").forEach(function(b){ b.classList.remove("active"); }); btn.classList.add("active"); state.params.pours2 = parseInt(btn.getAttribute("data-val"),10); recompute(); }); });
-  var balLabels = { pt:["doce","equilibrado","ácido"], en:["sweet","balanced","acidic"], es:["dulce","equilibrado","ácido"] };
-  var bodyLabels = { pt:["leve","médio","encorpado","intenso"], en:["light","medium","full","intense"], es:["ligero","medio","con cuerpo","intenso"] };
+  var balLabels = { pt:["Doce","Equilibrado","Ácido"], en:["Sweet","Balanced","Acidic"], es:["Dulce","Equilibrado","Ácido"] };
+  var bodyLabels = { pt:["Leve","Médio","Encorpado","Intenso"], en:["Light","Medium","Full","Intense"], es:["Ligero","Medio","Con cuerpo","Intenso"] };
   $all("#balanceSeg button").forEach(function(btn,i){ btn.setAttribute("data-idx", i); });
   $all("#strengthSeg button").forEach(function(btn,i){ btn.setAttribute("data-idx", i); });
   function applySegLabels(){
@@ -909,6 +915,7 @@ function updateBrewUI(elapsed){
   }
   $("#pillTotal").textContent = mmss(elapsed);
   $("#pillPosition").textContent = fmt(t("brew.positionLabel"), {i:st.idx+1, n:pours.length});
+  var __pb = document.getElementById("brewProgressFill"); if(__pb){ __pb.style.width = Math.max(0, Math.min(100, (elapsed/finishTime)*100)) + "%"; }
   var pill = $("#timerStatePill");
   if(finished){ pill.textContent=""; pill.className="timer-state-pill"; $("#timerBig").textContent=""; $("#timerSub").textContent=""; }
   else if(isPourNow){
@@ -1038,10 +1045,11 @@ function init(){
   $("#illustrationCaption").textContent = t("illustration.idle");
   $("#recipeTriggerLabel").textContent = t("recipe.choose");
   setIcon("chevronIcon","chevron"); setIcon("iconDose","bean"); setIcon("iconTemp","thermo"); setIcon("iconGrind","grind");
-  setIcon("iconClock","clock"); setIcon("iconDroplet","droplet"); setIcon("iconSpeaker","speaker"); setIcon("iconPause","pause"); setIcon("iconSkip","skipNext");
+  setIcon("iconClock","clock"); setIcon("iconDroplet","droplet"); setIcon("iconSpeaker","speaker"); setIcon("iconPause","pause"); setIcon("iconSkip","skipNext"); setIcon("iconDone","cup");
   renderRecipePanel(); applyI18n(); wireSetupControls(); wireBrewControls(); setMode("idle");
   closePanel();
   populateHoverPanels();
+  $("#infoPanel").hidden = true; $("#pourInfoPanel").hidden = true;
   var isTouch = window.matchMedia && !window.matchMedia("(hover: hover)").matches;
   $all(".info-btn[data-info]").forEach(function(btn){
     btn.addEventListener("click", function(e){
@@ -1054,7 +1062,7 @@ function init(){
       else { btn.classList.add("active"); $("#infoPanel").textContent = t("info."+key); $("#infoPanel").hidden = false; }
     });
   });
-  $("#pourInfoBtn").addEventListener("click", function(e){
+  if($("#pourInfoBtn")) $("#pourInfoBtn").addEventListener("click", function(e){
     e.stopPropagation();
     var wasActive = $("#pourInfoBtn").classList.contains("active");
     $("#pourInfoBtn").classList.toggle("active", !wasActive);
