@@ -11,5 +11,3 @@ Currently includes:
 - Adjustable brew ratios and volumes
 - Guided brewing workflow with timers
 - Post-brew feedback and recipe adjustment suggestions
-
-Made by hand, one pour at a time. ☕︎
