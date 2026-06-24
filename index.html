@@ -35,14 +35,14 @@
       --bg:#1C1518; --surface:#271E22; --tile:#2F242A;
       --ink:#F4E9E5; --ink-soft:#A8908A; --ink-soft2:#C6ADA6;
       --line:rgba(244,233,229,.10); --line-strong:rgba(244,233,229,.20);
-      --accent:#EC85CC; --accent-soft:#3C2533; --accent-ink:#3A1E2C;
+      --accent:#6298EC; --accent-soft:#182848; --accent-ink:#0C1830;
       --accent-pour:#39481F; --accent-pour-strong:#BBD06A;
       --accent-wait:#4C351F; --accent-wait-strong:#F2A368;
-      --tag-v60:#39481F; --tag-aeropress:#4C351F; --tag-frenchpress:#4A2738;
+      --tag-v60:#39481F; --tag-aeropress:#4C351F; --tag-frenchpress:#1A2C4C;
       --on-accent:#F4E9E5;
       --ic1-bg:#3E2A1E; --ic1-fg:#F2A368;
       --ic2-bg:#2F3720; --ic2-fg:#BBD06A;
-      --ic3-bg:#3E2533; --ic3-fg:#F0A6DC;
+      --ic3-bg:#162440; --ic3-fg:#7ABCF4;
       --fill-liquid:#B5754A; --fill-liquid-2:rgba(181,117,74,.4);
     }
     html{transition:background-color .25s ease;}
@@ -135,12 +135,12 @@
     .stepper-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;}
     .stepper-row + .stepper-row{border-top:1px solid var(--line);}
     .stepper-row .label{font-size:15px;font-weight:600;max-width:175px;line-height:1.25;}
-    .stepper{display:flex;align-items:center;gap:10px;}
+    .stepper{display:flex;align-items:center;gap:6px;}
     .stepper-btn{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);flex:0 0 auto;}
     .stepper-btn:last-child{background:var(--ink);color:var(--bg);}
     .stepper-btn:active{transform:scale(.92);}
-    .stepper-input-wrap{display:flex;align-items:baseline;gap:3px;min-width:64px;justify-content:center;}
-    .stepper-input{font-family:var(--font-mono);font-size:14px;font-weight:700;width:44px;text-align:right;border:none;background:none;color:var(--ink);padding:0;-moz-appearance:textfield;font-variant-numeric:tabular-nums;}
+    .stepper-input-wrap{display:flex;align-items:baseline;gap:2px;min-width:50px;justify-content:flex-start;}
+    .stepper-input{font-family:var(--font-mono);font-size:14px;font-weight:700;width:38px;text-align:left;border:none;background:none;color:var(--ink);padding:0;-moz-appearance:textfield;font-variant-numeric:tabular-nums;}
     .stepper-input::-webkit-outer-spin-button,.stepper-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
     .stepper-input:focus{outline:none;}
     .stepper-unit,.stepper-prefix{font-size:13px;color:var(--ink-soft);font-weight:600;}
@@ -205,9 +205,9 @@
     .feedback-cta{display:flex;align-items:center;gap:12px;cursor:pointer;background:var(--tile);border:none;border-radius:var(--radius-md);padding:14px 16px;width:100%;text-align:left;color:var(--ink);}
     .feedback-cta-icon{width:36px;height:36px;border-radius:8px;background:var(--ic3-bg);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
     .feedback-cta-icon .icon{width:16px;height:16px;color:var(--ic3-fg);}
-    .feedback-cta-text{flex:1;}
+    .feedback-cta-text{flex:1;display:flex;flex-direction:column;}
     .feedback-cta-title{font-weight:700;font-size:13.5px;}
-    .feedback-cta-sub{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+    .feedback-cta-sub{font-size:11.5px;color:var(--ink-soft);margin-top:8px;}
     .feedback-cta-chevron{transition:transform .2s ease;color:var(--ink-soft);}
     .feedback-cta.open .feedback-cta-chevron{transform:rotate(180deg);}
     .feedback-body{margin-top:18px;}
@@ -265,7 +265,111 @@
       .layout{display:grid;grid-template-columns:300px 1fr;gap:38px;align-items:start;}
       .illustration-col{position:sticky;top:24px;}
     }
+
+    /* ── Header nav ── */
+    .header-nav{flex:1;display:none;align-items:center;justify-content:center;gap:2px;}
+    @media(min-width:600px){.header-nav{display:flex;}}
+    .nav-item{font-family:var(--font-body);font-size:12.5px;font-weight:600;color:var(--ink-soft);background:none;border:none;padding:6px 9px;border-radius:7px;cursor:default;display:inline-flex;align-items:center;gap:4px;line-height:1;opacity:.65;}
+    .nav-bmc{font-family:var(--font-body);font-size:12.5px;font-weight:700;color:var(--accent-ink);background:var(--accent);border:none;padding:6px 13px;border-radius:7px;cursor:pointer;}
+    .nav-bmc:hover{filter:brightness(1.07);}
+    .nav-soon-badge{font-family:var(--font-mono);font-size:7.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 5px;border-radius:4px;background:var(--tile);color:var(--ink-soft);}
+    .hamburger-btn{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--line-strong);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);flex:0 0 auto;}
+    .hamburger-btn:hover{border-color:var(--ink);color:var(--ink);}
+    @media(min-width:600px){.hamburger-btn{display:none;}}
+    .mobile-menu{background:var(--surface);border-radius:var(--radius-md);border:1px solid var(--line);margin:0 0 8px;overflow:hidden;}
+    .mobile-menu-inner{padding:0;}
+    .mobile-menu-item{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;font-size:14px;font-weight:600;color:var(--ink-soft);border-bottom:1px solid var(--line);}
+    .mobile-soon-badge{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);opacity:.55;}
+    .mobile-menu-bmc{font-family:var(--font-body);display:block;width:100%;font-size:14px;font-weight:700;color:var(--accent-ink);background:var(--accent);border:none;padding:14px 18px;cursor:pointer;text-align:left;}
+
+    /* ── Slider info tooltip ── */
+    .slider-label-row{display:flex;align-items:center;gap:7px;margin-bottom:11px;}
+    .slider-label-row .label{margin-bottom:0;flex:1;}
+    .slider-info-wrap{position:relative;display:inline-flex;align-items:center;}
+    .slider-info-btn{width:16px;height:16px;border-radius:50%;border:1.3px solid var(--line-strong);background:none;font-size:9px;font-weight:700;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0;line-height:1;}
+    .slider-info-btn:hover,.slider-info-btn.active{border-color:var(--ink-soft2);color:var(--ink);}
+    .slider-tip-panel{display:none;position:absolute;right:0;top:calc(100% + 8px);width:210px;background:var(--ink);color:var(--bg);padding:10px 12px;border-radius:8px;font-size:11.5px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.22);z-index:20;pointer-events:none;text-align:left;}
+    @keyframes tipIn{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:translateY(0);}}
+    @media(hover:hover){.slider-info-btn:hover+.slider-tip-panel,.slider-info-btn:focus-visible+.slider-tip-panel{display:block;animation:tipIn .18s ease;}}
+    .slider-info-btn.active+.slider-tip-panel{display:block;animation:tipIn .18s ease;}
+
+    /* ── Done icon animation ── */
+    .done-ring{stroke-dasharray:113;stroke-dashoffset:113;}
+    .done-check{stroke-dasharray:27;stroke-dashoffset:27;}
+    .done-ring.run{animation:drawRing .6s cubic-bezier(.4,0,.2,1) .05s forwards;}
+    .done-check.run{animation:drawCheck .38s ease .58s forwards;}
+    @keyframes drawRing{to{stroke-dashoffset:0;}}
+    @keyframes drawCheck{to{stroke-dashoffset:0;}}
+
+    /* ── BMC section ── */
+    .bmc-section{margin-top:40px;padding:32px 4px 52px;border-top:1px solid var(--line);}
+    .bmc-inner{text-align:center;max-width:290px;margin:0 auto;}
+    .bmc-emoji{display:block;font-size:26px;margin:0 0 12px;}
+    .bmc-title{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:25px;margin:0 0 14px;line-height:1.14;color:var(--ink);}
+    .bmc-body{font-size:13px;line-height:1.65;color:var(--ink-soft);margin:0 0 10px;text-align:left;}
+    .bmc-note{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-soft);margin:0 0 22px;line-height:1.5;}
+    .bmc-btn{display:block;background:var(--accent);color:var(--accent-ink);border:none;border-radius:10px;padding:15px 20px;font-size:14.5px;font-weight:700;cursor:pointer;text-decoration:none;width:100%;box-sizing:border-box;text-align:center;font-family:var(--font-body);}
+    .bmc-btn:hover{filter:brightness(1.06);}
+
+    /* ── Recipe panel headers & saved rows ── */
+    .recipe-panel-header{padding:8px 16px 5px;font-family:var(--font-mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);border-top:1px solid var(--line);}
+    .recipe-panel-header:first-child{border-top:none;padding-top:10px;}
+    .recipe-row-saved-del{width:26px;height:26px;border-radius:6px;border:none;background:none;color:var(--ink-soft);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;line-height:1;font-family:var(--font-body);}
+    .recipe-row-saved-del:hover{background:var(--tile);color:var(--ink);}
+    .recipe-desc-line{font-size:12px;color:var(--ink-soft2);line-height:1.5;padding:7px 2px 2px;margin:0;}
+
+    /* ── My Recipes ── */
+    .my-recipes-section{padding:14px 2px;}
+    .my-recipes-list{display:flex;flex-direction:column;gap:7px;margin:10px 0 0;}
+    .saved-row{display:flex;align-items:center;gap:10px;background:var(--tile);border-radius:var(--radius-md);padding:11px 14px;}
+    .saved-info{flex:1;min-width:0;}
+    .saved-name{font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .saved-meta{font-size:11px;color:var(--ink-soft);margin-top:1px;}
+    .saved-btns{display:flex;gap:5px;flex:0 0 auto;}
+    .saved-action{font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:6px;border:none;cursor:pointer;background:var(--bg);color:var(--ink-soft);font-family:var(--font-body);}
+    .saved-action:hover{color:var(--ink);}
+    .save-current-btn{display:block;width:100%;padding:11px 14px;font-size:13px;font-weight:600;font-family:var(--font-body);border:1.5px dashed var(--line-strong);border-radius:var(--radius-md);background:none;color:var(--ink-soft);cursor:pointer;text-align:center;margin-top:10px;}
+    .save-current-btn:hover{border-color:var(--ink);color:var(--ink);}
+
+    /* ── Brew history ── */
+    .history-section{padding:18px 2px 8px;border-top:1px solid var(--line);}
+    .history-list{display:flex;flex-direction:column;gap:6px;margin:10px 0 0;}
+    .history-row{display:flex;align-items:center;gap:10px;padding:10px 13px;background:var(--tile);border-radius:var(--radius-sm);}
+    .history-method{font-weight:700;font-size:13px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .history-date{font-family:var(--font-mono);font-size:9.5px;color:var(--ink-soft);flex:0 0 auto;}
+
+    /* ── About ── */
+    .about-section{padding:36px 4px 32px;border-top:1px solid var(--line);}
+    .about-eyebrow{font-family:var(--font-mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft);margin:0 0 14px;}
+    .about-headline{font-family:var(--font-display);font-style:italic;font-size:21px;font-weight:400;line-height:1.22;margin:0 0 11px;color:var(--ink);}
+    .about-body{font-size:13px;line-height:1.68;color:var(--ink-soft);}
+
+    /* ── Page footer ── */
+    .page-footer{padding:18px 4px 36px;text-align:center;}
+    .feedback-link{font-size:11px;color:var(--ink-soft);text-decoration:none;font-weight:600;letter-spacing:.04em;}
+    .feedback-link:hover{color:var(--ink);}
+
+    /* ── Share panel ── */
+    .share-panel{margin-top:10px;padding:14px;background:var(--tile);border-radius:var(--radius-md);}
+    .share-textarea{width:100%;font-family:var(--font-mono);font-size:11px;line-height:1.5;padding:10px;border:1.5px solid var(--line-strong);border-radius:7px;background:var(--bg);color:var(--ink);resize:none;height:120px;box-sizing:border-box;margin:0 0 8px;}
+    .share-textarea:focus{outline:2px solid var(--accent);border-color:transparent;}
+    .share-copy-btn{width:100%;padding:10px;font-size:13px;font-weight:700;border:none;border-radius:7px;background:var(--ink);color:var(--bg);cursor:pointer;font-family:var(--font-body);}
+    .share-copy-btn:hover{opacity:.85;}
+
+    /* ── Preference profile ── */
+    .pref-section{padding:18px 2px 8px;border-top:1px solid var(--line);}
+    .pref-title{font-size:13.5px;font-weight:700;margin:0 0 10px;color:var(--ink);}
+    .pref-chips{display:flex;flex-direction:column;gap:7px;margin-bottom:8px;}
+    .pref-chip{font-size:13px;color:var(--ink);font-weight:600;}
+    .pref-meta{font-family:var(--font-mono);font-size:10px;color:var(--ink-soft);margin:0;}
   </style>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-R4GDCFYQMB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-R4GDCFYQMB');
+  </script>
 </helmet>
 
 <div class="app" id="app">
@@ -274,6 +378,10 @@
       <button class="logo" id="logoBtn" type="button" aria-label="home">BLOOM</button>
       <span class="tagline" data-i18n="topbar.tagline"></span>
     </div>
+    <nav class="header-nav" id="headerNav" aria-label="navigation">
+      <button class="nav-item" type="button" id="navAboutBtn" style="cursor:pointer;opacity:1;"><span data-i18n="nav.about"></span></button>
+      <button class="nav-bmc" type="button" id="navBmcBtn"><span data-i18n="nav.bmc"></span></button>
+    </nav>
     <div class="topbar-controls">
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="theme"><span class="icon" id="iconTheme"></span></button>
       <div class="lang-switch" id="langSwitch">
@@ -281,6 +389,13 @@
         <button type="button" data-lang="en">EN</button>
         <button type="button" data-lang="es">ES</button>
       </div>
+      <button class="hamburger-btn" id="hamburgerBtn" type="button" aria-label="menu"><span class="icon" id="iconHamburger"></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden="">
+    <div class="mobile-menu-inner">
+      <div class="mobile-menu-item" id="mobileAboutBtn" style="cursor:pointer;"><span data-i18n="nav.about"></span></div>
+      <button class="mobile-menu-bmc" type="button" id="mobileBmcBtn"><span data-i18n="nav.bmc"></span></button>
     </div>
   </div>
 
@@ -293,6 +408,7 @@
       <div class="recipe-panel" id="recipePanel" hidden=""></div>
     </div>
   </div>
+  <p class="recipe-desc-line" id="recipeDescLine" hidden=""></p>
 
   <div class="layout">
     <div class="illustration-col">
@@ -347,8 +463,22 @@
           </div>
         </div>
 
+        <div class="seg-block" id="roastBlock">
+          <div class="label" data-i18n="roast.label"></div>
+          <div class="seg" id="roastSeg">
+            <button type="button" data-roast="light" data-i18n="roast.light"></button>
+            <button type="button" data-roast="medium" data-i18n="roast.medium"></button>
+            <button type="button" data-roast="dark" data-i18n="roast.dark"></button>
+          </div>
+        </div>
         <div class="seg-block" id="balanceBlock">
-          <div class="label" data-i18n="settings.balance"></div>
+          <div class="slider-label-row">
+            <div class="label" data-i18n="settings.balance"></div>
+            <span class="slider-info-wrap">
+              <button class="slider-info-btn" type="button" id="balanceInfoBtn" aria-label="info">i</button>
+              <div class="slider-tip-panel"><span data-i18n="settings.balanceMicro"></span></div>
+            </span>
+          </div>
           <div class="bslider" id="balanceSlider">
             <div class="bslider-labels" id="balanceLabels"></div>
             <div class="bslider-track" id="balanceTrack">
@@ -356,11 +486,16 @@
               <div class="bslider-thumb" id="balanceThumb" tabindex="0" role="slider" aria-label="Balance"></div>
             </div>
           </div>
-          <p class="micro" data-i18n="settings.balanceMicro"></p>
         </div>
 
         <div class="seg-block" id="strengthBlock">
-          <div class="label" data-i18n="settings.body"></div>
+          <div class="slider-label-row">
+            <div class="label" data-i18n="settings.body"></div>
+            <span class="slider-info-wrap">
+              <button class="slider-info-btn" type="button" id="strengthInfoBtn" aria-label="info">i</button>
+              <div class="slider-tip-panel"><span data-i18n="settings.strengthMicro"></span></div>
+            </span>
+          </div>
           <div class="bslider" id="strengthSlider">
             <div class="bslider-labels" id="strengthLabels"></div>
             <div class="bslider-track" id="strengthTrack">
@@ -368,10 +503,11 @@
               <div class="bslider-thumb" id="strengthThumb" tabindex="0" role="slider" aria-label="Body"></div>
             </div>
           </div>
-          <p class="micro" data-i18n="settings.strengthMicro"></p>
         </div>
 
         <p class="tip-text" id="fpNote" hidden="" style="margin-top:14px;" data-i18n="fp.note"></p>
+        <p class="tip-text" id="hv60Note" hidden="" style="margin-top:14px;" data-i18n="hv60.note"></p>
+        <p class="tip-text" id="tenPourNote" hidden="" style="margin-top:14px;" data-i18n="10pour.note"></p>
       </div>
 
       <div class="section" id="prepSection" hidden="">
@@ -416,7 +552,12 @@
 
       <div class="section" id="doneSection" hidden="">
         <div class="done-banner">
-          <span class="done-icon" id="iconDone" aria-hidden="true"></span>
+          <span class="done-icon" id="iconDone" aria-hidden="true" style="overflow:visible;">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;overflow:visible;">
+              <circle class="done-ring" cx="22" cy="22" r="18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></circle>
+              <path class="done-check" d="M13 22.5l6.5 6.5 11.5-13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </span>
           <h2 data-i18n="brew.doneTitle"></h2>
           <p data-i18n="brew.doneSub"></p>
           <div class="done-actions">
@@ -439,16 +580,107 @@
 
       <div class="section" id="ctaSection" hidden="" style="border-top:none;">
         <button class="btn btn-primary" id="ctaBrew" type="button" data-i18n="settings.cta"></button>
+        <button class="save-current-btn" id="saveRecipeBtn" type="button" data-i18n="myRecipes.save"></button>
+        <button class="save-current-btn" id="shareBtn" type="button" data-i18n="share.btn"></button>
+        <div class="share-panel" id="sharePanel" hidden="">
+          <textarea class="share-textarea" id="shareTextArea" readonly=""></textarea>
+          <button class="share-copy-btn" id="shareClipBtn" type="button" data-i18n="share.copy"></button>
+        </div>
       </div>
     </div>
   </div>
 
-  <p class="footer" data-i18n="footer.note"></p>
+  <div class="pref-section" id="prefSection" hidden="">
+    <p class="eyebrow" data-i18n="pref.eyebrow"></p>
+    <p class="pref-title" data-i18n="pref.title"></p>
+    <div class="pref-chips" id="prefChips"></div>
+    <p class="pref-meta" id="prefMeta"></p>
+  </div>
+
+  <div class="history-section" id="historySection" hidden="">
+    <p class="eyebrow" data-i18n="history.eyebrow"></p>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <div class="bmc-section" id="bmcSection">
+    <div class="bmc-inner">
+      <span class="bmc-emoji">&#9749;</span>
+      <h2 class="bmc-title" data-i18n="bmc.title"></h2>
+      <p class="bmc-body" data-i18n="bmc.body"></p>
+      <p class="bmc-note" data-i18n="bmc.note"></p>
+      <a class="bmc-btn" href="https://buymeacoffee.com/" target="_blank" rel="noopener" data-i18n="bmc.btn"></a>
+    </div>
+  </div>
+
+  <div class="about-section" id="aboutSection">
+    <p class="about-eyebrow" data-i18n="about.eyebrow"></p>
+    <p class="about-headline" data-i18n="about.headline"></p>
+    <p class="about-body" data-i18n="about.body"></p>
+  </div>
+
+  <div class="page-footer">
+    <a class="feedback-link" href="mailto:feedback@bloom.coffee" data-i18n="footer.feedback"></a>
+  </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: 430},
+  &quot;palette&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;default&quot;: &quot;blossom&quot;,
+    &quot;options&quot;: [&quot;blossom&quot;, &quot;garden&quot;, &quot;espresso&quot;, &quot;ink&quot;],
+    &quot;tsType&quot;: &quot;\&quot;blossom\&quot; | \&quot;garden\&quot; | \&quot;espresso\&quot; | \&quot;ink\&quot;&quot;
+  },
+  &quot;typeFeel&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;default&quot;: &quot;artisanal&quot;,
+    &quot;options&quot;: [&quot;artisanal&quot;, &quot;technical&quot;, &quot;minimal&quot;],
+    &quot;tsType&quot;: &quot;\&quot;artisanal\&quot; | \&quot;technical\&quot; | \&quot;minimal\&quot;&quot;
+  },
+  &quot;shape&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;default&quot;: &quot;organic&quot;,
+    &quot;options&quot;: [&quot;organic&quot;, &quot;sharp&quot;, &quot;pill&quot;],
+    &quot;tsType&quot;: &quot;\&quot;organic\&quot; | \&quot;sharp\&quot; | \&quot;pill\&quot;&quot;
+  }
+}">
 class Component extends DCLogic {
-  componentDidMount(){ try{ this.boot(); }catch(e){ console.error('boot error', e); } }
+  componentDidMount(){ try{ this.boot(); }catch(e){ console.error('boot error', e); } this.applyTheme(); }
+  componentDidUpdate(){ this.applyTheme(); }
+  applyTheme(){
+    var palette=(this.props&&this.props.palette)||'blossom';
+    var typeFeel=(this.props&&this.props.typeFeel)||'artisanal';
+    var shape=(this.props&&this.props.shape)||'organic';
+    var el=document.getElementById('__bloom-theme');
+    if(!el){ el=document.createElement('style'); el.id='__bloom-theme'; document.head.appendChild(el); }
+    var P={
+      blossom:{a:'#EC85CC',as:'#FFD8F6',ai:'#4A2436',da:'#6298EC',das:'#182848',dai:'#B0D0F8',av:'#DCEAA9',avs:'#6F8A04',aw:'#FFD0AF',aws:'#A53F00'},
+      garden: {a:'#72B84E',as:'#DCF5CC',ai:'#183A08',da:'#88D45C',das:'#1E3A12',dai:'#CCFFB0',av:'#C8E8FF',avs:'#1A6AA0',aw:'#FFF0B0',aws:'#8A7000'},
+      espresso:{a:'#CC7A3A',as:'#FFE8CC',ai:'#3A1800',da:'#E08848',das:'#3C1C08',dai:'#FFD8B0',av:'#DCEAA9',avs:'#6F8A04',aw:'#FFD0AF',aws:'#A53F00'},
+      ink:    {a:'#5B6ED8',as:'#DDE2FF',ai:'#181E58',da:'#7888F0',das:'#1A2060',dai:'#C4CCFF',av:'#D0E8FF',avs:'#1A4A90',aw:'#FFD8F0',aws:'#902060'}
+    };
+    var F={
+      artisanal:{d:"'Instrument Serif',Georgia,serif",    m:"'Space Mono',ui-monospace,monospace",  x:''},
+      technical:{d:"'Space Mono',ui-monospace,monospace", m:"'Space Mono',ui-monospace,monospace",  x:'.logo{font-style:normal;letter-spacing:.1em;font-size:20px;}.cap-name{font-family:var(--font-mono);font-size:22px;letter-spacing:.06em;font-style:normal;}.illustration-caption{font-style:normal;}.bmc-title{font-family:var(--font-mono);font-size:18px;font-style:normal;}.about-headline{font-family:var(--font-mono);font-size:17px;font-style:normal;}'},
+      minimal:  {d:"'Hanken Grotesk',system-ui,sans-serif",m:"'Hanken Grotesk',system-ui,sans-serif",x:'.logo{font-style:normal;font-weight:800;letter-spacing:-.01em;}.cap-name{font-style:normal;font-weight:800;font-family:var(--font-body);}.illustration-caption{font-style:normal;}.bmc-title{font-style:normal;font-family:var(--font-body);font-weight:800;}.about-headline{font-style:normal;font-family:var(--font-body);font-weight:700;}'}
+    };
+    var S={
+      organic:{lg:'12px',md:'10px',sm:'8px'},
+      sharp:  {lg:'3px', md:'3px', sm:'2px'},
+      pill:   {lg:'28px',md:'22px',sm:'16px'}
+    };
+    var p=P[palette]||P.blossom;
+    var f=F[typeFeel]||F.artisanal;
+    var s=S[shape]||S.organic;
+    el.textContent=
+      ':root{--accent:'+p.a+';--accent-soft:'+p.as+';--accent-ink:'+p.ai+
+      ';--accent-pour:'+p.av+';--accent-pour-strong:'+p.avs+
+      ';--accent-wait:'+p.aw+';--accent-wait-strong:'+p.aws+
+      ';--font-display:'+f.d+';--font-mono:'+f.m+
+      ';--radius-lg:'+s.lg+';--radius-md:'+s.md+';--radius-sm:'+s.sm+'}'+
+      'html.dark{--accent:'+p.da+';--accent-soft:'+p.das+';--accent-ink:'+p.dai+'}'+
+      f.x;
+  }
   boot(){
     "use strict";
     var ICONS = {
@@ -466,7 +698,9 @@ class Component extends DCLogic {
   sun:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="3"/><path d="M8 1.7v1.5M8 12.8v1.5M14.3 8h-1.5M3.2 8H1.7M12.4 3.6l-1 1M4.6 11.4l-1 1M12.4 12.4l-1-1M4.6 4.6l-1-1"/></svg>',
   moon:'<svg viewBox="0 0 16 16" fill="currentColor" stroke="none"><path d="M13.6 9.9A6 6 0 0 1 6.1 2.4a6 6 0 1 0 7.5 7.5Z"/></svg>',
   cup:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 5.5h7.2v3.6a2.6 2.6 0 0 1-2.6 2.6H5.8a2.6 2.6 0 0 1-2.6-2.6Z"/><path d="M10.4 6.4h1.4a1.6 1.6 0 0 1 0 3.2h-1.4"/><path d="M5.2 2.2v1.4M7.6 2.2v1.4"/></svg>',
-  check:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.4l3 3 7-7"/></svg>'
+  check:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.4l3 3 7-7"/></svg>',
+  menu:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4.5h12M2 8h12M2 11.5h12"/></svg>',
+  close:'<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>'
 };
 function setIcon(id,name){ var el=document.getElementById(id); if(el) el.innerHTML = ICONS[name]; }
 
@@ -474,7 +708,7 @@ var I18N = {
   pt: {
     topbar:{ tagline:"guia de métodos" },
     badge:{ soon:"em breve" },
-    recipe:{ choose:"Selecione um método" },
+    recipe:{ choose:"Selecione um método", methods:"Métodos" },
     illustration:{ idle:"Escolha um método acima" },
     settings:{ eyebrow:"ajuste sua receita", volume:"Quanto café preparar?", ratio:"Proporção", balance:"Equilíbrio", balanceMicro:"Despejo inicial menor adoça; maior realça a acidez.", body:"Corpo", strengthMicro:"Menos despejos = corpo mais encorpado.", cta:"Iniciar preparo" },
     summary:{ eyebrow:"antes de começar", dose:"café necessário", temp:"temperatura", grind:"moagem", water:"água total" },
@@ -485,14 +719,24 @@ var I18N = {
     toc:{ eyebrow:"sua receita, passo a passo" },
     step:{ drain:"deixe drenar" },
     brew:{ getReady:"prepare-se", pouringState:"despejando", waitingState:"aguarde", pourLabel:"até {x}", waitLabel:"até o despejo {n}", waitLabelEnd:"até finalizar", totalLabel:"tempo total", positionTinyLabel:"passo", positionLabel:"{i}/{n}", skip:"pular", pause:"pausar", resume:"continuar", doneTitle:"Tudo pronto", doneSub:"Seu café está servido. Aproveite a xícara.", adjust:"Ajustar receita", again:"Preparar de novo", cancelConfirm:"Cancelar o preparo em andamento?" },
-    footer:{ note:"feito à mão, um despejo de cada vez" },
+    footer:{ note:"feito à mão, um despejo de cada vez", feedback:"Compartilhar feedback" },
+    nav:{ about:"Sobre", content:"Conteúdo", bmc:"☕ Apoie" },
+    about:{ eyebrow:"o que é o bloom", headline:"A maioria das receitas diz o que fazer. O BLOOM ajuda você a entender por quê.", body:"Um guia interativo de preparo — não apenas uma receita. Explicamos a lógica por trás de cada método para que você possa ajustar, experimentar e encontrar a sua xícara ideal." },
+    myRecipes:{ eyebrow:"minhas receitas", prompt:"Nome para esta receita:", load:"Carregar", delete:"Apagar", save:"+ Salvar esta receita" },
+    history:{ eyebrow:"últimos preparos" },
+    roast:{ label:"Torra do café", light:"Clara", medium:"Média", dark:"Escura" },
+    share:{ btn:"Compartilhar receita", title:"receita para compartilhar", copy:"Copiar", copied:"Copiado!", beanTemplate:"☕ Grão: _______________\n📍 Origem: _______________\n📝 Notas: " },
+    pref:{ eyebrow:"seu perfil de gosto", title:"Você parece preferir:", sweet:"Mais doçura, menos acidez", acidic:"Mais acidez", balanced:"Equilíbrio doce/ácido", bodyLight:"Corpo leve", bodyMedium:"Corpo médio", bodyFull:"Corpo encorpado", basedOn:"Com base em {n} preparos com Método 4:6" },
+    bmc:{ title:"Cada contribuição vira café.", body:"O BLOOM é gratuito e sempre será. Se gostou do guia, pague um grão ou dois.", note:"☕ A chaleira agradece.", btn:"Pague alguns grãos" },
+    hv60:{ swirl1:"gire e aguarde", pour1:"1ª descida", pour2:"2ª descida", finish:"mexa e gire", grindWord:"médio-fina", note:"Proporção recomendada: 1:15 a 1:17. Estrutura fixa: bloom + giro imediato, 60% da água, 100% — com mistura suave ao final. Alvo: drenar em 3:30." },
+    "10pour":{ grindWord:"muito grossa", note:"Moagem muito grossa — a mais grossa de todos os métodos. Temperatura alta (95°C) compensa. Os 10 despejos são iguais; o primeiro serve como bloom — aguarde 30 s antes do segundo." },
     grindWord:"médio-grossa",
     feedback:{ toggle:"Como ficou seu café?", sub:"Avalie o resultado e receba dicas de ajuste", preset:"Você ajustou para", timeQ:"o tempo de preparo bateu com o esperado?", timeFast:"drenou rápido demais", timeRight:"no tempo certo", timeSlow:"demorou demais", timeFastTip:"da próxima vez, tente uma moagem um pouco mais fina.", timeRightTip:"ótimo — sua moagem está bem calibrada para essa receita.", timeSlowTip:"da próxima vez, tente uma moagem um pouco mais grossa.", bodyQ:"o corpo ficou como você esperava?", bodyLight:"mais leve do que eu queria", bodyRight:"como eu queria", bodyFull:"mais encorpado do que eu queria", bodyLightTip:"tente mais despejos na segunda fase, ou uma moagem um pouco mais fina.", bodyRightTip:"essa configuração de corpo é a sua cara — guarde ela.", bodyFullTip:"tente menos despejos na segunda fase, ou uma moagem um pouco mais grossa.", balanceQ:"o equilíbrio doce/ácido ficou como esperava?", balanceAcidic:"mais ácido do que eu queria", balanceRight:"equilibrado, como eu queria", balanceSweet:"mais doce do que eu queria", balanceAcidicTip:"tente diminuir um pouco a temperatura, ou mover o equilíbrio pro lado doce.", balanceRightTip:"essa é a sua xícara — guarde essa configuração.", balanceSweetTip:"tente aumentar um pouco a temperatura, ou mover o equilíbrio pro lado ácido.", fpStrengthQ:"a força ficou como você esperava?", fpWeak:"fraca, aguada", fpStrengthRight:"equilibrada", fpStrong:"forte demais", fpWeakTip:"tente uma moagem um pouco mais fina, ou diminua o número da proporção (mais café).", fpStrengthRightTip:"essa proporção e moagem são a sua cara — guarde.", fpStrongTip:"tente uma moagem um pouco mais grossa, ou aumente o número da proporção (menos café).", fpSedimentQ:"teve bastante sedimento (borra) na xícara?", fpSedimentLots:"bastante", fpSedimentSome:"um pouco", fpSedimentClean:"limpinho", fpSedimentLotsTip:"capriche em tirar a espuma e os grãos ao quebrar a crosta, e não pressione o êmbolo até o fundo.", fpSedimentSomeTip:"quase lá — deixe descansar um pouco mais antes de pressionar.", fpSedimentCleanTip:"sua técnica de quebrar a crosta está afiada.", note:"são só pistas pra ajustar — o ponto da torra também interfere bastante no resultado." }
   },
   en: {
     topbar:{ tagline:"pour-over guide" },
     badge:{ soon:"soon" },
-    recipe:{ choose:"Choose a method" },
+    recipe:{ choose:"Choose a method", methods:"Methods" },
     illustration:{ idle:"Choose a method above" },
     settings:{ eyebrow:"adjust your recipe", volume:"How much coffee?", ratio:"Ratio", balance:"Balance", balanceMicro:"Smaller first pour sweetens; larger adds acidity.", body:"Body", strengthMicro:"Fewer pours = fuller body.", cta:"Start brewing" },
     summary:{ eyebrow:"before you start", dose:"coffee needed", temp:"temperature", grind:"grind", water:"total water" },
@@ -503,14 +747,24 @@ var I18N = {
     toc:{ eyebrow:"your recipe, step by step" },
     step:{ drain:"let it drain" },
     brew:{ getReady:"get ready", pouringState:"pouring", waitingState:"wait", pourLabel:"to {x}", waitLabel:"until pour {n}", waitLabelEnd:"until it's done", totalLabel:"total time", positionTinyLabel:"step", positionLabel:"{i}/{n}", skip:"skip", pause:"pause", resume:"resume", doneTitle:"All set", doneSub:"Your coffee's ready. Enjoy the cup.", adjust:"Adjust recipe", again:"Brew again", cancelConfirm:"Cancel the brew in progress?" },
-    footer:{ note:"made by hand, one pour at a time" },
+    footer:{ note:"made by hand, one pour at a time", feedback:"Share feedback" },
+    nav:{ about:"About", content:"Content", bmc:"☕ Support" },
+    about:{ eyebrow:"what is bloom", headline:"Most coffee recipes tell you what to do. BLOOM helps you understand why.", body:"An interactive brewing guide — not just a recipe. We explain the logic behind each method so you can adjust, experiment, and find your perfect cup." },
+    myRecipes:{ eyebrow:"my recipes", prompt:"Name for this recipe:", load:"Load", delete:"Delete", save:"+ Save this recipe" },
+    history:{ eyebrow:"recent brews" },
+    roast:{ label:"Coffee roast", light:"Light", medium:"Medium", dark:"Dark" },
+    share:{ btn:"Share recipe", title:"recipe to share", copy:"Copy", copied:"Copied!", beanTemplate:"☕ Bean: _______________\n📍 Origin: _______________\n📝 Notes: " },
+    pref:{ eyebrow:"your taste profile", title:"You seem to prefer:", sweet:"More sweetness, less acidity", acidic:"More acidity", balanced:"Balanced sweet/acid", bodyLight:"Lighter body", bodyMedium:"Medium body", bodyFull:"Full body", basedOn:"Based on {n} brews with the 4:6 Method" },
+    bmc:{ title:"Every contribution becomes coffee.", body:"BLOOM is free and always will be. If you enjoyed the guide, buy a bean or two.", note:"☕ The kettle thanks you.", btn:"Buy me some beans" },
+    hv60:{ swirl1:"swirl & rest", pour1:"1st pour", pour2:"2nd pour", finish:"stir & swirl", grindWord:"medium-fine", note:"Recommended ratio: 1:15 to 1:17. Fixed structure: bloom + immediate swirl, 60% of water, 100% — with gentle agitation at the end. Target drawdown: 3:30." },
+    "10pour":{ grindWord:"super coarse", note:"Very coarse grind — coarser than any other method here. High temperature (95°C) compensates. All 10 pours are equal; the first acts as a bloom — wait 30 s before the second." },
     grindWord:"medium-coarse",
     feedback:{ toggle:"How did your coffee turn out?", sub:"Rate the result and get tips to improve", preset:"You set it to", timeQ:"did the brew time match what you expected?", timeFast:"drained too fast", timeRight:"right on time", timeSlow:"took too long", timeFastTip:"next time, try a slightly finer grind.", timeRightTip:"nice — your grind is well dialed in for this recipe.", timeSlowTip:"next time, try a slightly coarser grind.", bodyQ:"did the body turn out as expected?", bodyLight:"lighter than I wanted", bodyRight:"just like I wanted", bodyFull:"fuller than I wanted", bodyLightTip:"try more pours in the second phase, or a slightly finer grind.", bodyRightTip:"that body setting is your sweet spot — keep it.", bodyFullTip:"try fewer pours in the second phase, or a slightly coarser grind.", balanceQ:"did the sweet/acidic balance match what you expected?", balanceAcidic:"more acidic than I wanted", balanceRight:"balanced, just like I wanted", balanceSweet:"sweeter than I wanted", balanceAcidicTip:"try lowering the temperature a bit, or shifting balance toward sweet.", balanceRightTip:"that's your cup — keep this setting.", balanceSweetTip:"try raising the temperature a bit, or shifting balance toward acidic.", fpStrengthQ:"did the strength turn out as expected?", fpWeak:"weak, watery", fpStrengthRight:"balanced", fpStrong:"too strong", fpWeakTip:"try a slightly finer grind, or lower the ratio number (more coffee).", fpStrengthRightTip:"that ratio and grind are your sweet spot — keep it.", fpStrongTip:"try a slightly coarser grind, or raise the ratio number (less coffee).", fpSedimentQ:"was there a lot of sediment (grit) in the cup?", fpSedimentLots:"a lot", fpSedimentSome:"a little", fpSedimentClean:"clean", fpSedimentLotsTip:"be thorough skimming the foam and grounds off the crust, and don't press the plunger all the way down.", fpSedimentSomeTip:"almost there — let it settle a bit longer before pressing.", fpSedimentCleanTip:"your crust-breaking technique is dialed in.", note:"these are just clues to adjust — roast level also affects the result quite a bit." }
   },
   es: {
     topbar:{ tagline:"guía de métodos" },
     badge:{ soon:"próximamente" },
-    recipe:{ choose:"Elige un método" },
+    recipe:{ choose:"Elige un método", methods:"Métodos" },
     illustration:{ idle:"Elige un método arriba" },
     settings:{ eyebrow:"ajusta tu receta", volume:"¿Cuánto café preparar?", ratio:"Proporción", balance:"Balance", balanceMicro:"Primer vertido menor endulza; mayor realza la acidez.", body:"Cuerpo", strengthMicro:"Menos vertidos = más cuerpo.", cta:"Iniciar preparación" },
     summary:{ eyebrow:"antes de empezar", dose:"café necesario", temp:"temperatura", grind:"molienda", water:"agua total" },
@@ -521,7 +775,17 @@ var I18N = {
     toc:{ eyebrow:"tu receta, paso a paso" },
     step:{ drain:"deja drenar" },
     brew:{ getReady:"prepárate", pouringState:"vertiendo", waitingState:"espera", pourLabel:"hasta {x}", waitLabel:"hasta el vertido {n}", waitLabelEnd:"hasta el final", totalLabel:"tiempo total", positionTinyLabel:"paso", positionLabel:"{i}/{n}", skip:"saltar", pause:"pausar", resume:"continuar", doneTitle:"¡Todo listo!", doneSub:"Tu café está servido. Disfruta la taza.", adjust:"Ajustar receta", again:"Preparar de nuevo", cancelConfirm:"¿Cancelar la preparación en curso?" },
-    footer:{ note:"hecho a mano, un vertido a la vez" },
+    footer:{ note:"hecho a mano, un vertido a la vez", feedback:"Compartir sugerencia" },
+    nav:{ about:"Sobre", content:"Contenido", bmc:"☕ Apoya" },
+    about:{ eyebrow:"qué es bloom", headline:"La mayoría de las recetas te dicen qué hacer. BLOOM te ayuda a entender por qué.", body:"Una guía interactiva de preparación — no solo una receta. Explicamos la lógica detrás de cada método para que puedas ajustar, experimentar y encontrar tu taza ideal." },
+    myRecipes:{ eyebrow:"mis recetas", prompt:"Nombre para esta receta:", load:"Cargar", delete:"Borrar", save:"+ Guardar esta receta" },
+    history:{ eyebrow:"preparaciones recientes" },
+    roast:{ label:"Tueste del café", light:"Claro", medium:"Medio", dark:"Oscuro" },
+    share:{ btn:"Compartir receta", title:"receta para compartir", copy:"Copiar", copied:"¡Copiado!", beanTemplate:"☕ Grano: _______________\n📍 Origen: _______________\n📝 Notas: " },
+    pref:{ eyebrow:"tu perfil de gusto", title:"Parece que prefieres:", sweet:"Más dulzor, menos acidez", acidic:"Más acidez", balanced:"Equilibrio dulce/ácido", bodyLight:"Cuerpo ligero", bodyMedium:"Cuerpo medio", bodyFull:"Cuerpo con más cuerpo", basedOn:"Basado en {n} preparaciones con el Método 4:6" },
+    bmc:{ title:"Cada aporte se convierte en café.", body:"BLOOM es gratuito y siempre lo será. Si disfrutaste la guía, invita un grano o dos.", note:"☕ La tetera lo agradece.", btn:"Invítame unos granos" },
+    hv60:{ swirl1:"gira y reposa", pour1:"1ª vertida", pour2:"2ª vertida", finish:"mueve y gira", grindWord:"medio-fina", note:"Proporción recomendada: 1:15 a 1:17. Estructura fija: bloom + giro inmediato, 60% del agua, 100% — con agitación suave al final. Objetivo: drenar en 3:30." },
+    "10pour":{ grindWord:"muy gruesa", note:"Molienda muy gruesa — la más gruesa de todos los métodos. La temperatura alta (95°C) compensa. Los 10 vertidos son iguales; el primero hace de bloom — espera 30 s antes del segundo." },
     grindWord:"medio-gruesa",
     feedback:{ toggle:"¿Cómo salió tu café?", sub:"Evalúa el resultado y recibe consejos de ajuste", preset:"Lo ajustaste a", timeQ:"¿el tiempo de preparación fue el esperado?", timeFast:"drenó demasiado rápido", timeRight:"en el tiempo justo", timeSlow:"tardó demasiado", timeFastTip:"la próxima vez, prueba una molienda un poco más fina.", timeRightTip:"perfecto — tu molienda está bien calibrada para esta receta.", timeSlowTip:"la próxima vez, prueba una molienda un poco más gruesa.", bodyQ:"¿el cuerpo quedó como esperabas?", bodyLight:"más ligero de lo que quería", bodyRight:"tal como lo quería", bodyFull:"con más cuerpo del que quería", bodyLightTip:"prueba más vertidos en la segunda fase, o una molienda un poco más fina.", bodyRightTip:"esa configuración de cuerpo es perfecta para ti — guárdala.", bodyFullTip:"prueba menos vertidos en la segunda fase, o una molienda un poco más gruesa.", balanceQ:"¿el balance dulce/ácido fue el esperado?", balanceAcidic:"más ácido de lo que quería", balanceRight:"equilibrado, como quería", balanceSweet:"más dulce de lo que quería", balanceAcidicTip:"prueba bajar un poco la temperatura, o mover el balance hacia el lado dulce.", balanceRightTip:"esa es tu taza — guarda esta configuración.", balanceSweetTip:"prueba subir un poco la temperatura, o mover el balance hacia el lado ácido.", fpStrengthQ:"¿la intensidad quedó como esperabas?", fpWeak:"débil, aguado", fpStrengthRight:"equilibrado", fpStrong:"demasiado intenso", fpWeakTip:"prueba una molienda un poco más fina, o reduce el número de proporción (más café).", fpStrengthRightTip:"esa proporción y molienda son perfectas — guárdalas.", fpStrongTip:"prueba una molienda un poco más gruesa, o aumenta el número de proporción (menos café).", fpSedimentQ:"¿hubo mucho sedimento (posos) en la taza?", fpSedimentLots:"bastante", fpSedimentSome:"un poco", fpSedimentClean:"limpio", fpSedimentLotsTip:"sé cuidadoso al retirar la espuma y los posos al romper la costra, y no presiones el émbolo hasta el fondo.", fpSedimentSomeTip:"casi perfecto — deja reposar un poco más antes de presionar.", fpSedimentCleanTip:"tu técnica para romper la costra está dominada.", note:"son solo pistas para ajustar — el nivel de tueste también influye bastante en el resultado." }
   }
@@ -530,22 +794,24 @@ function t(path){ var parts = path.split("."); var node = I18N[state.lang]; for(
 function fmt(str, repl){ return str.replace(/\{(\w+)\}/g, function(_,k){ return repl[k]!==undefined ? repl[k] : ""; }); }
 
 var RECIPES = [
-  { id:"46", type:"46", device:"V60", tagClass:"tag-v60", status:"live", name:{pt:"Método 4:6", en:"4:6 Method", es:"Método 4:6"}, author:"Tetsu Kasuya" },
-  { id:"10pour", type:"10pour", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"10 Despejos (Switch)", en:"10-Pour Switch", es:"10 Vertidos (Switch)"}, author:"Tetsu Kasuya" },
-  { id:"hoffmann", type:"hoffmann", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"V60 Definitivo", en:"Ultimate V60", es:"V60 Definitivo"}, author:"James Hoffmann" },
-  { id:"rao", type:"rao", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Método Swirl", en:"Swirl Method", es:"Método Swirl"}, author:"Scott Rao" },
-  { id:"onyx", type:"onyx", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Receita Onyx", en:"Onyx Recipe", es:"Receta Onyx"}, author:"Onyx Coffee Lab" },
-  { id:"perger", type:"perger", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Técnica de Competição", en:"Competition Technique", es:"Técnica de Competición"}, author:"Matt Perger" },
-  { id:"aeropress", type:"aeropress", device:"AEROPRESS", tagClass:"tag-aeropress", status:"soon", name:{pt:"AeroPress Definitivo", en:"Ultimate AeroPress", es:"AeroPress Definitivo"}, author:"James Hoffmann" },
-  { id:"frenchpress", type:"frenchpress", device:"FRENCH PRESS", tagClass:"tag-frenchpress", status:"live", name:{pt:"Prensa Francesa Clássica", en:"Classic French Press", es:"Prensa Francesa Clásica"}, author:"James Hoffmann" }
+  { id:"46", type:"46", device:"V60", tagClass:"tag-v60", status:"live", name:{pt:"Método 4:6", en:"4:6 Method", es:"Método 4:6"}, author:"Tetsu Kasuya", desc:{pt:"Controle preciso sobre doçura, acidez e corpo por meio da estrutura dos despejos em duas fases.", en:"Precise control over sweetness, acidity and body through a two-phase pour structure.", es:"Control preciso sobre dulzor, acidez y cuerpo mediante una estructura de vertido en dos fases."} },
+  { id:"10pour", type:"10pour", device:"V60", tagClass:"tag-v60", status:"live", name:{pt:"10 Despejos", en:"10-Pour Method", es:"10 Vertidos"}, author:"Tetsu Kasuya", desc:{pt:"Dez despejos iguais para controle de extração e clareza. Moagem muito grossa, temperatura alta.", en:"Ten equal pours for extraction control and clarity. Very coarse grind, high temperature.", es:"Diez vertidos iguales para controlar la extracción y la claridad. Molienda muy gruesa, temperatura alta."} },
+  { id:"hoffmann", type:"hoffmann", device:"V60", tagClass:"tag-v60", status:"live", name:{pt:"V60 Definitivo", en:"Ultimate V60", es:"V60 Definitivo"}, author:"James Hoffmann", desc:{pt:"Método fixo com bloom, dois despejos e giro final — xícara limpa e equilibrada em 3:30.", en:"Fixed method — bloom, two pours and a final swirl for a clean, balanced cup in 3:30.", es:"Método fijo: bloom, dos vertidos y giro final para una taza limpia y equilibrada en 3:30."} },
+  { id:"rao", type:"rao", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Método Swirl", en:"Swirl Method", es:"Método Swirl"}, author:"Scott Rao", desc:{pt:"Usa giro ativo para homogeneizar a extração em todo o leito de café.", en:"Uses active stirring to homogenise extraction throughout the coffee bed.", es:"Usa agitación activa para homogeneizar la extracción en todo el lecho de café."} },
+  { id:"onyx", type:"onyx", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Receita Onyx", en:"Onyx Recipe", es:"Receta Onyx"}, author:"Onyx Coffee Lab", desc:{pt:"Alta temperatura para realçar torras claras e notas frutadas.", en:"High-temperature recipe to highlight light roasts and fruity notes.", es:"Alta temperatura para realzar tuestes claros y notas afrutadas."} },
+  { id:"perger", type:"perger", device:"V60", tagClass:"tag-v60", status:"soon", name:{pt:"Técnica de Competição", en:"Competition Technique", es:"Técnica de Competición"}, author:"Matt Perger", desc:{pt:"Abordagem competitiva com agitação turbulenta para extração máxima e uniforme.", en:"Competitive approach with turbulent agitation for maximum, even extraction.", es:"Enfoque competitivo con agitación turbulenta para una extracción máxima y uniforme."} },
+  { id:"aeropress", type:"aeropress", device:"AEROPRESS", tagClass:"tag-aeropress", status:"soon", name:{pt:"AeroPress Definitivo", en:"Ultimate AeroPress", es:"AeroPress Definitivo"}, author:"James Hoffmann", desc:{pt:"Pressão total e imersão completa. Versátil e consistente em menos de dois minutos.", en:"Full pressure, full immersion. Versatile and consistent in under two minutes.", es:"Presión total e inmersión completa. Versátil y consistente en menos de dos minutos."} },
+  { id:"frenchpress", type:"frenchpress", device:"FRENCH PRESS", tagClass:"tag-frenchpress", status:"live", name:{pt:"Prensa Francesa Clássica", en:"Classic French Press", es:"Prensa Francesa Clásica"}, author:"James Hoffmann", desc:{pt:"Imersão total com repouso longo e remoção da espuma — xícara rica, quase sem sedimento.", en:"Full immersion with a long rest and foam removal — rich, nearly sediment-free cup.", es:"Inmersión total con largo reposo y remoción de espuma — taza rica y casi sin posos."} }
 ];
 
 var FIXED_TEMP = 92;
+var ROAST_TEMP_OFFSET = { light:3, medium:0, dark:-4 };
+function roastOffset(){ return ROAST_TEMP_OFFSET[state.params.roast||"medium"]||0; }
 var BAL_LABELS = { pt:["Doce","Equilibrado","Ácido"], en:["Sweet","Balanced","Acidic"], es:["Dulce","Equilibrado","Ácido"] };
 var BODY_LABELS = { pt:["Leve","Médio","Encorpado","Intenso"], en:["Light","Medium","Full","Intense"], es:["Ligero","Medio","Con cuerpo","Intenso"] };
 var state = {
   lang:"pt", selectedRecipe:null, activeType:null, mode:"idle",
-  params:{ volume:300, ratio:15, balance:0, pours2:3 },
+  params:{ volume:300, ratio:15, balance:0, pours2:3, roast:"medium" },
   computed:null, audioCtx:null,
   brew:{ recipe:null, running:false, paused:false, startTs:0, pausedAccum:0, pauseStartedAt:0, offset:0, elapsed:0, muted:false, doneShown:false, lastTrigger:"", lastHeadsupKey:"" }
 };
@@ -677,6 +943,7 @@ function captionHTML(r){
 function renderRecipePanel(){
   var panel = $("#recipePanel");
   panel.innerHTML = "";
+  var hdr=document.createElement("div"); hdr.className="recipe-panel-header"; hdr.textContent=t("recipe.methods"); panel.appendChild(hdr);
   RECIPES.forEach(function(r){
     var row = document.createElement("div");
     row.className = "recipe-row";
@@ -688,6 +955,21 @@ function renderRecipePanel(){
     row.addEventListener("click", function(e){ e.stopPropagation(); selectRecipe(r.id); closePanel(); });
     panel.appendChild(row);
   });
+  var saved=getSavedRecipes();
+  if(saved.length>0){
+    var sh=document.createElement("div"); sh.className="recipe-panel-header"; sh.textContent=t("myRecipes.eyebrow"); panel.appendChild(sh);
+    saved.forEach(function(r){
+      var recipeObj=RECIPES.filter(function(x){ return x.id===r.recipeId||x.id===r.type; })[0];
+      var methodName=recipeObj?recipeObj.name[state.lang]:r.type;
+      var date=new Date(r.savedAt);
+      var dateStr=date.toLocaleDateString(state.lang==="pt"?"pt-BR":state.lang==="es"?"es":"en-US",{day:"numeric",month:"short"});
+      var row=document.createElement("div"); row.className="recipe-row";
+      row.innerHTML='<span class="rinfo"><span class="rname">'+escHtml(r.name)+'</span><span class="rauthor">'+methodName+' · '+dateStr+'</span></span><button class="recipe-row-saved-del" type="button" title="'+t("myRecipes.delete")+'">&#215;</button>';
+      row.querySelector(".recipe-row-saved-del").addEventListener("click",function(e){ e.stopPropagation(); deleteSavedRecipe(r.id); });
+      row.addEventListener("click",function(e){ if(e.target.classList.contains("recipe-row-saved-del")) return; e.stopPropagation(); loadSavedRecipe(r); closePanel(); });
+      panel.appendChild(row);
+    });
+  }
 }
 function openPanel(){
   if((state.brew.running || state.mode==="countdown") && state.mode!=="idle"){
@@ -708,16 +990,21 @@ function closePanel(){ $("#recipePanel").hidden=true; $("#recipeSelect").classLi
 function selectRecipe(id){
   if(state.brew.running) return;
   state.selectedRecipe = id;
+  state.customName = null;
   var r = RECIPES.filter(function(x){ return x.id===id; })[0];
   $("#recipeTriggerLabel").innerHTML = '<span class="tag-pill '+r.tagClass+'" style="margin-right:8px;">'+r.device+'</span>'+r.name[state.lang];
   var cap = $("#illustrationCaption");
   cap.innerHTML = captionHTML(r);
+  var descLine=document.getElementById("recipeDescLine"); if(descLine){ descLine.textContent=r.desc&&r.status==="live"?r.desc[state.lang]:""; descLine.hidden=!r.desc||r.status!=="live"; }
   if(r.status === "live"){
     state.activeType = r.type;
     mountScene(r.type);
-    $("#balanceBlock").hidden = (r.type==="frenchpress");
-    $("#strengthBlock").hidden = (r.type==="frenchpress");
-    $("#fpNote").hidden = (r.type!=="frenchpress");
+    var isSimple=r.type==="frenchpress"||r.type==="10pour"||r.type==="hoffmann";
+    $("#balanceBlock").hidden = isSimple;
+    $("#strengthBlock").hidden = isSimple;
+    $("#fpNote").hidden = r.type!=="frenchpress";
+    var n1=document.getElementById("hv60Note"); if(n1) n1.hidden=r.type!=="hoffmann";
+    var n2=document.getElementById("tenPourNote"); if(n2) n2.hidden=r.type!=="10pour";
     setMode("configuring");
     recompute();
   } else {
@@ -739,7 +1026,30 @@ function compute46(p){
   var drainStart = pours[pours.length-1].start + 10;
   pours.push({ kind:"drain", labelKey:"step.drain", start:drainStart, duration:45, cumulative:null });
   var finishTime = drainStart + 45;
-  return { type:"46", totalWater:totalWater, dose:dose, pours:pours, finishTime:finishTime, temp:FIXED_TEMP };
+  return { type:"46", totalWater:totalWater, dose:dose, pours:pours, finishTime:finishTime, temp:FIXED_TEMP+roastOffset() };
+}
+function compute10Pour(p){
+  var totalWater=p.volume, dose=totalWater/p.ratio, perPour=Math.round(totalWater/10), cumulative=0, pours=[];
+  for(var i=0;i<10;i++){
+    var start=(i===0)?0:(i===1)?30:30+(i-1)*15;
+    cumulative+=perPour;
+    pours.push({kind:"pour",start:start,duration:10,amount:perPour,cumulative:cumulative});
+  }
+  pours.push({kind:"drain",labelKey:"step.drain",start:160,duration:50});
+  return{type:"10pour",totalWater:totalWater,dose:dose,pours:pours,finishTime:210,temp:95+roastOffset(),grindKey:"10pour.grindWord"};
+}
+function computeHoffmannV60(p){
+  var totalWater=p.volume, dose=totalWater/p.ratio;
+  var bloomAmt=Math.round(dose*2), firstTarget=Math.round(totalWater*0.6);
+  var pours=[
+    {kind:"pour",   start:0,   duration:10, amount:bloomAmt,                 cumulative:bloomAmt},
+    {kind:"action", start:10,  duration:35,                                   labelKey:"hv60.swirl1"},
+    {kind:"pour",   start:45,  duration:30, amount:firstTarget-bloomAmt,     cumulative:firstTarget,  labelKey:"hv60.pour1"},
+    {kind:"pour",   start:75,  duration:30, amount:totalWater-firstTarget,   cumulative:totalWater,   labelKey:"hv60.pour2"},
+    {kind:"action", start:105, duration:20,                                   labelKey:"hv60.finish"},
+    {kind:"drain",  start:125, duration:85,                                   labelKey:"step.drain"}
+  ];
+  return{type:"hoffmann",totalWater:totalWater,dose:dose,pours:pours,finishTime:210,temp:95+roastOffset(),grindKey:"hv60.grindWord"};
 }
 function computeFrenchPress(p){
   var totalWater = p.volume;
@@ -752,10 +1062,13 @@ function computeFrenchPress(p){
     { kind:"action", labelKey:"fp.stepPlunge", start:585, duration:20  }
   ];
   var finishTime = 605;
-  return { type:"frenchpress", totalWater:totalWater, dose:dose, pours:pours, finishTime:finishTime, temp:93, grindKey:"fp.grindWord" };
+  return { type:"frenchpress", totalWater:totalWater, dose:dose, pours:pours, finishTime:finishTime, temp:93+roastOffset(), grindKey:"fp.grindWord" };
 }
 function recompute(){
-  state.computed = (state.activeType==="frenchpress") ? computeFrenchPress(state.params) : compute46(state.params);
+  if(state.activeType==="frenchpress") state.computed=computeFrenchPress(state.params);
+  else if(state.activeType==="10pour") state.computed=compute10Pour(state.params);
+  else if(state.activeType==="hoffmann") state.computed=computeHoffmannV60(state.params);
+  else state.computed=compute46(state.params);
   renderSummary();
   renderToc();
 }
@@ -1022,6 +1335,8 @@ function updateBrewUI(elapsed){
     renderFeedback();
     $("#feedbackBody").hidden = true;
     cue("done");
+    triggerDoneAnim();
+    saveBrewToHistory();
   }
 }
 
@@ -1038,9 +1353,9 @@ function renderFeedback(){
   var body = $("#feedbackBody");
   body.innerHTML = "";
   var pre = document.createElement("div"); pre.className = "feedback-preset";
-  var rows = (state.activeType==="frenchpress")
-    ? [[t("settings.ratio"), "1:"+state.params.ratio]]
-    : [[t("settings.balance"), BAL_LABELS[state.lang][state.params.balance+1]],[t("settings.body"), BODY_LABELS[state.lang][state.params.pours2-1]]];
+  var rows = (state.activeType==="46")
+    ? [[t("settings.balance"), BAL_LABELS[state.lang][state.params.balance+1]],[t("settings.body"), BODY_LABELS[state.lang][state.params.pours2-1]]]
+    : [[t("settings.ratio"), "1:"+state.params.ratio]];
   pre.innerHTML = '<span class="fp-title">'+t("feedback.preset")+'</span>'+rows.map(function(r){ return '<span class="fp-chip"><span class="fp-k">'+r[0]+'</span><span class="fp-v">'+r[1]+'</span></span>'; }).join("");
   body.appendChild(pre);
   qs.forEach(function(qdef){
@@ -1104,6 +1419,106 @@ function wireBrewControls(){
   });
 }
 
+function triggerDoneAnim(){
+  var ring=document.querySelector('#iconDone .done-ring');
+  var check=document.querySelector('#iconDone .done-check');
+  if(!ring||!check) return;
+  ring.classList.remove('run'); check.classList.remove('run');
+  void ring.offsetWidth;
+  setTimeout(function(){ ring.classList.add('run'); check.classList.add('run'); },30);
+}
+
+// ── Local Storage ──
+var LS_RECIPES="bloom_saved_recipes", LS_HISTORY="bloom_brew_history";
+function lsGet(key){ try{ return JSON.parse(localStorage.getItem(key)||"null"); }catch(e){ return null; } }
+function lsSet(key,val){ try{ localStorage.setItem(key,JSON.stringify(val)); }catch(e){} }
+function getSavedRecipes(){ return lsGet(LS_RECIPES)||[]; }
+function getBrewHistory(){ return lsGet(LS_HISTORY)||[]; }
+function escHtml(str){ return str.replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+
+function saveCurrentRecipe(){
+  if(!state.computed||!state.activeType) return;
+  var name=window.prompt(t("myRecipes.prompt"));
+  if(!name||!name.trim()) return;
+  var recipes=getSavedRecipes();
+  recipes.unshift({id:"r_"+Date.now(),name:name.trim(),type:state.activeType,recipeId:state.selectedRecipe,savedAt:Date.now(),params:{volume:state.params.volume,ratio:state.params.ratio,balance:state.params.balance,pours2:state.params.pours2,roast:state.params.roast||"medium"}});
+  lsSet(LS_RECIPES,recipes);
+  renderMyRecipes();
+}
+function loadSavedRecipe(r){
+  selectRecipe(r.recipeId||r.type);
+  setTimeout(function(){ state.params.volume=r.params.volume||300; state.params.ratio=r.params.ratio||15; state.params.balance=r.params.balance||0; state.params.pours2=r.params.pours2||3; state.params.roast=r.params.roast||"medium"; state.customName=r.name||null; $all("#roastSeg button").forEach(function(b){ b.classList.toggle("active",b.getAttribute("data-roast")===state.params.roast); }); recompute(); if(window.__applySegLabels) window.__applySegLabels(); },60);
+}
+function deleteSavedRecipe(id){
+  lsSet(LS_RECIPES,getSavedRecipes().filter(function(r){ return r.id!==id; }));
+  renderMyRecipes();
+}
+function saveBrewToHistory(){
+  if(!state.computed||!state.activeType) return;
+  var r=RECIPES.filter(function(x){ return x.id===state.selectedRecipe; })[0];
+  var history=getBrewHistory();
+  history.unshift({completedAt:Date.now(),type:state.activeType,recipeId:state.selectedRecipe,recipeName:r?r.name:{pt:state.activeType,en:state.activeType,es:state.activeType},params:{volume:state.params.volume,ratio:state.params.ratio,balance:state.params.balance,pours2:state.params.pours2}});
+  if(history.length>20) history=history.slice(0,20);
+  lsSet(LS_HISTORY,history);
+  renderBrewHistory();
+  renderPreferenceProfile();
+}
+function renderMyRecipes(){ renderRecipePanel(); }
+function renderBrewHistory(){
+  var history=getBrewHistory();
+  var section=document.getElementById("historySection");
+  var list=document.getElementById("historyList");
+  if(!section||!list) return;
+  section.hidden=history.length===0;
+  list.innerHTML="";
+  history.slice(0,5).forEach(function(entry){
+    var row=document.createElement("div"); row.className="history-row";
+    var name=entry.recipeName?(entry.recipeName[state.lang]||entry.type):entry.type;
+    var date=new Date(entry.completedAt);
+    var dateStr=date.toLocaleDateString(state.lang==="pt"?"pt-BR":state.lang==="es"?"es":"en-US",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+    row.innerHTML='<span class="history-method">'+name+'</span><span class="history-date">'+dateStr+'</span>';
+    list.appendChild(row);
+  });
+}
+function generateShareText(){
+  var c=state.computed; if(!c) return "";
+  var r=RECIPES.filter(function(x){ return x.id===state.selectedRecipe; })[0]; if(!r) return "";
+  var recipeName=state.customName||r.name[state.lang];
+  var lines=["☕ BLOOM — "+recipeName,"",t("share.beanTemplate"),"",t("summary.dose")+": "+Math.round(c.dose)+"g",t("summary.water")+": "+Math.round(c.totalWater)+"ml",t("settings.ratio")+": 1:"+state.params.ratio,t("summary.temp")+": "+c.temp+"°C",t("summary.grind")+": "+t(state.computed.grindKey||"grindWord")];
+  if(state.activeType==="46"){ lines.push(t("settings.balance")+": "+BAL_LABELS[state.lang][state.params.balance+1]); lines.push(t("settings.body")+": "+BODY_LABELS[state.lang][state.params.pours2-1]); }
+  try{ var base=window.location.href.split("?")[0]; var p=new URLSearchParams({m:state.activeType,v:state.params.volume,r:state.params.ratio,b:state.params.balance,p:state.params.pours2,rt:state.params.roast||"medium"}); lines.push("",base+"?"+p.toString()); }catch(e){}
+  return lines.join("\n");
+}
+function analyzePreferences(){
+  var h=getBrewHistory().filter(function(x){ return x.type==="46"&&x.params; });
+  if(h.length<3) return null;
+  var n=Math.min(h.length,8),bs=0,ps=0;
+  for(var i=0;i<n;i++){ bs+=h[i].params.balance||0; ps+=h[i].params.pours2||3; }
+  return{balance:bs/n,body:ps/n,count:n};
+}
+function renderPreferenceProfile(){
+  var section=document.getElementById("prefSection"); if(!section) return;
+  var prefs=analyzePreferences(); section.hidden=!prefs; if(!prefs) return;
+  var chips=document.getElementById("prefChips"); var meta=document.getElementById("prefMeta"); if(!chips||!meta) return;
+  chips.innerHTML="";
+  var items=[];
+  if(prefs.balance<-0.3) items.push(t("pref.sweet")); else if(prefs.balance>0.3) items.push(t("pref.acidic")); else items.push(t("pref.balanced"));
+  if(prefs.body<=1.7) items.push(t("pref.bodyLight")); else if(prefs.body<=2.7) items.push(t("pref.bodyMedium")); else items.push(t("pref.bodyFull"));
+  items.forEach(function(label){ var chip=document.createElement("span"); chip.className="pref-chip"; chip.textContent="✓ "+label; chips.appendChild(chip); });
+  meta.textContent=fmt(t("pref.basedOn"),{n:prefs.count});
+}
+function applyURLParams(){
+  try{
+    var p=new URLSearchParams(window.location.search); var m=p.get("m"); if(!m) return;
+    var v=p.get("v"),r=p.get("r"),b=p.get("b"),pp=p.get("p"),rt=p.get("rt");
+    if(v) state.params.volume=parseInt(v,10)||300;
+    if(r) state.params.ratio=parseFloat(r)||15;
+    if(b) state.params.balance=Math.max(-1,Math.min(1,parseInt(b,10)));
+    if(pp) state.params.pours2=Math.max(1,Math.min(4,parseInt(pp,10)));
+    if(rt) state.params.roast=rt;
+    selectRecipe(m);
+  }catch(e){}
+}
 function setTheme(dark){ document.documentElement.classList.toggle("dark", dark); setIcon("iconTheme", dark ? "sun" : "moon"); }
 
 function setLang(lang){
@@ -1118,12 +1533,14 @@ function setLang(lang){
     $("#recipeTriggerLabel").innerHTML = '<span class="tag-pill '+r.tagClass+'" style="margin-right:8px;">'+r.device+'</span>'+r.name[state.lang] + (r.status==="soon" ? ' <span style="color:var(--ink-soft);font-weight:400;">· '+t("badge.soon")+'</span>' : '');
     var cap = $("#illustrationCaption");
     cap.innerHTML = captionHTML(r);
+    var dl=document.getElementById("recipeDescLine"); if(dl){ dl.textContent=r.desc&&r.status==="live"?r.desc[state.lang]:""; dl.hidden=!r.desc||r.status!=="live"; }
   }
   if(state.computed){ renderSummary(); populateHoverPanels(); }
   if(state.mode==="prep"){ showPrepChecklist(); }
   if(state.brew.recipe && state.brew.doneShown){ renderToc(state.brew.elapsed, true); renderFeedback(); $("#feedbackBody").hidden = true; }
   else if(state.brew.recipe && state.brew.running){ updateBrewUI(state.brew.elapsed); }
   else if(state.computed){ renderToc(); }
+  renderMyRecipes(); renderBrewHistory(); renderPreferenceProfile();
 }
 
 function init(){
@@ -1131,7 +1548,7 @@ function init(){
   $("#illustrationCaption").textContent = t("illustration.idle");
   $("#recipeTriggerLabel").textContent = t("recipe.choose");
   setIcon("chevronIcon","chevron"); setIcon("iconDose","bean"); setIcon("iconTemp","thermo"); setIcon("iconGrind","grind");
-  setIcon("iconClock","clock"); setIcon("iconDroplet","droplet"); setIcon("iconSpeaker","speaker"); setIcon("iconPause","pause"); setIcon("iconSkip","skipNext"); setIcon("iconDone","cup");
+  setIcon("iconClock","clock"); setIcon("iconDroplet","droplet"); setIcon("iconSpeaker","speaker"); setIcon("iconPause","pause"); setIcon("iconSkip","skipNext"); setIcon("iconHamburger","menu");
   renderRecipePanel(); applyI18n(); wireSetupControls(); wireBrewControls(); setMode("idle");
   closePanel();
   populateHoverPanels();
@@ -1156,7 +1573,12 @@ function init(){
     $("#pourInfoPanel").hidden = wasActive;
   });
   $("#recipeTrigger").addEventListener("click", function(e){ e.stopPropagation(); if($("#recipePanel").hidden){ openPanel(); } else { closePanel(); } });
-  document.addEventListener("click", function(e){ if(!$("#recipeSelect").contains(e.target)) closePanel(); });
+  document.addEventListener("click", function(e){
+    if(!$("#recipeSelect").contains(e.target)) closePanel();
+    var mMenu=document.getElementById("mobileMenu");
+    if(mMenu&&!mMenu.hidden&&!mMenu.contains(e.target)&&!e.target.closest("#hamburgerBtn")){ mMenu.hidden=true; setIcon("iconHamburger","menu"); }
+    if(!e.target.closest(".slider-info-wrap")){ $all(".slider-info-btn.active").forEach(function(b){ b.classList.remove("active"); }); }
+  });
   $all("#langSwitch button").forEach(function(btn){ btn.addEventListener("click", function(){ setLang(btn.getAttribute("data-lang")); }); });
   var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   setTheme(prefersDark);
@@ -1179,6 +1601,26 @@ function init(){
     $("#recipeTriggerLabel").textContent = t("recipe.choose");
     closePanel();
   });
+  var mMenuInit=document.getElementById("mobileMenu"); if(mMenuInit) mMenuInit.hidden=true;
+  var hmBtn=document.getElementById("hamburgerBtn");
+  if(hmBtn){ hmBtn.addEventListener("click",function(e){ e.stopPropagation(); var mMenu=document.getElementById("mobileMenu"); var open=mMenu&&!mMenu.hidden; if(mMenu) mMenu.hidden=open; setIcon("iconHamburger",open?"menu":"close"); }); }
+  var navBmcBtn=document.getElementById("navBmcBtn");
+  var mobileBmcBtn=document.getElementById("mobileBmcBtn");
+  function scrollToBmc(){ var bmc=document.getElementById("bmcSection"); if(!bmc) return; var top=bmc.getBoundingClientRect().top+window.pageYOffset-20; window.scrollTo({top:top,behavior:"smooth"}); }
+  if(navBmcBtn) navBmcBtn.addEventListener("click",scrollToBmc);
+  if(mobileBmcBtn) mobileBmcBtn.addEventListener("click",function(){ var m=document.getElementById("mobileMenu"); if(m) m.hidden=true; setIcon("iconHamburger","menu"); scrollToBmc(); });
+  $all(".slider-info-btn").forEach(function(btn){ btn.addEventListener("click",function(e){ e.stopPropagation(); var isActive=btn.classList.contains("active"); $all(".slider-info-btn").forEach(function(b){ b.classList.remove("active"); }); if(!isActive) btn.classList.add("active"); }); });
+  var saveBtn=document.getElementById("saveRecipeBtn"); if(saveBtn) saveBtn.addEventListener("click",saveCurrentRecipe);
+  var navAboutBtn=document.getElementById("navAboutBtn");
+  var mobileAboutBtn=document.getElementById("mobileAboutBtn");
+  function scrollToAbout(){ var el=document.getElementById("aboutSection"); if(!el) return; var top=el.getBoundingClientRect().top+window.pageYOffset-20; window.scrollTo({top:top,behavior:"smooth"}); }
+  if(navAboutBtn) navAboutBtn.addEventListener("click",scrollToAbout);
+  if(mobileAboutBtn) mobileAboutBtn.addEventListener("click",function(){ var m=document.getElementById("mobileMenu"); if(m) m.hidden=true; setIcon("iconHamburger","menu"); scrollToAbout(); });
+  renderMyRecipes(); renderBrewHistory(); renderPreferenceProfile(); applyURLParams();
+  $all("#roastSeg button").forEach(function(btn){ if(btn.getAttribute("data-roast")===state.params.roast) btn.classList.add("active"); btn.addEventListener("click",function(){ state.params.roast=btn.getAttribute("data-roast"); $all("#roastSeg button").forEach(function(b){ b.classList.remove("active"); }); btn.classList.add("active"); recompute(); }); });
+  var sharePanelEl=document.getElementById("sharePanel"); if(sharePanelEl) sharePanelEl.hidden=true;
+  var shareBtn=document.getElementById("shareBtn"); if(shareBtn) shareBtn.addEventListener("click",function(){ if(!sharePanelEl) return; var opening=sharePanelEl.hidden; sharePanelEl.hidden=!opening; if(opening){ var ta=document.getElementById("shareTextArea"); if(ta) ta.value=generateShareText(); } });
+  var shareClipBtn=document.getElementById("shareClipBtn"); if(shareClipBtn) shareClipBtn.addEventListener("click",function(){ var ta=document.getElementById("shareTextArea"); if(!ta) return; var orig=shareClipBtn.textContent; function afterCopy(){ shareClipBtn.textContent=t("share.copied"); setTimeout(function(){ shareClipBtn.textContent=orig; },2000); } if(navigator.clipboard){ navigator.clipboard.writeText(ta.value).then(afterCopy).catch(function(){ ta.select(); document.execCommand("copy"); afterCopy(); }); } else { ta.select(); document.execCommand("copy"); afterCopy(); } });
 }
     if(typeof init === "function") init();
   }
