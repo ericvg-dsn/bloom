@@ -139,8 +139,8 @@
     .stepper-btn{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);flex:0 0 auto;}
     .stepper-btn:last-child{background:var(--ink);color:var(--bg);}
     .stepper-btn:active{transform:scale(.92);}
-    .stepper-input-wrap{display:flex;align-items:baseline;gap:2px;min-width:50px;justify-content:flex-start;}
-    .stepper-input{font-family:var(--font-mono);font-size:14px;font-weight:700;width:38px;text-align:left;border:none;background:none;color:var(--ink);padding:0;-moz-appearance:textfield;font-variant-numeric:tabular-nums;}
+    .stepper-input-wrap{display:flex;align-items:baseline;gap:2px;min-width:50px;justify-content:center;}
+    .stepper-input{font-family:var(--font-mono);font-size:14px;font-weight:700;width:38px;text-align:center;border:none;background:none;color:var(--ink);padding:0;-moz-appearance:textfield;font-variant-numeric:tabular-nums;}
     .stepper-input::-webkit-outer-spin-button,.stepper-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
     .stepper-input:focus{outline:none;}
     .stepper-unit,.stepper-prefix{font-size:13px;color:var(--ink-soft);font-weight:600;}
@@ -330,6 +330,10 @@
     .saved-action:hover{color:var(--ink);}
     .save-current-btn{display:block;width:100%;padding:11px 14px;font-size:13px;font-weight:600;font-family:var(--font-body);border:1.5px dashed var(--line-strong);border-radius:var(--radius-md);background:none;color:var(--ink-soft);cursor:pointer;text-align:center;margin-top:10px;}
     .save-current-btn:hover{border-color:var(--ink);color:var(--ink);}
+    .icon-action-row{display:flex;gap:8px;margin-top:10px;}
+    .icon-action-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 12px;font-size:12.5px;font-weight:700;font-family:var(--font-body);border:1.5px solid var(--line-strong);border-radius:var(--radius-md);background:none;color:var(--ink-soft);cursor:pointer;}
+    .icon-action-btn:hover{border-color:var(--ink);color:var(--ink);}
+    .icon-action-btn svg{width:15px;height:15px;flex:0 0 auto;}
 
     /* ── Brew history ── */
     .history-section{padding:18px 2px 8px;border-top:1px solid var(--line);}
@@ -580,8 +584,16 @@
 
       <div class="section" id="ctaSection" hidden="" style="border-top:none;">
         <button class="btn btn-primary" id="ctaBrew" type="button" data-i18n="settings.cta"></button>
-        <button class="save-current-btn" id="saveRecipeBtn" type="button" data-i18n="myRecipes.save"></button>
-        <button class="save-current-btn" id="shareBtn" type="button" data-i18n="share.btn"></button>
+        <div class="icon-action-row">
+          <button class="icon-action-btn" id="saveRecipeBtn" type="button">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h8l2 2v10a1 1 0 01-1 1H4a1 1 0 01-1-1V2z"/><path d="M6 2v4h5V2M6 9h4"/></svg>
+            <span data-i18n="myRecipes.save"></span>
+          </button>
+          <button class="icon-action-btn" id="shareBtn" type="button">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="3" r="1.5"/><circle cx="12" cy="13" r="1.5"/><circle cx="4" cy="8" r="1.5"/><path d="M5.5 7.1l5 2.8M10.5 6.1l-5 2.8"/></svg>
+            <span data-i18n="share.btn"></span>
+          </button>
+        </div>
         <div class="share-panel" id="sharePanel" hidden="">
           <textarea class="share-textarea" id="shareTextArea" readonly=""></textarea>
           <button class="share-copy-btn" id="shareClipBtn" type="button" data-i18n="share.copy"></button>
@@ -991,6 +1003,8 @@ function selectRecipe(id){
   if(state.brew.running) return;
   state.selectedRecipe = id;
   state.customName = null;
+  var _sr=RECIPES.filter(function(x){return x.id===id;})[0];
+  if(_sr&&_sr.status==="live") trackEvent("method_selected",{method:id,lang:state.lang});
   var r = RECIPES.filter(function(x){ return x.id===id; })[0];
   $("#recipeTriggerLabel").innerHTML = '<span class="tag-pill '+r.tagClass+'" style="margin-right:8px;">'+r.device+'</span>'+r.name[state.lang];
   var cap = $("#illustrationCaption");
@@ -1337,6 +1351,7 @@ function updateBrewUI(elapsed){
     cue("done");
     triggerDoneAnim();
     saveBrewToHistory();
+    trackEvent("brew_completed",{method:state.activeType,lang:state.lang,volume:state.params.volume,ratio:state.params.ratio});
   }
 }
 
@@ -1390,7 +1405,7 @@ function resetToConfiguring(){
 
 function wireBrewControls(){
   $("#ctaBrew").addEventListener("click", showPrepChecklist);
-  $("#prepGoBtn").addEventListener("click", beginCountdown);
+  $("#prepGoBtn").addEventListener("click", function(){ trackEvent("brew_started",{method:state.activeType,lang:state.lang,volume:state.params.volume,ratio:state.params.ratio,roast:state.params.roast||"medium"}); beginCountdown(); });
   $("#pauseBtn").addEventListener("click", function(){
     if(!state.brew.running) return;
     if(state.brew.paused){ state.brew.pausedAccum += performance.now()-state.brew.pauseStartedAt; state.brew.paused=false; setIcon("iconPause","pause"); }
@@ -1428,6 +1443,11 @@ function triggerDoneAnim(){
   setTimeout(function(){ ring.classList.add('run'); check.classList.add('run'); },30);
 }
 
+// ── Analytics ──
+function trackEvent(name, params){
+  try{ if(typeof gtag==="function") gtag("event", name, params||{}); }catch(e){}
+}
+
 // ── Local Storage ──
 var LS_RECIPES="bloom_saved_recipes", LS_HISTORY="bloom_brew_history";
 function lsGet(key){ try{ return JSON.parse(localStorage.getItem(key)||"null"); }catch(e){ return null; } }
@@ -1444,14 +1464,17 @@ function saveCurrentRecipe(){
   recipes.unshift({id:"r_"+Date.now(),name:name.trim(),type:state.activeType,recipeId:state.selectedRecipe,savedAt:Date.now(),params:{volume:state.params.volume,ratio:state.params.ratio,balance:state.params.balance,pours2:state.params.pours2,roast:state.params.roast||"medium"}});
   lsSet(LS_RECIPES,recipes);
   renderMyRecipes();
+  trackEvent("recipe_saved",{method:state.activeType,lang:state.lang});
 }
 function loadSavedRecipe(r){
+  trackEvent("recipe_loaded",{method:r.type,lang:state.lang});
   selectRecipe(r.recipeId||r.type);
   setTimeout(function(){ state.params.volume=r.params.volume||300; state.params.ratio=r.params.ratio||15; state.params.balance=r.params.balance||0; state.params.pours2=r.params.pours2||3; state.params.roast=r.params.roast||"medium"; state.customName=r.name||null; $all("#roastSeg button").forEach(function(b){ b.classList.toggle("active",b.getAttribute("data-roast")===state.params.roast); }); recompute(); if(window.__applySegLabels) window.__applySegLabels(); },60);
 }
 function deleteSavedRecipe(id){
   lsSet(LS_RECIPES,getSavedRecipes().filter(function(r){ return r.id!==id; }));
   renderMyRecipes();
+  trackEvent("recipe_deleted",{lang:state.lang});
 }
 function saveBrewToHistory(){
   if(!state.computed||!state.activeType) return;
@@ -1579,7 +1602,7 @@ function init(){
     if(mMenu&&!mMenu.hidden&&!mMenu.contains(e.target)&&!e.target.closest("#hamburgerBtn")){ mMenu.hidden=true; setIcon("iconHamburger","menu"); }
     if(!e.target.closest(".slider-info-wrap")){ $all(".slider-info-btn.active").forEach(function(b){ b.classList.remove("active"); }); }
   });
-  $all("#langSwitch button").forEach(function(btn){ btn.addEventListener("click", function(){ setLang(btn.getAttribute("data-lang")); }); });
+  $all("#langSwitch button").forEach(function(btn){ btn.addEventListener("click", function(){ var nl=btn.getAttribute("data-lang"); trackEvent("language_changed",{from:state.lang,to:nl}); setLang(nl); }); });
   var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   setTheme(prefersDark);
   $("#themeToggle").addEventListener("click", function(){ setTheme(!document.documentElement.classList.contains("dark")); });
@@ -1607,8 +1630,9 @@ function init(){
   var navBmcBtn=document.getElementById("navBmcBtn");
   var mobileBmcBtn=document.getElementById("mobileBmcBtn");
   function scrollToBmc(){ var bmc=document.getElementById("bmcSection"); if(!bmc) return; var top=bmc.getBoundingClientRect().top+window.pageYOffset-20; window.scrollTo({top:top,behavior:"smooth"}); }
-  if(navBmcBtn) navBmcBtn.addEventListener("click",scrollToBmc);
-  if(mobileBmcBtn) mobileBmcBtn.addEventListener("click",function(){ var m=document.getElementById("mobileMenu"); if(m) m.hidden=true; setIcon("iconHamburger","menu"); scrollToBmc(); });
+  function onBmcClick(){ trackEvent("donation_clicked",{lang:state.lang}); scrollToBmc(); }
+  if(navBmcBtn) navBmcBtn.addEventListener("click",onBmcClick);
+  if(mobileBmcBtn) mobileBmcBtn.addEventListener("click",function(){ trackEvent("donation_clicked",{lang:state.lang,source:"mobile_menu"}); var m=document.getElementById("mobileMenu"); if(m) m.hidden=true; setIcon("iconHamburger","menu"); scrollToBmc(); });
   $all(".slider-info-btn").forEach(function(btn){ btn.addEventListener("click",function(e){ e.stopPropagation(); var isActive=btn.classList.contains("active"); $all(".slider-info-btn").forEach(function(b){ b.classList.remove("active"); }); if(!isActive) btn.classList.add("active"); }); });
   var saveBtn=document.getElementById("saveRecipeBtn"); if(saveBtn) saveBtn.addEventListener("click",saveCurrentRecipe);
   var navAboutBtn=document.getElementById("navAboutBtn");
@@ -1618,6 +1642,7 @@ function init(){
   if(mobileAboutBtn) mobileAboutBtn.addEventListener("click",function(){ var m=document.getElementById("mobileMenu"); if(m) m.hidden=true; setIcon("iconHamburger","menu"); scrollToAbout(); });
   renderMyRecipes(); renderBrewHistory(); renderPreferenceProfile(); applyURLParams();
   $all("#roastSeg button").forEach(function(btn){ if(btn.getAttribute("data-roast")===state.params.roast) btn.classList.add("active"); btn.addEventListener("click",function(){ state.params.roast=btn.getAttribute("data-roast"); $all("#roastSeg button").forEach(function(b){ b.classList.remove("active"); }); btn.classList.add("active"); recompute(); }); });
+  var feedbackLink=document.querySelector(".feedback-link"); if(feedbackLink) feedbackLink.addEventListener("click",function(){ trackEvent("feedback_clicked",{lang:state.lang}); });
   var sharePanelEl=document.getElementById("sharePanel"); if(sharePanelEl) sharePanelEl.hidden=true;
   var shareBtn=document.getElementById("shareBtn"); if(shareBtn) shareBtn.addEventListener("click",function(){ if(!sharePanelEl) return; var opening=sharePanelEl.hidden; sharePanelEl.hidden=!opening; if(opening){ var ta=document.getElementById("shareTextArea"); if(ta) ta.value=generateShareText(); } });
   var shareClipBtn=document.getElementById("shareClipBtn"); if(shareClipBtn) shareClipBtn.addEventListener("click",function(){ var ta=document.getElementById("shareTextArea"); if(!ta) return; var orig=shareClipBtn.textContent; function afterCopy(){ shareClipBtn.textContent=t("share.copied"); setTimeout(function(){ shareClipBtn.textContent=orig; },2000); } if(navigator.clipboard){ navigator.clipboard.writeText(ta.value).then(afterCopy).catch(function(){ ta.select(); document.execCommand("copy"); afterCopy(); }); } else { ta.select(); document.execCommand("copy"); afterCopy(); } });
