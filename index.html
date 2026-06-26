@@ -9,8 +9,8 @@
 <x-dc>
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Instrument+Serif:ital@0;1&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
   <style>
     :root{
       --bg:#F7F1EE; --surface:#FFFFFF; --tile:#F1E5DF;
@@ -260,23 +260,16 @@
 
     [hidden]{display:none !important;}
 
-    html,body{height:100dvh;overflow:hidden;}
-    .app{display:flex;flex-direction:column;height:100dvh;overflow:hidden;}
-    .mobile-menu{flex:0 0 auto;}
-    #recipeArea{flex:0 0 auto;}
-    .screens-container{position:relative;flex:1 1 0;min-height:140px;overflow:hidden;}
-    .screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:0 20px 72px;opacity:0;pointer-events:none;transition:opacity 220ms cubic-bezier(.4,0,.2,1),transform 260ms cubic-bezier(.4,0,.2,1);}
-    .screen.active{opacity:1;pointer-events:auto;transform:none !important;}
-    .screen.slide-right{transform:translateX(28px);}
-    .screen.slide-left{transform:translateX(-28px);}
+    @keyframes screenFadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+    .screen{display:none;}
+    .screen.active{display:block;animation:screenFadeIn 220ms cubic-bezier(.4,0,.2,1);}
     #topbarBrew{display:none;align-items:center;gap:4px;margin-left:auto;}
     #topbar[data-mode="brewing"] #topbarBrew,#topbar[data-mode="countdown"] #topbarBrew{display:flex;}
     #topbar[data-mode="prep"] .header-nav,#topbar[data-mode="countdown"] .header-nav,#topbar[data-mode="brewing"] .header-nav,#topbar[data-mode="done"] .header-nav{display:none;}
     #topbar[data-mode="prep"] .topbar-controls,#topbar[data-mode="countdown"] .topbar-controls,#topbar[data-mode="brewing"] .topbar-controls{display:none;}
     #topbar[data-mode="prep"]{justify-content:center;}
     @media (min-width:880px){
-      .app{max-width:920px;padding:0 34px;}
-      .screen{padding:0 34px 72px;}
+      .app{max-width:920px;padding:0 34px 64px;}
     }
 
     /* ── Header nav ── */
@@ -389,7 +382,7 @@
   </script>
 </helmet>
 
-<div class="app" id="app">
+<div class="app" id="app" data-version="2">
   <div class="topbar" id="topbar" data-mode="idle">
     <div class="topbar-id">
       <button class="logo" id="logoBtn" type="button" aria-label="home">BLOOM</button>
@@ -652,13 +645,13 @@
   </div>
 
   <div class="page-footer">
-    <a class="feedback-link" href="mailto:feedback@bloom.coffee" data-i18n="footer.feedback"></a>
+    <a class="feedback-link" href="/cdn-cgi/l/email-protection#c9afacacadaba8aaa289aba5a6a6a4e7aaa6afafacac" data-i18n="footer.feedback"></a>
   </div>
   </div>
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{
   &quot;$preview&quot;: {&quot;width&quot;: 430},
   &quot;palette&quot;: {
     &quot;editor&quot;: &quot;enum&quot;,
@@ -935,22 +928,22 @@ var SCREEN_ORDER=["idle","configuring","prep","countdown","brewing","done"];
 var MODE_TO_SCREEN={idle:"screen-idle",configuring:"screen-configuring",prep:"screen-prep",countdown:"screen-brewing",brewing:"screen-brewing",done:"screen-done"};
 function setMode(mode){
   var prev=state.mode; state.mode=mode;
-  var prevIdx=SCREEN_ORDER.indexOf(prev),nextIdx=SCREEN_ORDER.indexOf(mode);
-  var forward=nextIdx>=prevIdx;
   var targetId=MODE_TO_SCREEN[mode]||"screen-idle";
   var targetScreen=document.getElementById(targetId);
+  // move tocSection to correct screen
   var toc=document.getElementById("tocSection");
   if(toc&&targetScreen&&(targetId==="screen-configuring"||targetId==="screen-brewing"||targetId==="screen-done")){
-    targetScreen.appendChild(toc); toc.hidden=false;
-  } else if(toc){ toc.hidden=true; }
+    targetScreen.appendChild(toc);
+  }
   var ra=document.getElementById("recipeArea");
   if(ra) ra.hidden=(mode!=="idle"&&mode!=="configuring");
   var tb=document.getElementById("topbar");
   if(tb) tb.setAttribute("data-mode",mode);
   $all(".screen").forEach(function(s){
-    if(s.id===targetId){ s.scrollTop=0; s.classList.remove("slide-right","slide-left"); s.classList.add(forward?"slide-right":"slide-left"); void s.offsetWidth; s.classList.add("active"); }
-    else { s.classList.remove("active"); }
+    var isTarget=s.id===targetId;
+    s.classList.toggle("active",isTarget);
   });
+  window.scrollTo(0,0);
   var lockRecipe=(mode==="prep"||mode==="countdown"||mode==="brewing"||mode==="done");
   var rs=document.getElementById("recipeSelect");
   if(rs) rs.classList.toggle("locked",lockRecipe);
